@@ -1,0 +1,396 @@
+<!-- Header template -->
+<template-header></template-header>
+
+<div class="detalhe-agendamento" ng-init="load()">
+	<div class="container text-uppercase" ng-bind="estabelecimento.nomefantasia"></div>
+</div>
+<div class="container">
+	<div class="row">
+
+		<div ng-if="avaliame"  
+			class="avalia-me">
+            <section class="mensagem">
+                <i class="fa fa-ban fa-2x error"></i>
+                <div class="alert mensagem-fa-icon-error">
+                	<span class="m-l-10" 
+                		ng-bind="'Faça login ou crie sua conta para avaliar este estabelecimento'"></span>
+                	<a href="javascript:;" 
+						ng-click="login()"
+						class="btn btn-white">LOGIN</a>
+					<span>Ou</span>
+					<a href="javascript:;" 
+						ng-click="signup()"
+						class="btn btn-white">CADASTRE-SE</a>
+					 <button type="button" 
+					 	class="close" 
+					 	data-dismiss="modal" 
+					 	aria-hidden="true" 
+					 	ng-click="ratingCancel()">×</button>
+                </div>
+            </section>
+        </div>
+
+		<div class="col-md-8">
+			<section id="links" class="links">
+				<div class="row">
+					<div class="col-xs-2">
+						<a href="javascript:;" 
+							rel="#lista-servico"
+                			scroolstep 
+                			class="">Serviços</a>
+                	</div>
+					<div class="col-xs-2">
+						<a href="javascript:;"
+							rel="#lista-avaliacao"
+	            			scroolstep
+	            			class="">Avaliações</a>
+	            	</div>
+				</div>
+			</section>
+			<div class="container-details">
+				<section class="info-empresa">
+					<div class="detalhe">
+						<ul class="elements">
+							<li>
+								<span class="avaliation">
+									<i class="fa"
+										ng-class="{
+											'fa-star-o': estabelecimento.avaliacao.media<=0
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=1,
+											'fa-star-o': estabelecimento.avaliacao.media<1,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=2,
+											'fa-star-o': estabelecimento.avaliacao.media<2,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=3,
+											'fa-star-o': estabelecimento.avaliacao.media<3,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=4,
+											'fa-star-o': estabelecimento.avaliacao.media<4,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=5,
+											'fa-star-o': estabelecimento.avaliacao.media<5,
+										}">
+									</i>
+									<small ng-bind="'(' + estabelecimento.avaliacao.quantidade + ')'"></small>
+								</span>
+							</li>
+							<li ng-repeat="pagamento in estabelecimento.pagamento">
+								<span class="payment"
+								ng-attr-title="{{pagamento.nome}}">
+									<i class="fa"
+										ng-class="pagamento.icone">
+									</i>
+									<span ng-bind="'(' + pagamento.nome + ')'"></span>
+								</span>
+							</li>
+						</ul>
+						<p ng-bind="estabelecimento.sobre"></p>
+						<ul class="tags">
+							<li ng-repeat="tag in estabelecimento.tags"
+								ng-bind="tag.nome"></li>
+						</ul>
+					</div>
+				</section>
+				<section id="lista-servico" class="info-empresa">
+					<h1>Serviços</h1>
+
+					<div class="col-md-8" 
+						ng-if="estabelecimento.categoria==undefined || estabelecimento.categoria.length==0">
+						<p>Em breve os dados do estabelecimento serão verificados e os horários estarão disponíveis aqui!</p>
+					</div>
+
+					<!-- cada serviço -->
+					<div class="servico servico-company" 
+						ng-repeat="categoria in estabelecimento.categoria" 
+						ng-if="categoria.servico.length">
+						<div class="nome-servico"
+							ng-bind="categoria.nome"></div>
+						<!-- detalhe de cada servico -->
+						<div class="detalhe-servico" 
+							ng-repeat="servico in categoria.servico">
+							<div class="row">
+								<div class="col-md-7">
+									<p class="nome" ng-bind="servico.nome"></p>
+									<div class="tempo-servico" ng-bind="servico.duracao|timeHours"></div>
+								</div>
+								<div class="col-md-3" 
+									ng-if="servico.sobconsulta==1">sob consulta</div>
+								<div class="col-md-3" 
+									ng-if="servico.sobconsulta==0">
+									<p class="valor"
+										ng-class="{'servico-promocao':servico.promocao==1}"
+										ng-bind="servico.valor|finance:true:2">
+									</p>
+									<p class="valor"
+										ng-if="servico.promocao==1"
+										ng-bind="servico.valorpromocao|finance:true:2">
+									</p>
+								</div>
+								<div class="col-md-2">
+									<a ng-href="/estabelecimento/{{estabelecimento.hash}}/agendamento/{{servico.hash}}" 
+									class="btn btn-mark">AGENDAR</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<p class="descricao" 
+										ng-bind="servico.descricao"></p>
+								</div>
+							</div>
+						</div>
+						<!-- fim detalhe de cada servico -->
+					</div>
+					<!-- fim cada serviço -->
+
+				</section>
+
+				<section id="lista-avaliacao" class="avaliacao-empresa">
+					<h1>Avaliações</h1>
+
+					<!-- cada avaliação -->
+					<div class="avaliar">
+						<div class="row">
+							<div class="col-md-8">
+								<span class="avaliation">
+									<i class="fa"
+										ng-class="{
+											'fa-star-o': estabelecimento.avaliacao.media<=0
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=1,
+											'fa-star-o': estabelecimento.avaliacao.media<1,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=2,
+											'fa-star-o': estabelecimento.avaliacao.media<2,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=3,
+											'fa-star-o': estabelecimento.avaliacao.media<3,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=4,
+											'fa-star-o': estabelecimento.avaliacao.media<4,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': estabelecimento.avaliacao.media>=5,
+											'fa-star-o': estabelecimento.avaliacao.media<5,
+										}">
+									</i>
+									<small ng-if="estabelecimento.avaliacao==undefined"
+										ng-bind="'Nenhuma avaliação'"></small>
+									<small ng-if="estabelecimento.avaliacao.quantidade==1"
+										ng-bind="'1 (' + 'Avaliação' + ')'"></small>
+									<small ng-if="estabelecimento.avaliacao.quantidade>1"
+										ng-bind="estabelecimento.avaliacao.quantidade + ' (' + 'Avaliações' + ')'"></small>
+								</span>
+							</div>
+							<div class="col-md-4 text-right">
+								<a href="javascript:;" 
+									ng-click="rating()"
+									class="btn btn-mark">AVALIAR</a>
+							</div>
+						</div>
+					</div>
+					<div class="avaliacao"
+						ng-repeat="comentario in estabelecimento.comentario"
+						ng-if="estabelecimento.comentario!=undefined || estabelecimento.comentario.length!=0">
+						<div class="row">
+							<div class="col-md-2">
+								<span class="avaliation" >
+									<i class="fa"
+										ng-class="{
+											'fa-star-o': comentario.avaliacao<=0
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': comentario.avaliacao>=1,
+											'fa-star-o': comentario.avaliacao<1,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': comentario.avaliacao>=2,
+											'fa-star-o': comentario.avaliacao<2,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': comentario.avaliacao>=3,
+											'fa-star-o': comentario.avaliacao<3,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': comentario.avaliacao>=4,
+											'fa-star-o': comentario.avaliacao<4,
+										}">
+									</i>
+									<i class="fa"
+										ng-class="{
+											'fa-star': comentario.avaliacao>=5,
+											'fa-star-o': comentario.avaliacao<5,
+										}">
+									</i>
+								</span>
+							</div>
+							<div class="col-md-10">
+								<div class="cliente">
+									<span ng-bind="comentario.cliente"></span>
+									<small ng-bind="comentario.data"></small>	
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<span class="opniao"
+									ng-bind="comentario.mensagem"></span>
+							</div>
+						</div>
+					</div>
+					<!-- fim cada avaliação -->
+
+					<div class="avaliacao"
+						ng-if="estabelecimento.comentario==undefined || estabelecimento.comentario.length==0">
+						<div class="row">
+							<div class="col-md-12">
+								<p>Nenhuma avaliação foi feita, vamos lá seja o primeiro e avalie os serviços executados pelo estabelcimento</p>
+							</div>
+						</div>
+					</div>
+					<!-- fim cada avaliação -->
+				</section>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<section class="fotos-empresa" ng-if="estabelecimento.imagem.length!=0">
+				<div id="carousel-example-generic" class="carousel slide" 
+					data-ride="carousel">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item"
+							ng-repeat="imagem in estabelecimento.imagem"
+							ng-class="{'active': $index==0}">
+							<a href="javascript:;">
+								<img ng-src="assets/img/empresas/{{imagem.arquivo}}" 
+								border="0" style="margin:auto;" />
+							</a>
+						</div>
+					</div>
+					<!-- Controls -->
+					<a class="left carousel-control" 
+						href="#" 
+						role="button" 
+						data-slide="prev"
+						onclick="$jq('#carousel-example-generic').carousel('prev');return false;">
+						<span class="fa fa-angle-left" aria-hidden="true"></span>
+						<span class="sr-only">Anterior</span>
+					</a>
+					<a class="right carousel-control" 
+						href="#" 
+						role="button" 
+						data-slide="next" 
+						onclick="$jq('#carousel-example-generic').carousel('next');return false;">
+						<span class="fa fa-angle-right" aria-hidden="true"></span>
+						<span class="sr-only">Próximo</span>
+					</a>
+				</div>
+			</section>
+			<div class="localizacao" ng-if="estabelecimento.cep!=undefined">
+				<div class="mapa">
+					<ui-gmap-google-map center="map.center"
+						zoom="map.zoom" 
+						draggable="true"
+						ng-if="estabelecimento.localizacao!=undefined">
+						<ui-gmap-marker ng-repeat="marker in markers" 
+							coords="marker.coords" 
+							idKey="marker.id">
+						</ui-gmap-marker>
+					</ui-gmap-google-map>
+				</div>
+				<div class="dados-localizacao">
+					<span class="nome" ng-bind="estabelecimento.nomefantasia"></span>
+					<span ng-bind="estabelecimento.logradouro + ', ' + 'Nº ' + (estabelecimento.numero) + (estabelecimento.complemento ? ', ' + estabelecimento.complemento : '')"></span>
+					<span ng-bind="estabelecimento.bairro + ', ' + estabelecimento.cidade + ', ' + estabelecimento.estado">
+					</span>
+					<span ng-bind="estabelecimento.cep | brCep"></span>
+				</div>
+			</div>
+			<div class="data-hora" ng-if="estabelecimento.atendimento.length>1">
+				<h3><strong> Datas e Horas </strong></h3>
+				<table>
+					<tr ng-if="!domingo">
+						<td>Domingo</td>
+						<td></td>
+						<td><span class="fechado">Fechado</span></td>
+					</tr>
+					<tr ng-repeat="atendimento in estabelecimento.atendimento" 
+						ng-class="{'hoje': atendimento.dia==dataAtual.getDay() }">
+						<td ng-bind="atendimento.dia|weekdayextension"></td>
+						<td>
+							<span ng-bind="atendimento.horainicial + ' - ' + atendimento.horafinal"></span>
+						</td>
+						<td ng-if="atendimento.dia==dataAtual.getDay()"><span>Hoje</span></td>
+						<td ng-if="atendimento.dia!=dataAtual.getDay()"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="funcionarios">
+				<h3><strong> Funcionários </strong></h3>
+				<!-- início de funcionário -->
+				<div class="funcionario" 
+					ng-repeat="profissional in estabelecimento.profissional"
+					ng-if="estabelecimento.profissional.length!=0">
+					<div class="img">
+						<img ng-if="profissional.foto==undefined" 
+							ng-src="assets/img/profissionais/default.png" 
+							border="0" />
+						<img ng-if="profissional.foto!=undefined" 
+							ng-src="assets/img/profissionais/{{profissional.foto}}" 
+							border="0" />
+					</div>
+					<div class="dados-funcionario">
+						<span class="nome" ng-bind="profissional.nome"></span>
+						<span class="funcao" ng-bind="profissional.profissao"></span>
+					</div>
+				</div>
+				<div class="funcionario" 
+					ng-if="estabelecimento.profissional==undefined || estabelecimento.profissional.length==0">
+					<p>Em breve os profissionais do estabelecimento estarão disponíveis aqui!</p>
+				</div>
+				<!-- fim de funcionário -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Footer template -->
+<template-footer></template-footer>

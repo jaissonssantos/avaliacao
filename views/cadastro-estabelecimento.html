@@ -1,0 +1,253 @@
+<div class="transparencia"></div>
+<div class="fundo-estabelecimento">
+	<a href="/" class="voltar ng-scope">Voltar</a>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="list-itens">
+					<h1>Mais facilidades para você e seus clientes com o MARKDAY.</h1>
+					<ul>
+						<li><i class="fa fa-check"></i> Agendamento online</li>
+						<li><i class="fa fa-check"></i> Mensalidades de 29,90 a 69,90<small>(não cobramos taxas adicionais por usuários)</small></li>
+						<li><i class="fa fa-check"></i> Mensagens de SMS, lembretes de agendamento</li>
+						<li><i class="fa fa-check"></i> Gestão de clientes e profissionais</li>
+						<li><i class="fa fa-check"></i> Página do estabelimento<small>(Site do estabelecimento)</small></li>
+						<li><i class="fa fa-check"></i> Relatórios de agendamentos, serviços e profissionais</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-5" ng-init="step = 1">
+				<div ng-show="step == 1" class="register-company">
+					<h2>Experimente Grátis por 30 dias</h2>
+					<p>Parte 1 - Dados do Administrador</p>
+					<form name="formCadastroEstabelecimento" role="form" class="form-signin" novalidate>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="nome">Nome do Administrador</label>
+									<div class="input-group">
+										<input class="form-control" name="nomeAdmin" ng-model="estabelecimento.nomeAdmin" id="nome" placeholder="Nome" type="text">
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimento.nomeAdmin.$touched && formCadastroEstabelecimento.nomeAdmin.$dirty" ng-class="formCadastroEstabelecimento.nomeAdmin.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<div class="input-group">
+										<input class="form-control" name="email" ng-model="estabelecimento.email" ng-change="checkEmail()" ng-model-options="{ debounce: 500 }"
+											id="email" placeholder="E-mail" type="email">
+										<div class="input-group-addon">
+											<i ng-class="{
+												'fa fa-check text-success' : email.notfound && formCadastroEstabelecimento.email.$valid,
+												'fa fa-times text-danger' : email.found || (formCadastroEstabelecimento.email.$touched && formCadastroEstabelecimento.email.$invalid),
+												'fa fa-spinner fa-spin' : email.loading
+											}"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="senha">Senha</label>
+									<div class="input-group">
+										<input class="form-control" name="senha" ng-model="estabelecimento.senha" id="senha" placeholder="Senha" type="password">
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimento.senha.$touched && formCadastroEstabelecimento.senha.$dirty" ng-class="formCadastroEstabelecimento.senha.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="confirmar-senha">Confirmar senha</label>
+									<div class="input-group">
+										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.confirmaSenha" id="confirmar-senha" placeholder="Confirmar senha"
+											type="password">
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimento.confirmaSenha.$touched && formCadastroEstabelecimento.confirmaSenha.$dirty"
+												ng-class="estabelecimento.confirmaSenha == estabelecimento.senha ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="celular">Telefone do Administrador</label>
+									<div class="input-group">
+										<input class="form-control" name="telefoneadmin" ng-model="estabelecimento.telefoneadmin" id="celular" placeholder="Telefone"
+											type="tel" ui-br-phone-number>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimento.telefoneadmin.$touched && formCadastroEstabelecimento.telefoneadmin.$dirty"
+												ng-class="formCadastroEstabelecimento.telefoneadmin.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="sexo">Sexo</label>
+									<div class="select-style">
+										<select name="sexo" id="sexo">
+												<option value="1">Masculino</option>
+												<option value="9">Feminino</option>
+											</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="checkbox checkbox-danger">
+									<input ng-model="termosAceitos" id="checkbox5" checked="" type="checkbox">
+									<label for="checkbox5">
+											Li e aceito os <a href="end-user-agreement">Termos de Uso</a> e <a href="privacy-policy">Política de Privacidade</a>
+										</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || !termosAceitos" class="btn-success btn">CONTINUAR</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div ng-show="step == 2" class="register-company register2">
+					<h2>Experimente Grátis por 30 dias</h2>
+					<p>Parte 2 - Dados do Estabelecimento</p>
+					<form name="formCadastroEstabelecimentoAdmin" role="form" class="form-signin" novalidate>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="nome-estabelecimento">Nome do estabelecimento</label>
+									<div class="input-group">
+										<input class="form-control" name="nomefantasia" ng-model="estabelecimento.nomefantasia" id="nome-estabelecimento" placeholder="Nome do estabelecimento"
+											type="text" required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.nomefantasia.$touched && formCadastroEstabelecimentoAdmin.nomefantasia.$dirty"
+												ng-class="formCadastroEstabelecimentoAdmin.nomefantasia.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="telefone">Telefone do Estabelecimento</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.telefonecomercial" id="telefone" placeholder="Telefone" type="tel"
+											ui-br-phone-number required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.telefonecomercial.$touched && formCadastroEstabelecimentoAdmin.telefonecomercial.$dirty"
+												ng-class="formCadastroEstabelecimentoAdmin.telefonecomercial.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="segmento">Segmento</label>
+									<div class="select-style">
+										<select ng-init="loadSegmentos()" ng-model="estabelecimento.idsegmento" ng-options="segmento.id as segmento.nome for segmento in segmentos"
+											class="form-control" required>
+											</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="cep">CEP</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.cep" id="cep" ui-br-cep-mask placeholder="CEP" type="text" required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.cep.$touched && formCadastroEstabelecimentoAdmin.cep.$dirty" ng-class="formCadastroEstabelecimentoAdmin.cep.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="estado">Estado</label>
+									<div class="select-style">
+										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.idestado as estado.nome for estado in estados"
+											class="form-control" required>
+											</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="cidade">Cidade</label>
+									<div class="select-style">
+										<select ng-model="estabelecimento.idcidade" ng-init="loadCidades()" ng-options="cidade.idcidade as cidade.nome for cidade in cidades"
+											class="form-control" required>
+											</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="bairro">Bairro</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text" required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.bairro.$touched && formCadastroEstabelecimentoAdmin.bairro.$dirty" ng-class="formCadastroEstabelecimentoAdmin.bairro.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="logradouro">Logradouro</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.logradouro" id="logradouro" placeholder="Logradouro" type="text" required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.logradouro.$touched && formCadastroEstabelecimentoAdmin.logradouro.$dirty"
+												ng-class="formCadastroEstabelecimento.logradouro.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="numero">Número</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.numero" id="numero" placeholder="Número" type="number" required>
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.numero.$touched && formCadastroEstabelecimento.numero.$dirty" ng-class="formCadastroEstabelecimento.numero.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="complemento">Complemento</label>
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.complemento" id="complemento" placeholder="Complemento (opcional)"
+											type="text">
+										<div class="input-group-addon"><i ng-if="formCadastroEstabelecimentoAdmin.complemento.$touched && formCadastroEstabelecimentoAdmin.complemento.$dirty"
+												ng-class="formCadastroEstabelecimentoAdmin.complemento.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<button ng-click="step = 1" class="btn">Voltar</button>
+								<button ng-click="save()" ng-disabled="formCadastroEstabelecimentoAdmin.$invalid" class="btn-success btn">CADASTRAR</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

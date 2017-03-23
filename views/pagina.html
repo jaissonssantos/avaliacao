@@ -1,0 +1,371 @@
+<!-- Header template -->
+<template-header-page-first></template-header-page-first>
+
+<nav ng-init="load();" 
+	class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="pagina/{{estabelecimento.hash}}">
+                <h1 ng-bind="estabelecimento.nomefantasia"></h1>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+		  <ul class="nav navbar-nav">
+		    <li class="active"><a href="javascript:void(0);" rel="#intro" lpnavmenu>Home</a></li>
+		    <li><a href="javascript:void(0);" rel="#about" lpnavmenu>{{estabelecimento.tema.tituloempresa}}</a></li>
+			<li><a href="javascript:void(0);" rel="#service" lpnavmenu>Serviços</a></li>
+			<li><a href="javascript:void(0);" rel="#contact" lpnavmenu>Contato</a></li>
+			<li class="activeagendar"><a href="javascript:void(0);" rel="#service" lpnavmenu>Agendar</a></li>
+		  </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Section: intro -->
+<section id="intro" class="intro" style="background: url(assets/img/background/{{estabelecimento.tema.background}}) no-repeat top center; background-size: cover;">
+	<div class="transparencia"></div>
+
+	<div ng-if="estabelecimento.tema.exibirintroducao" class="slogan">
+		<h2 ng-bind="estabelecimento.tema.introducao"></h2>
+	</div>
+	<div ng-if="estabelecimento.tema.exibirintroducao" class="page-scroll">
+		<a href="javascript:void(0);" rel="#about" lpnavmenu class="btn btn-circle">
+			<i class="fa fa-angle-double-down animated"></i>
+		</a>
+	</div>
+</section>
+<!-- /Section: intro -->
+
+<!-- Section: about -->
+<section id="about" class="home-section text-center">
+	<div class="heading-about">
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="wow bounceInDown" data-wow-delay="0.4s">
+				<div class="section-heading">
+					<h2 ng-bind="estabelecimento.tema.tituloempresa"></h2>
+					<p ng-bind="estabelecimento.tema.sobre"></p>
+					<i class="fa fa-2x fa-angle-down"></i>
+				</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="container">
+
+	<div class="row">
+		<div class="col-lg-2 col-lg-offset-5">
+			<hr class="marginbot-50">
+		</div>
+	</div>
+    <div class="row">
+    	<div class="col-lg-8 col-lg-offset-2">
+			<div class="wow bounceInDown" data-wow-delay="0.4s">
+			<div class="section-heading">
+				<h2 ng-bind="estabelecimento.tema.tituloprofissional"></h2>
+				<i class="fa fa-2x fa-angle-down"></i>
+			</div>
+			</div>
+		</div>
+        <div class="col-xs-12 col-sm-6 col-md-3 m-t-10" 
+        	ng-repeat="profissional in estabelecimento.profissional">
+			<div class="wow bounceInUp" data-wow-delay="0.2s">
+            <div class="team boxed-grey">
+                <div class="inner">
+					<h5 ng-bind="profissional.nome"></h5>
+                    <p ng-bind="profissional.profissao" 
+                    	class="subtitle">{{professional.profissao}}</p>
+                    <div class="avatar">
+                    	<img ng-if="profissional.foto==undefined" 
+                    		ng-src="assets/img/profissionais/default.png" 
+                    		alt="{{profissional.nome}}"
+                    		class="img-responsive img-circle" />
+
+                    	<img ng-if="profissional.foto!=undefined" 
+                    		ng-src="assets/img/profissionais/{{profissional.foto}}"
+                    		alt="{{professional.nome}}"
+                    		class="img-responsive img-circle" />
+                    </div>
+                </div>
+            </div>
+			</div>
+        </div>
+    </div>		
+	</div>
+</section>
+<!-- /Section: about -->
+	
+
+<!-- Section: services -->
+<section id="service" class="home-section text-center bg-gray">
+	
+	<div class="heading-about">
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="wow bounceInDown" data-wow-delay="0.4s">
+				<div class="section-heading">
+					<h2>Serviços</h2>
+					<i class="fa fa-2x fa-angle-down"></i>
+				</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="container">
+	<div class="row">
+		<div class="col-lg-2 col-lg-offset-5">
+			<hr class="marginbot-50">
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+			<div class="wow fadeInLeft" data-wow-delay="0.2s">
+
+				<div class="col-md-8" 
+					ng-if="estabelecimento.categoria==undefined || estabelecimento.categoria.length==0">
+					<p>Em breve os dados do estabelecimento serão verificados e os horários estarão disponíveis aqui!</p>
+				</div>
+           		
+				<!-- cada serviço -->
+				<div class="servico servico-company" 
+					ng-repeat="categoria in estabelecimento.categoria" 
+					ng-if="categoria.servico.length">
+					<div class="nome-servico"
+						ng-bind="categoria.nome"></div>
+					<!-- detalhe de cada servico -->
+					<div class="detalhe-servico" 
+						ng-repeat="servico in categoria.servico">
+						<div class="row">
+							<div class="col-md-7">
+								<p class="nome" ng-bind="servico.nome"></p>
+								<div class="tempo-servico" ng-bind="servico.duracao|timeHours"></div>
+							</div>
+							<div class="col-md-3" 
+								ng-if="servico.sobconsulta==1">sob consulta</div>
+							<div class="col-md-3" 
+								ng-if="servico.sobconsulta==0">
+								<p class="valor"
+									ng-class="{'servico-promocao':servico.promocao==1}"
+									ng-bind="servico.valor|finance:true:2">
+								</p>
+								<p class="valor"
+									ng-if="servico.promocao==1"
+									ng-bind="servico.valorpromocao|finance:true:2">
+								</p>
+							</div>
+							<div class="col-md-2">
+								<a ng-href="/estabelecimento/{{estabelecimento.hash}}/agendamento/{{servico.hash}}" 
+								class="btn btn-mark">AGENDAR</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p class="descricao" 
+									ng-bind="servico.descricao"></p>
+							</div>
+						</div>
+					</div>
+					<!-- fim detalhe de cada servico -->
+				</div>
+				<!-- fim cada serviço -->
+
+			</div>
+        </div>
+    </div>		
+	</div>
+</section>
+<!-- /Section: services -->
+	
+
+<!-- Section: contact -->
+<section id="contact" class="home-section text-center">
+	<div class="heading-contact">
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="wow bounceInDown" data-wow-delay="0.4s">
+				<div class="section-heading">
+				<h2>Contato</h2>
+				<i class="fa fa-2x fa-angle-down"></i>
+
+				</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="container">
+
+	<div class="row">
+		<div class="col-lg-2 col-lg-offset-5">
+			<hr class="marginbot-50">
+		</div>
+	</div>
+	    <div class="row">
+	        <div class="col-lg-8">
+	            <div class="boxed-grey">
+
+	            	<div>
+						<div class="alert alert-warning" 
+                            ng-if="contact.messagewarning">
+                            {{messagefeedback}}
+                        </div>
+                        <div class="alert alert-success"
+                            ng-if="contact.messagesuccess">
+                            {{contact.messagefeedback}}
+                        </div>
+					</div>
+
+	                <form name="$root.formContato" 
+	                	id="contact-form" role="form" novalidate>
+		                <div class="row">
+		                	<div ng-if="success || error" 
+		                		class="col-md-12">
+		                    	<div class="alert alert-success"
+		                    		ng-if="success"
+		                    		ng-bind="success"></div>
+		                    	<div class="alert alert-warning"
+		                    		ng-if="error"
+		                    		ng-bind="error"></div>
+		                    </div>
+		                    <div class="col-md-6">
+		                        <div class="form-group">
+		                            <label for="nome">
+		                                Nome</label>
+		                            <input type="text" 
+		                            	class="form-control" 
+		                            	name="nome" 
+		                            	placeholder="Seu nome" 
+		                            	ng-model="contato.nome"
+		                            	required="required" />
+		                            <span class="help-block text-danger text-left" 
+		                                ng-show="formContato.nome.$dirty && formContato.nome.$error.required">Qual o seu nome?</span>	
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="email">
+		                                Endereço de E-mail</label>
+		                            <div class="input-group">
+		                                <span class="input-group-addon">
+		                                	<span class="glyphicon glyphicon-envelope"></span>
+		                                </span>
+		                                <input type="email" 
+		                                	class="form-control" 
+		                                	name="email"
+		                                	placeholder="Seu email" 
+		                                	ng-model="contato.email"
+		                                	required="required" />
+		                            </div>
+		                            <span class="help-block text-danger text-left" 
+		                                   ng-show="formContato.cEmail.$dirty && formContato.email.$error.required">Qual o seu nome?</span>
+		                            <span class="help-block text-danger text-left" 
+	                                        ng-show="formContato.email.$error.email">Informe um e-mail válido</span>	
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="assunto">
+		                                Assunto</label>
+		                            <select name="assunto" 
+		                            	class="form-control"
+		                            	ng-model="contato.assunto" 
+		                            	required="required">
+		                                <option value="" selected="">Escolha um assunto:</option>
+		                                <option value="general">Geral(Serviços, Empresa, Forma de pagamento e Agendamento...)</option>
+		                                <option value="suggestions">Sugestões</option>
+		                                <option value="suport">Suporte</option>
+		                                 <option value="others">Outros assuntos</option>
+		                            </select>
+		                            <span class="help-block text-danger text-left" 
+		                                   ng-show="formContato.assunto.$dirty && formContato.assunto.$error.required">Qual o assunto?</span>
+		                        </div>
+		                    </div>
+		                    <div class="col-md-6">
+		                        <div class="form-group">
+		                            <label for="name">
+		                                Mensagem</label>
+		                            <textarea name="mensagem" 
+		                            	class="form-control" 
+		                            	rows="9" 
+		                            	cols="25" 
+		                            	ng-model="contato.mensagem" 
+		                            	required="required"
+		                                placeholder="Digite sua mensagem..."></textarea>
+		                            <span class="help-block text-danger text-left" 
+		                                   ng-show="formContato.mensagem.$dirty && formContato.mensagem.$error.required">Qual o seu nome?</span>
+		                        </div>
+		                    </div>
+		                    <div class="col-md-12">
+		                        <button type="submit" 
+		                        	class="btn btn-skin pull-right" 
+		                        	ng-click="send()"
+		                        	ng-disabled="formContato.$invalid || status.loading"
+		                        	ng-switch="status.loading">
+	                                <span ng-switch-default>Enviar</span>
+	                        		<span ng-switch-when="true">Aguarde...</span>
+	                        	</button>
+		                    </div>
+		                </div>
+	                </form>
+	            </div>
+	        </div>
+			
+			<div class="col-lg-4">
+				<div class="widget-contact">
+					<h5>Endereço</h5>
+					
+					<address>
+					  	<strong ng-bind="estabelecimento.nomefantasia"></strong><br>
+					  	<span ng-bind="estabelecimento.logradouro + ',' + (estabelecimento.complemento==null?'':estabelecimento.complemento) + ' ' + estabelecimento.numero +' ' + estabelecimento.bairro + ', ' + estabelecimento.cidade + ', ' + estabelecimento.estado + ', ' + (estabelecimento.cep|brCep)"></span><br>
+					  <abbr ng-if="estabelecimento.telefonecomercial">
+					  	Telefone:
+					  	<span ng-bind="estabelecimento.telefonecomercial|brPhoneNumber"></span>
+					  </abbr> 
+					</address>
+
+					<address ng-if="estabelecimento.email">
+					  <strong>Email</strong><br>
+					  <a href="mailto:{{estabelecimento.email}}"
+					  	ng-bind="estabelecimento.email"></a>
+					</address>	
+					<address ng-if="estabelecimento.redesocial.length >= 1">
+					  <strong>Encontre-nos nas redes sociais</strong><br>
+	                       	<ul class="company-social">
+	                            <li ng-repeat="redesocial in estabelecimento.redesocial" 
+	                            	ng-class="{
+	                            		'social-facebook': redesocial.tipo == 'facebook',
+	                            		'social-twitter': redesocial.tipo == 'twitter',
+	                            		'social-google': redesocial.tipo == 'googleplus'
+	                            	}"
+	                            	>
+	                            	<a href="{{redesocial.url}}" target="_blank">
+	                            		<i ng-class="{
+	                            			'fa fa-facebook': redesocial.tipo == 'facebook',
+	                            			'fa fa-twitter': redesocial.tipo == 'twitter',
+	                            			'fa fa-google-plus': redesocial.tipo == 'googleplus'
+	                            		}"></i>
+	                            	</a>
+	                            </li>
+	                        </ul>	
+					</address>					
+				
+				</div>	
+			</div>
+	    </div>	
+
+	</div>
+</section>
+<!-- /Section: contact -->
+
+<!-- Footer template -->
+<div class="footer-empresa">
+<template-footer-page-first></template-footer-page-first>
+</div>

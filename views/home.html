@@ -1,0 +1,152 @@
+<!-- Header template -->
+<template-header-home></template-header-home>
+
+<section class="slide-principal">
+	<div class="fade-principal"></div>
+	<div class="fullscreen-bg">
+		<video loop muted autoplay poster="assets/img/videoframe.png" class="fullscreen-bg__video">
+			<source src="assets/videos/video1.webm" type="video/webm">
+			<source src="assets/videos/video1.mp4" type="video/mp4">
+			<source src="assets/videos/big_buck_bunny.ogv" type="video/ogg">
+		</video>
+	</div>
+	<h1>Encontre e agende serviços de beleza & bem-estar em qualquer lugar, a todo momento.</h1>
+	<a href="/cadastro-estabelecimento" class="promotions">CADASTRE SEU ESTABELECIMENTO</a>
+
+	<div id="search" class="col-md-12 search_default" 
+		ng-controller="buscaHomeController">
+		<form name="$root.formBusca" 
+			method="post" class="campos-busca">
+			<div class="campo1">
+				<input type="text" 
+					id="buscaServico"
+					name="servico"
+					placeholder="Procure e faça seu agendamento"
+					class="form-control search-auto"
+					autocomplete="off"
+					ng-model="busca.servico"
+					ng-keyup="searchKey($event)"/>
+			</div>
+			<div class="area-botao">
+				<button type="button" class="btn-mark"
+						ng-click="search();">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+</section>
+
+<section class="passos">
+	<ul>
+		<li class="col-md-4 col-sm-4">
+			<h2 class="passo1">Encontre</h2>
+			<span>Localize o serviço ou profissional</span>
+		</li>
+		<li class="col-md-4 col-sm-4">
+			<h2 class="passo2">Agende e Pague</h2>
+			<span>Agende o serviço e pague pela plataforma</span>
+		</li>
+		<li class="col-md-4 col-sm-4">
+			<h2 class="passo3">Aproveite</h2>
+			<span>Aproveite a sua experiência de bem-estar</span>
+		</li>
+	</ul>
+</section>
+
+<section ng-controller="destaquesHomeController" class="featured">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-5">
+				<section ng-init="getSegments()" class="destaque-principal">
+					<h1>Destaques</h1>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-12" ng-repeat="segment in segments">
+							<a ng-href="/segmentos/{{segment.hash}}" class="destaque1">
+								<div style="background: url('{{segment.imagem}}?w=370&h=200&fit=clip&auto=compress') no-repeat center center; background-size: cover; "></div>
+								<span ng-bind="segment.nome"><i class="fa fa-angle-right"></i></span>
+							</a>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-6 col-sm-7">
+				<section ng-init="getDestaques()" class="empresas-destaque">
+					<h1>Estabelecimentos recomendados</h1>
+					<div ng-repeat="destaque in destaques" class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<a ng-href="{{(destaque.pagina) | link}}/{{destaque.hash}}">
+								<div class="col-md-4 col-sm-5">
+									<img ng-src="{{destaque.imagem}}?h=120&w=120&fit=clip&auto=compress" border="0" />
+								</div>
+								<div class="col-md-8 col-sm-7">
+									<h2 ng-bind="destaque.estabelecimento"></h2>
+									<p ng-bind="destaque.descricao"></p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+</section>
+
+<section class="aplicativo">
+	<div class="fade-app"></div>
+	<div class="container-fluid">
+		<div>
+			<div class="col-md-6 teste">
+				<div class="mac-sistema"></div>
+				<div class="texto">
+					<div class="novos-clientes">
+						<h2>Traga seu negócio para o <span>MARKDAY</span></h2>
+						<div class="row">
+							<div class="col-md-8">
+								<p>e consiga novos clientes. Controle horários e rateios, conheça melhor os seus clientes e muito mais.</p>
+							</div>
+							<div class="col-md-4">
+								<a href="/cadastro-estabelecimento" class="btn btn-mark">CADASTRE SEU ESTABELECIMENTO</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<span class="seta-esquerda"></span>
+
+				<div class="row">
+					<div class="col-md-4 col-sm-6 em-breve">
+						<div class="app">
+							<h2>Disponível também na Google Play.</h2>
+						</div>
+						<div class="logos">
+							<a href="https://play.google.com/store/apps/details?id=com.markday&hl=pt_BR"><span class="play-store"></span></a>
+						</div>
+					</div>
+					<div class="col-md-8 col-sm-6">
+						<div class="sistema"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!--<section class="aplicativo">-->
+	<!--<div class="fade-app"></div>-->
+	<!--<div class="container-fluid">-->
+		<!--<div class="col-md-6">-->
+			<!--<div class="texto">-->
+				<!--<h2>A qualquer hora. Em qualquer lugar.</h2>-->
+				<!--<p>MARKDAY é a nova forma de encontrar e agendar serviços de beleza & bem estar do jeito que você precisa. Disponível também na App Store e Google Play. Baixe agora!</p>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="col-md-6" style="background-color: rgb(243, 128, 115);">-->
+			<!--<div class="sistema"></div>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</section>-->
+
+<!-- Footer template -->
+<template-footer></template-footer>

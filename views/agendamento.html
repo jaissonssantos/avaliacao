@@ -1,0 +1,851 @@
+<!-- Header template -->
+<template-header></template-header>
+
+<div class="detalhe-agendamento" style="margin-top:100px;">
+    <div class="container">DETALHE DO AGENDAMENTO</div>
+</div>
+
+<div class="container" ng-init="load();">
+    <div class="row">
+
+        <div ng-if="success_favorite" 
+            class="favoritado">
+            <section class="mensagem">
+                <i class="fa fa-check-circle fa-2x"></i>
+                <div class="alert mensagem-fa-icon-sucesso"
+                    ng-bind="success_favorite">
+                </div>
+            </section>
+        </div>
+
+        <div ng-if="error_favorite" 
+            class="favoritado">
+            <section class="mensagem">
+                <i class="fa fa-ban fa-2x error"></i>
+                <div class="alert mensagem-fa-icon-error"
+                    ng-bind="error_favorite">
+                </div>
+            </section>
+        </div>
+
+        <div class="col-md-12" ng-if="success || error">
+            <section class="recibo">
+
+                <section ng-if="error">
+                    <section class="mensagem">
+                        <i class="fa fa-ban fa-2x error"></i>
+                        <div class="alert mensagem-fa-icon-error"
+                            ng-bind="error">
+                        </div>
+                    </section>
+                </section><!-- end section error -->
+
+                <section ng-if="success">
+                    <section class="mensagem">
+                        <i class="fa fa-check-circle fa-2x"></i>
+                        <div class="alert mensagem-fa-icon-sucesso"
+                            ng-bind="success">
+                        </div>
+                    </section>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Detalhes do agendamento</h5>
+                        </div>
+                        <div class="bloco-recibo">
+                            <div class="col-md-3">Serviço:</div>
+                            <div class="col-md-9" ng-bind="estabelecimento.servico.nome"></div>
+                            <div class="col-md-3">Preço:</div>
+                            <div class="col-md-9" >
+                                <span ng-if="estabelecimento.servico.sobconsulta==1"
+                                ng-bind="'sob consulta'"></span>
+                                <span ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==0"
+                                ng-bind="estabelecimento.servico.valor|finance:true:2"></span>
+                                <span ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1"
+                                ng-bind="estabelecimento.servico.valorpromocao|finance:true:2"></span>
+                                <span class="promotion" 
+                                    ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao>0">
+                                    <i>%</i> PROMOÇÃO
+                                </span>
+                            </div>
+                            <div class="col-md-3">Forma de pagamento:</div>
+                            <div class="col-md-9" 
+                                ng-if="agendamento.pay.method==4"
+                                ng-bind="'Pagar no estabelecimento'"></div>
+                            <div class="col-md-9" 
+                                ng-if="agendamento.pay.method==2"
+                                ng-bind="'Pagamento on-line'"></div>
+                            <div class="col-md-3">Quando:</div>
+                            <div class="col-md-9"
+                                ng-bind="agendamento.reserve|formatdatetoday:'LLLL'"></div>
+                            <div class="col-md-3">Duração:</div>
+                            <div class="col-md-9"
+                                ng-bind="(agendamento.reserve|formattime:'HH:mm') + ' - ' + (agendamento.reserveend|formattime:'HH:mm')"></div>
+                            <div class="col-md-3">Profissional:</div>
+                            <div class="col-md-9" ng-bind="agendamento.profissional.nome"></div>
+                            <div class="col-md-3">Profissão:</div>
+                            <div class="col-md-9" 
+                                ng-bind="agendamento.profissional.profissao"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Detalhes do estabelecimento</h5>
+                        </div>
+                        <div class="bloco-recibo">
+                            <div class="col-md-3">Nome:</div>
+                            <div class="col-md-9" ng-bind="estabelecimento.nomefantasia"></div>
+                            <div class="col-md-3">Telefone:</div>
+                            <div class="col-md-9" 
+                                ng-bind="estabelecimento.telefonecomercial|brPhoneNumber">
+                            </div>
+                            <div class="col-md-3">Onde:</div>
+                            <div class="col-md-9"
+                                ng-bind="estabelecimento.logradouro + ',' + (estabelecimento.complemento==null?'':estabelecimento.complemento) + ' ' + estabelecimento.numero +' ' + estabelecimento.bairro + ', ' + estabelecimento.cidade + ', ' + estabelecimento.estado + ', ' + (estabelecimento.cep|brCep)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row action">
+                        <div class="col-md-6">
+                            <a href="{{(destaque.pagina) | link}}/{{estabelecimento.hash}}" 
+                                class="btn btn-recibo btn-mark">
+                                <i class="fa fa-tags"></i>
+                                Realizar mais agendamentos</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="cliente/agendamentos" 
+                                class="btn btn-recibo btn-alerta">
+                                <i class="fa fa-calendar"></i>
+                                Ir para minha agenda</a>
+                        </div>
+                    </div>
+                </section><!-- end section success -->
+
+            </section>
+        </div>
+
+        <div class="col-md-9" ng-if="!success && !error">
+            <section class="empresas company">
+                <!-- início do prestador de serviço ou empresa -->
+                <div class="empresa">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3">
+                                <img ng-src="{{estabelecimento.imagem}}?h=85&w=85&fit=crop" 
+                                alt="{{estabelecimento.nomefantasia}}"
+                                border="0"/>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="descricao">
+                                    <h4>
+                                        <a ng-href="" 
+                                            ng-bind="estabelecimento.nomefantasia"></a>
+                                        <a href="javascript:;" 
+                                            ng-click="favorite()" 
+                                            class="favorite"
+                                            ng-class="{'active': estabelecimento.favorito}">
+                                        </a>
+                                    </h4> 
+                                    <span class="endereco" ng-bind="estabelecimento.logradouro + ',' + (estabelecimento.complemento==null?'':estabelecimento.complemento) + ' ' + estabelecimento.numero"></span>
+                                    <span class="bairro" ng-bind="estabelecimento.bairro + ', ' + estabelecimento.cidade + ', ' + estabelecimento.estado + ', ' + (estabelecimento.cep|brCep)"></span>
+                                    <span class="formas-pagamento">
+                                        <ul>
+                                            <li>
+                                                <span class="avaliation">
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star-o': estabelecimento.avaliacao.media<=0
+                                                        }">
+                                                    </i>
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star': estabelecimento.avaliacao.media>=1,
+                                                            'fa-star-o': estabelecimento.avaliacao.media<1,
+                                                        }">
+                                                    </i>
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star': estabelecimento.avaliacao.media>=2,
+                                                            'fa-star-o': estabelecimento.avaliacao.media<2,
+                                                        }">
+                                                    </i>
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star': estabelecimento.avaliacao.media>=3,
+                                                            'fa-star-o': estabelecimento.avaliacao.media<3,
+                                                        }">
+                                                    </i>
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star': estabelecimento.avaliacao.media>=4,
+                                                            'fa-star-o': estabelecimento.avaliacao.media<4,
+                                                        }">
+                                                    </i>
+                                                    <i class="fa"
+                                                        ng-class="{
+                                                            'fa-star': estabelecimento.avaliacao.media>=5,
+                                                            'fa-star-o': estabelecimento.avaliacao.media<5,
+                                                        }">
+                                                    </i>
+                                                    <small ng-bind="'(' + estabelecimento.avaliacao.quantidade + ')'"></small>
+                                                </span>
+                                            </li>
+                                            <li><span class="item">
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao<=100.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==0 && estabelecimento.servico.valor<=100.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao<=200.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==0 && estabelecimento.servico.valor<=200.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao<=300.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==0 && estabelecimento.servico.valor<=300.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao<=400.00"></i>
+                                                    <i class="fa fa-dollar"
+                                                        ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==0 && estabelecimento.servico.valor<=400.00"></i>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="promotion" 
+                                                ng-if="estabelecimento.servico.sobconsulta==0 && estabelecimento.servico.promocao==1 && estabelecimento.servico.valorpromocao>0">
+                                                    <i>%</i> PROMOÇÃO
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <!--<ul>-->
+                                            <!--<li ng-repeat="payment in c.pagamento">{{payment.nome}}</li>-->
+                                        <!--</ul>-->
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-3">
+                                <div class="duvidas" 
+                                    ng-if="estabelecimento.telefonecomercial!=undefined">
+                                    <i class="fa fa-phone"></i>
+                                    <p>Dúvidas? Entre em contato conosco.</p>
+                                    <span ng-bind="estabelecimento.telefonecomercial|brPhoneNumber"></span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- fim prestador de serviço ou empresa -->
+            </section>
+            <div class="agendar-servico">
+
+                <section id="section-calendario" 
+                    class="calendario" 
+                    ng-class="
+                    {
+                        'complete':stage>=1 || stage==2
+                    }">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>
+                                <span ng-class="
+                                    {
+                                        'fase-completa':stage>=1 || stage==2
+                                    }">01
+                                </span> Selecione Data e Horário
+                            </h1>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data-agendamento" ng-if="stage>=1 || stage==2">
+                                <div class="col-md-10 col-xs-10 text-right">
+                                    <span class="text-right"
+                                        ng-bind="agendamento.reserve|formatdatetoday:'LLLL'"></span>
+                                </div>
+                                <div class="col-md-2 col-xs-2 text-right">
+                                    <a href="javascript:;" 
+                                        ng-click="calendarEdit();" class=""
+                                        rel="#section-calendario" 
+                                        scroolstep>ALTERAR</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loading" ng-if="results.agendamento.loading">
+                        <div class="col-sm-12 text-center loader">
+                            <img src="assets/img/loading.gif">
+                        </div>
+                    </div>
+                    <div class="agenda" ng-if="!results.agendamento.loading">
+                        <div class="mes">
+                            <strong 
+                                ng-bind="calendario.mes + ' ' + calendario.ano + ','">
+                            </strong>
+                            <span ng-bind="calendario.semanaExtenso"></span>
+                        </div>
+                        <div id="day" class="faixa-dias">
+                            <a href="javascript:void(0);" 
+                                class="seta seta-esq" actprevweek></a>
+                            <ul class="dias">
+                                <li ng-repeat="date in calendario.semana"
+                                    ng-class="
+                                    {
+                                        'desabilitado':disabledSun(date.getDay(), agendamento.profissional.atendimento),
+
+                                        'selecionado':comparedCurrentDate(date, calendario.data),
+
+                                        'selecionadosunday':activeweekmanual != undefined && activeweekmanual.getDate() == date.getDate(),
+
+                                        'selecionadonotday':calendario.dataInativo != undefined && calendario.dataInativo.getDate() == date.getDate() 
+                                    }"
+                                    ng-click="calendarWeekDay(date);"
+                                    activeweek>
+                                    <span class="dia"
+                                        ng-bind="date|datetoday:'DD'"></span>
+                                    <span class="dia-semana"
+                                        ng-bind="date.getDay()|weekday">
+                                    </span>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0);" 
+                                class="seta seta-dir" actnextweek></a>
+                        </div>
+                        <div class="hora-valor">
+                            <ul>
+                                <li ng-repeat="h in calendario.horarios"
+                                    ng-if="h.horario!=undefined"
+                                    ng-click="calendarTimeDay(h.horario);"
+                                    ng-class="
+                                    {
+                                        'agendado':h.scheduledtime, 
+                                        'timeoff':h.horarioLimite
+                                    }"
+                                    rel="#section-continue"
+                                    activetimeweek
+                                    scroolstep>
+                                    <span class="horario">
+                                        <i class="fa"></i> 
+                                        <span ng-bind="h.horario|timedate:'HH:mm'"></span>
+                                    </span>
+                                    <span class="valor" 
+                                        ng-if="estabelecimento.servico.sobconsulta==1"
+                                        ng-bind="'sob consulta'">
+                                    </span>
+                                    <span class="valor" 
+                                        ng-if="estabelecimento.servico.sobconsulta==0 
+                                            && estabelecimento.servico.promocao==1"
+                                        ng-bind="estabelecimento.servico.valorpromocao|finance:true:2">
+                                    </span>
+                                    <span class="valor" 
+                                        ng-if="estabelecimento.servico.sobconsulta==0 
+                                            && estabelecimento.servico.promocao==0"
+                                        ng-bind="estabelecimento.servico.valor|finance:true:2">
+                                    </span>
+                                    <span ng-if="t.scheduledtime">Horário atual agendado</span>
+                                </li>
+                                <li ng-if="timePickerAvailable">
+                                    <span style="width:100%; text-align: left;">Ops! para data atual não existe horários disponíveis</span>
+                                </li>
+                            </ul>
+                            <button id="section-continue" 
+                                type="button" 
+                                ng-class="
+                                {
+                                    'bt-desabilitado':!agendamento.reserve,
+                                    'bt-continuar':agendamento.reserve
+                                }" 
+                                ng-click="calendarAction();" 
+                                rel="#section-autenticacao" 
+                                scroolstep>CONTINUAR
+                            </button>
+                        </div>
+                    </div><!-- container section -->
+                </section>
+
+                <section id="section-autenticacao" 
+                    class="autenticacao"
+                    ng-class="
+                    {
+                        'complete':stage>=2 && clients.id
+                    }">
+                    <h1>
+                        <span 
+                            ng-class="
+                                {
+                                    'fase-completa':stage>=2 && clients.id
+                                }">02
+                        </span> Autenticação
+                    </h1>
+                    <div class="area-autenticacao"
+                        ng-if="stage>=2 && !clients.id">
+                        <div class="row organizador">
+                            <div class="col-md-6">
+                                <div class="informacao">
+                                    <h2>Por favor, cadastre-se para continuar o agendamento.</h2>
+                                    <span>Cancele ou remarque gratuitamente até 24 horas antes do horário agendado.</span>
+                                </div>
+                                <div class="termos">
+                                    Clicando em Cadastrar, você estará aceitando nossos 
+                                    <a href="termos-de-uso">Termos de Uso</a> e 
+                                    <a href="politica-de-privacidade">Política de Privacidade</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 separacao">
+                                <div class="cadastro organizador">
+                                    <a href="/controller/marketplace/aplicacao/fblogin" target="_self" class="btn btn-lg btn-block btn-facebook">
+                                    Entrar com Facebook
+                                    </a>
+                                    <p class="mensagem">Não se preocupe, nós nunca iremos postar em seu nome.</p>
+                                    <span class="ou">OU</span>
+                                    <section ng-if="stageTwoViewForm=='signup'">
+                                        <form name="$root.formCadastro" role="form" novalidate>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-warning m-t-10"
+                                                        ng-if="error_signup"
+                                                        ng-bind="error_signup">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="text" 
+                                                        name="nome" 
+                                                        class="form-control campos" 
+                                                        placeholder="Nome completo" 
+                                                        ng-model="cliente.nome" 
+                                                        ng-minlength="5" 
+                                                        required />
+                                                    <span class="help-block text-danger"
+                                                      ng-show="formCadastro.nome.$dirty && formCadastro.nome.$error.minlength">Seu nome é tão curto assim? Favor informe seu nome completo.</span>
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formCadastro.nome.$dirty && formCadastro.nome.$error.required">Qual o seu nome?</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="text" 
+                                                        name="email" 
+                                                        class="form-control campos" 
+                                                        placeholder="E-mail" 
+                                                        ng-model="cliente.email" 
+                                                        required />
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formCadastro.email.$dirty
+                                                            && formCadastro.email.$error.required">O campo e-mail é obrigatório</span>
+                                                <span class="help-block text-danger"
+                                                      ng-show="formCadastro.email.$error.email">Informe um e-mail válido</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="text" 
+                                                        name="celular" 
+                                                        class="form-control campos" 
+                                                        placeholder="Celular" 
+                                                        ng-model="cliente.celular" ui-br-phone-number required />
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formCadastro.celular.$dirty && formCadastro.celular.$error.required">Vamos precisar de pelo menos de um telefone pra contato</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="password" 
+                                                        name="senha" 
+                                                        class="form-control campos" 
+                                                        placeholder="Senha" 
+                                                        ng-model="cliente.senha"
+                                                        ng-minlength="6" 
+                                                        required />
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formCadastro.senha.$dirty && formCadastro.senha.$error.minlength">Para aumentar a segurança, que tal usarmos pelo menos 6 caracteres?</span>
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                    name="cadastrar"
+                                                    class="btn bt-cadastro"
+                                                    ng-disabled="formCadastro.$invalid || status_signup.loading"
+                                                    ng-click="signup()"
+                                                    ng-switch="status_signup.loading"
+                                                    rel="#section-pagamento" 
+                                                    scroolstep>
+                                                <span ng-switch-default>CADASTRE-SE</span>
+                                                <span ng-switch-when="true">AGUARDE...</span>
+                                            </button>
+                                        </form>
+                                        <div class="possui-conta">
+                                            Você já possui uma conta? 
+                                            <a href="javascript:;" 
+                                                title="Fazer login em minha conta" 
+                                                ng-click="viewForm('login');" 
+                                                class=""> faça seu login 
+                                            </a>
+                                        </div>
+                                    </section>
+                                    <section ng-if="stageTwoViewForm=='login'">
+                                        <form name="$root.formLogin" role="form" novalidate>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-warning m-t-10"
+                                                        ng-if="error_login"
+                                                        ng-bind="error_login">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="email" 
+                                                        name="email"
+                                                        class="form-control campos" 
+                                                        placeholder="E-mail" 
+                                                        ng-model="cliente.email" 
+                                                        required />
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formLogin.email.$dirty
+                                                            && formLogin.email.$error.required">O campo e-mail é obrigatório</span>
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formLogin.email.$error.email">Informe um e-mail válido</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="password" 
+                                                        name="senha" 
+                                                        class="form-control campos" 
+                                                        placeholder="Senha" 
+                                                        ng-model="cliente.senha" 
+                                                        ng-minlength="6" 
+                                                        required />
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formLogin.senha.$dirty
+                                                            && formLogin.senha.$error.required">O campo senha é obrigatório</span>
+                                                    <span class="help-block text-danger"
+                                                          ng-show="formLogin.senha.$dirty && formLogin.senha.$error.minlength">O campo de senha tem mais que 6 caracteres</span>
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                    name="entrar"
+                                                    class="btn bt-cadastro"
+                                                    ng-disabled="formLogin.$invalid || results.formulario.loading"
+                                                    ng-click="login()"
+                                                    ng-switch="results.formulario.loading"
+                                                    rel="#section-pagamento" 
+                                                    scroolstep>
+                                                <span ng-switch-default>ENTRAR</span>
+                                                <span ng-switch-when="true">AGUARDE...</span>
+                                            </button>
+                                        </form>
+                                        <div class="possui-conta">
+                                            <a href="javascript:;" 
+                                                title="quero fazer meu cadastro agora" 
+                                                ng-click="viewForm('signup');" 
+                                                class="">Cadastre-se </a> agora ou você
+                                            <a href="javascript:;" 
+                                                title="esqueceu a senha" 
+                                                ng-click="viewForm('password');"> esqueceu sua senha?
+                                            </a>
+                                        </div>
+                                    </section>
+                                    <section ng-if="stageTwoViewForm=='password'">
+                                        <form name="$root.formPassword" role="form" novalidate>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-success m-t-10"
+                                                        ng-if="success_password"
+                                                        ng-bind="success_password">
+                                                    </div>
+                                                    <div class="alert alert-warning m-t-10"
+                                                        ng-if="error_password"
+                                                        ng-bind="error_password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="email"
+                                                           name="email"
+                                                           class="form-control campos"
+                                                           ng-model="cliente.email"
+                                                           placeholder="E-mail"
+                                                           required />
+                                                <span class="help-block text-danger"
+                                                      ng-show="formPassword.email.$dirty
+                                                        && formPassword.email.$error.required">O campo e-mail é obrigatório</span>
+                                                <span class="help-block text-danger"
+                                                      ng-show="formPassword.pEmail.$error.email">Informe um e-mail válido</span>
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                    name="entrar"
+                                                    class="btn bt-cadastro"
+                                                    ng-click="password()"
+                                                    ng-disabled="formPassword.$invalid || results.formulario.loading"
+                                                    ng-switch="results.formulario.loading">
+                                                <span ng-switch-default>REDEFINIR SENHA</span>
+                                                <span ng-switch-when="true">AGUARDE...</span>
+                                            </button>
+                                        </form>
+                                        <div class="possui-conta">
+                                            <a href="javascript:;" 
+                                                title="Voltar ao login" 
+                                                ng-click="viewForm('login');" 
+                                                class=""> Voltar ao login 
+                                            </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="section-pagamento" class="pagamento">
+                    <h1>
+                        <span>03</span> Pagamento
+                    </h1>
+                    <div class="area-pagamento" 
+                        ng-if="stage>=3">
+                        <div class="row">
+                            <div class="col-sm-12 forma-pagamento">
+                                <div class="col-sm-12">
+
+                                    <div><!-- begin payment in company -->
+                                        <form name="$root.formAgendamento" 
+                                            role="form" novalidate>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="radio radio-danger">
+                                                        <input type="radio" 
+                                                            id="estabelecimento"
+                                                            name="opcao"
+                                                            ng-model="agendamento.pay.method" 
+                                                            ng-value="4">
+                                                        <label for="estabelecimento">
+                                                            Pagar no estabelecimento
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="radio radio-danger">
+                                                        <input type="radio"
+                                                            id="online"
+                                                            name="opcao" 
+                                                            ng-model="agendamento.pay.method" 
+                                                            ng-value="2">
+                                                        <label for="online">
+                                                            Pagamento On-Line
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row"
+                                                ng-if="agendamento.pay.method==4">
+                                                <div class="col-md-12">
+                                                    <p ng-bind="estabelecimento.configuracao.descricao"
+                                                    ng-if="estabelecimento.configuracao.descricao!=undefined">
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label 
+                                                            for="observacao">Observações
+                                                        </label>
+                                                        <textarea class="form-control"
+                                                            name="observacao"
+                                                            ng-required="estabelecimento.configuracao.obrigatorio==1"
+                                                            ng-model="agendamento.observation"
+                                                            rows="3"
+                                                            ng-maxlength="240">
+                                                        </textarea>
+                                                        <span class="help-block text-danger"
+                                                              ng-if="formAgendamento.observacao.$dirty && formAgendamento.observacao.$error.maxlength">Observação deve conter no máximo 240 caracteres</span>
+                                                        <span class="help-block text-danger"
+                                                              ng-if="formAgendamento.observacao.$dirty && formAgendamento.observacao.$error.required && estabelecimento.configuracao.obrigatorio==1">é obrigatório
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-center">
+                                                    <button 
+                                                        ng-click="save()"
+                                                        class="btn btn-mark"
+                                                        ng-disabled="status.loading || formAgendamento.$invalid"
+                                                        ng-switch="status.loading">
+                                                        <span ng-switch-default>Agendar</span>
+                                                        <span ng-switch-when="true">Aguarde...</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div><!-- end payment in company -->
+
+                                    <div ng-if="agendamento.pay.method==2"><!-- begin credit card -->
+                                        <form id="pay" 
+                                            name="$root.ccForm" role="form" novalidate>
+
+                                            <div class="row form-group">
+                                                <div class="col-md-2">
+                                                    <label for="visa" 
+                                                        class="visa desabilitado" 
+                                                        ng-class="
+                                                        {
+                                                            habilitado:ccForm.ccNumber.$ccType=='Visa'
+                                                        }">
+                                                    <input type="radio" 
+                                                        id="visa" 
+                                                        name="tipo"
+                                                        ng-model="card.companycode" 
+                                                        value="visa" />
+                                                        Visa
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="master" class="master desabilitado" ng-class="{ habilitado: ccForm.ccNumber.$ccType == 'Mastercard' }">
+                                                        <input type="radio" id="master" name="tipo"
+                                                        ng-model="card.companycode" value="mastercard" />
+                                                        Master
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-md-12">
+                                                    <label for="nomeportador">Nome<small>(como está no cartão)</small></label>
+                                                    <input type="text" name="nomeportador" id="nomeportador" placeholder="MARIA S CUNHA" data-checkout="cardholderName" class="form-control" ng-model="card.name" required >
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-md-8">
+                                                    <label for="nome">Número do Cartão</label>
+                                                    <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000" cc-number name="ccNumber" ng-pattern="/^[0-9]+$/"  maxlength="19" ng-model="card.number" data-checkout="cardNumber" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="nome">CVC<small>(código de segurança)</small></label>
+                                                    <input type="text" class="form-control" id="cvc" placeholder="123" data-checkout="securityCode" cc-cvc cc-type="ccForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" required>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group" cc-exp>
+                                                <div class="col-md-2">
+                                                    <label for="mes">Mês</label>
+                                                    <input placeholder="MM" type="hidden" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month">
+                                                    <select id="mes" name="mes" class="form-control" data-checkout="cardExpirationMonth" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" required>
+                                                        <option value="">-</option>
+                                                        <option value="01">01</option>
+                                                        <option value="02">02</option>
+                                                        <option value="03">03</option>
+                                                        <option value="04">04</option>
+                                                        <option value="05">05</option>
+                                                        <option value="06">06</option>
+                                                        <option value="07">07</option>
+                                                        <option value="08">08</option>
+                                                        <option value="09">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="ano">Ano</label>
+                                                    <input placeholder="YY" type="hidden" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year">
+                                                    <select id="ano" name="ano" class="form-control" data-checkout="cardExpirationYear" cc-exp-year name="ccExpYear" ng-model="card.expiration.year" required>
+                                                        <option value="">-</option>
+                                                        <option value="16">2016</option>
+                                                        <option value="17">2017</option>
+                                                        <option value="18">2018</option>
+                                                        <option value="19">2019</option>
+                                                        <option value="20">2020</option>
+                                                        <option value="21">2021</option>
+                                                        <option value="22">2022</option>
+                                                        <option value="23">2023</option>
+                                                        <option value="24">2024</option>
+                                                        <option value="25">2025</option>
+                                                        <option value="26">2026</option>
+                                                        <option value="27">2027</option>
+                                                        <option value="28">2028</option>
+                                                        <option value="29">2029</option>
+                                                        <option value="30">2030</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="col-sm-12">
+                                                    <button id="pay"
+                                                            type="submit"
+                                                            class="btn btn-mark"
+                                                            ng-disabled="paysubmitting || ccForm.$invalid && ccForm.$error.ccExp"
+                                                            ng-switch="paysubmitting">
+                                                      <span ng-switch-default>Efetuar pagamento e agendar</span>
+                                                      <span ng-switch-when="true">Aguarde processando...</span>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div><!-- end credit card -->
+
+                                    <p></p><!-- clearfixed -->
+
+                                </div>
+                            </div><!-- Forma de pagamento -->
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            
+        </div><!-- end .col-md-9 -->
+        <div class="col-md-3" ng-if="!success && !error">
+            <section class="dados-servico">
+                <div>
+                    <div class="select-style">
+                        <select id="profissional"
+                                name="profissional" 
+                                ng-model="agendamento.profissional"
+                                ng-options="p.nome for p in estabelecimento.profissional track by p.id"
+                                ng-change="changeProfessional()">
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <span class="texto textocompletar">
+                        <img ng-show="agendamento.profissional.foto==undefined" 
+                            ng-src="/assets/img/profissionais/default.png">
+                        <img ng-show="agendamento.profissional.foto!=undefined" 
+                        ng-src="/assets/img/profissionais/{{agendamento.profissional.foto}}">
+                        <span class="tempo-servico"
+                            ng-bind="agendamento.profissional.nome"></span>
+                        <span class="tempo-servico"
+                            ng-bind="agendamento.profissional.profissao"></span>
+                    </span>
+                </div>
+                <div>
+                    <span class="nome-servico"
+                        ng-bind="estabelecimento.servico.nome"></span>
+                    <span class="tempo-servico"
+                        ng-bind="estabelecimento.servico.duracao|timeHours"></span>
+                    <span class="descricao-servico"
+                        ng-bind="estabelecimento.servico.descricao"
+                        ng-if="estabelecimento.servico.descricao!=undefined"></span>
+                </div>
+            </section>
+
+            <section class="dados-servico" 
+                ng-if="estabelecimento.funcionamento.length">
+                <div class="horario-funcionamento"
+                    ng-repeat="funcionamento in estabelecimento.funcionamento"
+                    ng-if="funcionamento.dia==calendario.data.getDay()">
+                    <ul>
+                        <li>
+                            <div>
+                                <i class="fa fa-clock-o"></i>
+                                <span ng-bind="'Aberto hoje: ' + funcionamento.horainicial + '-' + funcionamento.horafinal"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="forma-pagamento">
+                    <ul>
+                        <li ng-repeat="pagamento in estabelecimento.pagamento">
+                            <span class="payment"
+                            ng-attr-title="{{pagamento.nome}}">
+                                <i class="fa"
+                                    ng-class="pagamento.icone">
+                                </i>
+                                <span ng-bind="'(' + pagamento.nome + ')'"></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div><!-- end .col-md-3 -->
+        
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+</div>
+
+<!-- Footer template -->
+<template-footer></template-footer>

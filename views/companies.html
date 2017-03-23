@@ -1,0 +1,181 @@
+<!-- Header template -->
+<template-header></template-header>
+
+<div class="detalhe-agendamento" ng-init="getCompanysBegin()">
+	<div class="container">ESTABELECIMENTOS E SERVIÇOS</div>
+</div>
+<div class="filtro">
+	<div class="filtro-empresas">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label class="form-label">Formas de Pagamento</label>
+						<div class="input-with-icon right formas">
+							<select name="gendericonic" id="gendericonic" 
+									class="select2-container select2 form-control" 
+									ng-model="subfilter.payment"
+									ng-change="filterPayment()">
+								<option value="0">Selecione a forma de pagamento</option>
+								<option value="2">Cartão de Crédito</option>
+								<option value="3">Débito</option>
+								<option value="1">Dinheiro</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label class="form-label">Filtrar por preço:</label>
+						<div class="input-with-icon right">
+							<rzslider rz-slider-model="minRangeSlider.minValue" 
+									rz-slider-high="minRangeSlider.maxValue" 
+									rz-slider-options="minRangeSlider.options">
+							</rzslider>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label class="checkbox-inline checkbox-styled desconto">
+				            <input type="checkbox" id="subfilterdiscount" 
+				            		name="subfilterdiscount" 
+				            		ng-model="subfilter.discount"
+				            		ng-change="filterDiscount()"><span>POSSUI DESCONTO</span>
+				        </label>
+			        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+
+	<div class="col-md-12">
+
+		<div class="row cada-empresa" ng-show="totalItems == 0 && companies == undefined">
+			<div class="col-md-12 text-center no-result">
+				<i class="fa fa-search"></i>
+				<h1 class="no-result-title">Nenhum resultado encontrado!</h1>
+				<p>Por favor verifique se as palavras estão corretas ou use menos palavras.</p>
+			</div>
+		</div>
+
+		<div class="row cada-empresa" ng-show="totalItems == 0 && companies != undefined">
+			<div class="col-md-12 text-center no-result"></div>
+		</div>
+
+		<div class="row cada-empresa loadingsubfilter" ng-show="loaderfilter && totalItems >= 1">
+			<div class="loading">
+				<div class="col-sm-12 text-center loader">
+					<i class="fa fa-3x fa-spinner fa-spin"></i>
+                    <p>Aguarde alguns segundos, estamos processando...</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row cada-empresa" ng-repeat="c in companies | filter : paginate" 
+			ng-show="companies[0].hash != undefined">
+			<div class="col-md-8">
+				<section class="empresas">
+					<!-- início do prestador de serviço ou empresa -->
+					<div class="empresa">
+						<a href="/{{c.page | ispage}}/{{c.hash}}" data-toggle="tooltip" data-placement="right" data-original-title="Detalhar">
+							<div class="row">
+								<div class="col-md-5">
+									<img ng-if="c.imagem == undefined"
+										 ng-src="assets/img/empresas/default.png" border="0" />
+									<img ng-if="c.imagem != undefined"
+										ng-src="assets/img/empresas/{{c.imagem}}" border="0" />
+								</div>
+								<div class="col-md-7">
+									<div class="descricao">
+										<h4>{{c.nomefantasia}}</h4>
+										<span class="endereco">{{c.logradouro}}, {{c.numero}} {{c.complemento}}</span>
+										<span class="bairro">{{c.bairro}}, {{c.cidade}}, {{c.estado}} {{c.cep | brCep}}</span>
+										<span class="formas-pagamento" ng-if="c.pagamento.length > 0">
+											<ul>
+												<li ng-repeat="payment in c.pagamento"><i class="fa fa-dollar"></i> {{payment.nome}}</li>
+											</ul>
+										</span>
+
+										<span class="detalhe" ng-if="c.sobre.length > 3">{{c.sobre}}</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="/{{c.page | ispage}}/{{c.hash}}" class="botao" title="Escolher Horário">Escolher serviços</a>
+					</div>
+					<!-- fim prestador de serviço ou empresa -->
+				</section>
+			</div>
+			<div class="col-md-4">
+				<div class="servico-menor">
+					<div class="nome-servico">SERVIÇOS</div>
+					<!-- detalhe de cada servico -->
+					<div class="detalhe-servico" ng-repeat="service in c.services">
+						<div class="row">
+							<div class="col-md-6">
+								<p class="nome">{{service.nome}}</p>
+								<!-- <p class="hora">45 minutos</p> -->
+							</div>
+							<div class="col-md-3" ng-if="service.valorpororcamento"></div>
+							<div class="col-md-3" ng-if="!service.valorpororcamento">
+								<p class="valor"
+								   ng-class="{'nao-promo': service.promocao == 1}">{{service.valor | finance:true:2}}
+								</p>
+								<p class="valor"
+								   ng-if="service.promocao == 1">{{service.valorpromocao | finance:true:2}}
+								</p>
+							</div>
+							<div class="col-md-3">
+								<a href="/company/{{c.hash}}/scheduling/{{service.hash}}"
+								   class="btn btn-success"
+								   tooltips tooltip-title="tip"
+								   tooltip-side="top"
+								   title="Agendar">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p class="descricao">{{service.descricao}}</p>
+							</div>
+						</div>
+					</div>
+					<div class="detalhe-servico" ng-if="c.services.length == undefined">
+						<div class="detalhe-servico">
+							<div class="row">
+								<div class="col-sm-12">Não foi encontrado nenhum serviço no momento.</div>
+							</div>
+						</div>
+					</div>
+					<!-- fim detalhe de cada servico -->
+
+				</div>
+				<!-- fim cada serviço -->
+			</div>
+		</div>
+
+		<div class="row" ng-show="companies[0].hash != undefined">
+			<pagination total-items="totalItems" 
+						ng-model="currentPage" 
+						max-size="entryLimit" 
+						boundary-links="true" 
+						items-per-page="numPerPage" 
+						previous-text="Voltar"
+						next-text="Próximo"
+						first-text="Primeiro"
+						last-text="Último"
+						ng-change="changePaginate()"
+						class="pagination-sm">
+			</pagination>
+			<!-- fim da paginação -->
+		</div>
+		
+	</div>
+</div>
+
+<!-- Footer template -->
+<template-footer></template-footer>

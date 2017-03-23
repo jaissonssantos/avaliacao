@@ -1,0 +1,931 @@
+<!-- Header template -->
+<template-header></template-header>
+
+<div class="detalhe-agendamento" style="margin-top:100px">
+	<div class="container">
+		<ul class="rastro">
+			<li>PERFIL</li>
+		</ul>
+	</div>
+</div>
+
+<div class="container-fluid" ng-init="load();">
+	<div class="row">
+		<div class="col-md-3 col-sm-4">
+
+			<div class="data-profile">
+				<div class="transparencia"></div>
+				<div class="data-client">
+					<img ng-if="!cliente.imagem.size"
+						src="{{cliente.imagem}}?w-120&h=120&fit=crop&auto=compress">
+					<img ng-if="cliente.imagem.size>=0"
+					ngf-thumbnail="cliente.imagem">
+					<span class="name-client" 
+						ng-bind="cliente.nome"></span>
+				</div>
+
+				<ul class="menu-profile" data-provide="tabdrop">
+					<li ng-class="{'active':tab=='perfil'}">
+						<a href="javascript:;" 
+							data-rel="#tab1" 
+							data-toggle="tab" 
+							activetabpanel>PERFIL</a>
+					</li>
+					<li ng-class="{'active':tab=='senha' || tab==undefined}">
+						<a href="javascript:;" 
+							data-rel="#tab2" 
+							data-toggle="tab" 
+							activetabpanel>MUDAR SENHA</a>
+					</li>
+					<li ng-class="{'active':tab=='agendamentos' || tab==undefined}">
+						<a href="javascript:;" 
+							data-rel="#tab3" 
+							data-toggle="tab"
+							ng-click="schedule(2)" 
+							activetabpanel>AGENDAMENTOS</a>
+					</li>
+					<li ng-class="{'active':tab=='favoritos' || tab==undefined}">
+						<a href="javascript:;" 
+							data-rel="#tab4" 
+							data-toggle="tab" 
+							ng-click="favorite();"
+							activetabpanel>FAVORITOS</a>
+					</li>
+					<li ng-class="{'active':tab=='avaliacoes' || tab==undefined}">
+						<a href="javascript:;" 
+							data-rel="#tab5" 
+							data-toggle="tab" 
+							activetabpanel>AVALIAÇÕES</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-9 col-sm-8">
+			<div class="perfil">
+
+				<div class="tabbable">
+					<div class="tab-content">
+						<div class="tab-pane fade tab-panel" 
+							id="tab1"
+							ng-class="{'in active':tab=='perfil'}">
+							<div class="perfil">
+								<form name="$root.formPerfil" role="form" novalidate>
+									<div class="row">
+										<div class="col-md-12">
+						                    <section ng-if="error" class="mensagem">
+						                        <i class="fa fa-ban fa-2x error"></i>
+						                        <div class="alert mensagem-fa-icon-error"
+						                            ng-bind="error">
+						                        </div>
+						                    </section>
+
+						                    <section ng-if="success" class="mensagem">
+						                        <i class="fa fa-check-circle fa-2x"></i>
+						                        <div class="alert mensagem-fa-icon-sucesso"
+						                            ng-bind="success">
+						                        </div>
+						                    </section>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<div class="area-foto">
+													<div class="fileinput fileinput-new">
+														<div 
+														class="fileinput-preview thumbnail"
+														style="width:150px;height:150px;">
+															<img ng-if="!cliente.imagem.size"
+																ng-src="{{cliente.imagem}}?h=150&w=150&fit=clip&auto=compress">
+															<img ng-if="cliente.imagem.size>=0"
+															ngf-thumbnail="cliente.imagem"
+															style="width:150px;height:150px;">
+														</div>
+													</div><!-- //fileinput-->
+													<div class="area-foto">
+														<div class="fileupload">
+															<span class="btn btn-default btn-file">
+		    													Selecione uma imagem
+																<input type="file" 
+																	ngf-select
+																	name="file"
+																	ng-model="cliente.imagem"
+																	accept="image/*"
+																	ngf-max-size="1MB"
+																	ngf-resize="{width: 150, height: 150}">
+		             										</span>
+														</div>
+														<span class="help-block text-danger"
+															  ng-show="formPerfil.file.$error.maxSize">A imagem selecionada é maior ao tamanho permitido de 1 MB</span>
+													</div>
+												</div>
+											</div><!-- //form-group-->
+										</div>
+										<div class="col-md-9">
+											<div class="row espacamento">
+												<div class="col-md-6">
+													<label for="nome">Nome</label>
+													<input type="text"
+														   id="nome"
+														   name="nome"
+														   class="form-control"
+														   ng-model="cliente.nome"
+														   ng-minlength="5"
+														   placeholder="Nome" required />
+													<span class="help-block text-danger"
+														  ng-show="formPerfil.nome.$dirty && formPerfil.nome.$error.minlength">Seu nome é tão curto assim? Favor informe seu nome completo.</span>
+				                                    <span class="help-block text-danger"
+														  ng-show="formPerfil.nome.$dirty && formPerfil.nome.$error.required">Qual o seu nome?</span>
+												</div>
+											</div>
+											<div class="row espacamento">
+												<div class="col-md-6">
+													<label for="cpf">CPF</label>
+													<input type="text"
+														   name="cpf"
+														   class="form-control"
+														   ng-model="cliente.cpf"
+														   ng-change="checkCpf()"
+                            							   ui-mask="999.999.999-99" 
+														   required />
+													<span class="help-block text-danger"
+													  ng-show="formPerfil.cpf.$dirty && formPerfil.cpf.$error.required">Preencha corretamente o CPF
+													</span>
+													<img src="assets/img/loading.gif"
+														 class="input-dirty-touched"
+														 ng-if="cpf.loading"
+														 style="width:22px;height:22px;position:absolute;right:20px;top:32px;">
+													<span ng-if="formPerfil.cpf.$dirty" class="input-dirty-touched" style="top:32px;">
+								                        <i ng-class="{
+								                          'fa fa-check text-success' : cpf.notfound && formPerfil.cpf.$valid,
+								                          'fa fa-times text-danger' : cpf.found || (formPerfil.cpf.$touched && formPerfil.cpf.$invalid)
+								                        }"></i>
+								                    </span>
+												</div>
+											</div>
+											<div class="row espacamento">
+												<div class="col-md-6">
+													<label for="email">E-mail</label>
+													<input type="email"
+														   id="email"
+														   name="email"
+														   class="form-control"
+														   placeholder="E-mail"
+														   ng-model="cliente.email"
+														   readonly="readonly" />
+												</div>
+											</div>
+											<div class="row espacamento">
+												<div class="col-md-6">
+													<label for="telefone">Telefone</label>
+													<input type="text"
+														   name="telefone"
+														   class="form-control"
+														   placeholder="Telefone"
+														   ng-model="cliente.celular"
+														   ng-keydown="checkPhone($event)"
+														   ui-br-phone-number required />
+													<span class="help-block text-danger"
+														  ng-show="formPerfil.telefone.$dirty && formPerfil.telefone.$error.required">Vamos precisar de pelo menos de um telefone pra contato</span>
+													<small>Por favor, nos informe um número de telefone móvel! Assim poderemos avisá-los sobre seus agendamentos através de mensagem.</small>
+													<img src="assets/img/loading.gif"
+														ng-show="isloadingPhone"
+														style="width: 22px; height: 22px; position: absolute; right: 20px; top: 32px;">
+												</div>
+											</div>
+											<button type="submit"
+													class="btn btn-mark"
+													ng-click="update()"
+													ng-disabled="status.loading || formPerfil.$invalid"
+													ng-switch="status.loading">
+												<span ng-switch-default>Salvar</span>
+                                                <span ng-switch-when="true">Aguarde...</span>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- end perfil -->
+						</div>
+						<div class="tab-pane fade tab-panel" 
+							ng-class="{'in active':tab=='senha'}"
+							id="tab2">
+							<div class="row">
+								<div class="col-md-12">
+									<section ng-if="error_password" class="mensagem">
+				                        <i class="fa fa-ban fa-2x error"></i>
+				                        <div class="alert mensagem-fa-icon-error"
+				                            ng-bind="error_password.error">
+				                        </div>
+				                    </section>
+
+				                    <section ng-if="success_password" class="mensagem">
+				                        <i class="fa fa-check-circle fa-2x"></i>
+				                        <div class="alert mensagem-fa-icon-sucesso"
+				                            ng-bind="success_password.success">
+				                        </div>
+				                    </section>
+								</div>
+								<div class="col-md-12">
+									<div class="perfil">
+										<form name="$root.formSenha" role="form" novalidate>
+											<div class="row">
+												<div class="col-md-9">
+													<div class="row espacamento">
+														<div class="col-md-6">
+															<label for="senha-atual">Senha atual</label>
+															<input type="password"
+																   name="senhaatual"
+																   class="form-control"
+																   ng-model="cliente.senhaatual"
+																   placeholder="Senha atual"
+																   ng-minlength="6"
+																   required />
+													<span class="help-block text-danger"
+														  ng-show="formSenha.senhaatual.$dirty && formSenha.senhaatual.$error.required">Vamos precisar de sua senha atual</span>
+                                        			<span class="help-block text-danger"
+														  ng-show="formSenha.senhaatual.$dirty && formSenha.senhaatual.$error.minlength">Sua senha atual tem pelo menos 6 caracteres</span>
+														</div>
+													</div>
+													<div class="row espacamento">
+														<div class="col-md-6">
+															<label for="alterar-senha">Alterar senha</label>
+															<input type="password"
+																   name="novasenha"
+																   class="form-control"
+																   ng-model="cliente.novasenha"
+																   placeholder="Nova senha"
+																   ng-minlength="6"
+																   required />
+													<span class="help-block text-danger"
+														  ng-show="formSenha.novasenha.$dirty && formSenha.novasenha.$error.required">Vamos precisar de sua senha nova</span>
+                                        			<span class="help-block text-danger"
+														  ng-show="formSenha.novasenha.$dirty && formSenha.novasenha.$error.minlength">Para aumentar a segurança, que tal usarmos pelo menos 6 caracteres?</span>
+														</div>
+													</div>
+													<div class="row espacamento">
+														<div class="col-md-6">
+															<label for="confirmar-senha">Confirmar senha</label>
+															<input type="password"
+																   name="confirmanovasenha"
+																   class="form-control"
+																   ng-model="cliente.confirmanovasenha"
+																   placeholder="Confirmar senha"
+																   ng-match="cliente.novasenha"
+																   required />
+													<span class="help-block text-danger"
+														  ng-show="!formSenha.confirmanovasenha.$error.required && formSenha.confirmanovasenha.$error.match && formSenha.confirmanovasenha.$dirty">Vamos precisar que confirme sua senha nova</span>
+														</div>
+													</div>
+
+													<button type="submit"
+															class="btn btn-mark"
+															ng-click="updatepassword()"
+															ng-disabled="status.loading_password || formSenha.$invalid"
+															ng-switch="status.loading_password">
+														<span ng-switch-default>Alterar</span>
+		                                                <span ng-switch-when="true">Aguarde...</span>
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- end mudar senha -->
+						</div>
+						<div class="tab-pane fade tab-panel" 
+							id="tab3"
+							ng-class="{'in active':tab=='agendamentos' || tab==undefined}">
+
+							<div ng-if="success_promise">
+					            <section class="mensagem">
+					                <i class="fa fa-check-circle fa-2x"></i>
+					                <div class="alert mensagem-fa-icon-sucesso"
+					                    ng-bind="success_promise">
+					                </div>
+					            </section>
+					        </div>
+
+					        <div ng-if="error_promise">
+					            <section class="mensagem">
+					                <i class="fa fa-ban fa-2x error"></i>
+					                <div class="alert mensagem-fa-icon-error"
+					                    ng-bind="error_promise">
+					                </div>
+					            </section>
+					        </div>
+
+							<div class="loading-box" 
+								ng-if="results.agenda.loading">
+								<p class="text-center">
+									<img src="assets/img/loading.gif"> Processando, aguarde...
+								</p>
+							</div>
+
+							<div class="perfil" 
+								ng-show="!results.agenda.loading">
+
+								<nav class="menu-agendamento">
+									<div class="btn-group btn-group-justified">
+										<a class="btn btn-theme-inverse btn-transparent"
+										   href="javascript:;"
+										   data-rel="#tabscheduled1"
+										   ng-click="schedule(1)"
+										   activetabscheduling>CANCELADOS</a>
+										<a class="btn btn-theme-inverse btn-transparent active"
+										   href="javascript:;"
+										   data-rel="#tabscheduled2"
+										   ng-click="schedule(2)"
+										   activetabscheduling>RECENTES</a>
+										<a class="btn btn-theme-inverse btn-transparent"
+										   href="javascript:;"
+										   data-rel="#tabscheduled3"
+										   ng-click="schedule(3)"
+										   activetabscheduling>ESSA SEMANA</a>
+									</div>
+								</nav>
+
+								<ul class="menu-legenda">
+									<li>
+										<p>Legenda:</p>
+									</li>
+			                        <li>
+			                            <span>
+			                                <i class="fa fa-circle cancelado"></i> Cancelado
+			                            </span>
+			                        </li>
+			                        <li>
+			                            <span>
+			                                <i class="fa fa-circle finalizado"></i> Finalizado
+			                            </span>
+			                        </li>
+			                    </ul>
+
+			                    <ul class="menu-legenda">
+									<li>
+										<p>Ações:</p>
+									</li>
+			                        <li>
+			                            <span>
+			                                <i class="fa fa-calendar"></i> Reagendar serviço
+			                            </span>
+			                        </li>
+			                        <li>
+			                            <span>
+			                                <i class="fa fa-times"></i> Cancelar serviço
+			                            </span>
+			                        </li>
+			                    </ul>
+
+								<div class="tab-content">
+									<div class="tab-pane fade tab-agendamento"
+										 id="tabscheduled1">
+
+										<div class="row item-agendamento"
+											ng-if="!agendamentos.results">
+											<p ng-bind="'Nenhum resultado encontrado'"></p>
+										</div>
+
+										<div class="row item-agendamento"
+											ng-if="agendamentos.results"
+											ng-repeat="agenda in agendamentos.results">
+											<div class="col-md-1">
+												<div class="data" 
+												ng-class="
+												{
+													'datacancelled':agenda.status==5,
+													'dataattended': agenda.status==4 
+												}"> 
+												<h1 class="m-t-0 p-t-5" 
+													ng-bind="agenda.dia"></h1>
+												<span class="text-uppercase"
+													ng-bind="agenda.mes|monthabbr"></span>
+												</div>
+											</div>
+											<div class="back" 
+											ng-class="
+											{
+												'cancelled': agenda.status == '5', 
+												'attended': agenda.status == 4 
+											}">
+												<div class="col-md-3">
+													<strong>Horário</strong>
+													<h3 class="horario m-t-0 m-b-5"
+														ng-bind="agenda.horainicial +' - ' + agenda.horafinal"></h3>
+													<span class="tipo-servico">
+														<strong>Serviço</strong>
+														<span ng-bind="agenda.servico"></span>
+													</span>
+													<span class="tipo-servico">
+														<strong>Profissional</strong>
+														<span ng-bind="agenda.profissional"></span>
+													</span>
+												</div>
+												<div class="col-md-3">
+													<span class="preco">
+														<strong>Valor</strong>
+														<div ng-if="agenda.valorpago">
+															<span 
+																ng-bind="agenda.valorpago|finance:true:2">
+															</span>
+														</div>
+														<div ng-if="!agenda.valorpago">
+															<span 
+																ng-if="agenda.sobconsulta==1"
+																ng-bind="'sob consulta'">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==1" 
+																ng-bind="agenda.valorpromocao|finance:true:2">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==0" 
+																ng-bind="agenda.valor|finance:true:2">
+															</span>
+														</div>
+													</span>
+													<span class="metodo-pagamento">
+														<strong>Método de pagamento</strong> 
+														<span ng-bind="agenda.formapagamento"></span>
+													</span>
+												</div>
+												<div class="col-md-4">
+													<h2><i class="fa fa-map-marker"></i> Localização</h2>
+													<span class="onde">
+														<span ng-bind="agenda.nomefantasia"></span>
+													</span>
+													<span class="endereco" 
+														ng-bind="agenda.logradouro + ',' + (agenda.complemento==null?'':agenda.complemento) + ' ' + agenda.numero"></span>
+													<span class="complemento" 
+														ng-bind="agenda.bairro + ', ' + agenda.cidade + ', ' + agenda.estado + ' ' + (agenda.cep|brCep)">
+													</span>
+													<span class="telefone"
+														ng-bind="agenda.telefonecomercial|brPhoneNumber">
+													</span>
+												</div>
+												<div class="col-md-2">
+													<div ng-hide="agenda.status==4">
+														<a href="/estabelecimento/{{agenda.hashestabelecimento}}/agendamento/{{agenda.hashservico}}/reagendar/{{agenda.hash}}"
+														   class="btn btn-success"
+														   title="Reagendar"
+														   ng-disabled="agenda.status==5">
+															<i class="fa fa-calendar"></i>
+														</a>
+														<button type="button"
+																class="btn btn-danger"
+																title="Cancelar"
+																ng-click="cancel(agenda,1)"
+																ng-disabled="agenda.status==5">
+															<i class="fa fa-times"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div><!-- item agendamento -->
+
+									<div class="tab-pane in fade tab-agendamento active" 
+										id="tabscheduled2">
+
+										<div class="row item-agendamento"
+											ng-if="!agendamentos.results">
+											<p ng-bind="'Nenhum resultado encontrado'"></p>
+										</div>
+
+										<div class="row item-agendamento"
+											ng-if="agendamentos.results"
+											ng-repeat="agenda in agendamentos.results">
+											<div class="col-md-1">
+												<div class="data" 
+												ng-class="
+												{
+													'datacancelled':agenda.status==5,
+													'dataattended': agenda.status==4 
+												}"> 
+												<h1 class="m-t-0 p-t-5" 
+													ng-bind="agenda.dia"></h1>	
+												<span class="text-uppercase"
+													ng-bind="agenda.mes|monthabbr"></span>
+												</div>
+											</div>
+											<div class="back" 
+											ng-class="
+											{
+												'cancelled': agenda.status == '5', 
+												'attended': agenda.status == 4 
+											}">
+												<div class="col-md-3">
+													<strong>Horário</strong>
+													<h3 class="horario m-t-0 m-b-5"
+														ng-bind="agenda.horainicial +' - ' + agenda.horafinal"></h3>
+													<span class="tipo-servico">
+														<strong>Serviço</strong>
+														<span ng-bind="agenda.servico"></span>
+													</span>
+													<span class="tipo-servico">
+														<strong>Profissional</strong>
+														<span ng-bind="agenda.profissional"></span>
+													</span>
+												</div>
+												<div class="col-md-3">
+													<span class="preco">
+														<strong>Valor</strong>
+														<div ng-if="agenda.valorpago">
+															<span 
+																ng-bind="agenda.valorpago|finance:true:2">
+															</span>
+														</div>
+														<div ng-if="!agenda.valorpago">
+															<span 
+																ng-if="agenda.sobconsulta==1"
+																ng-bind="'sob consulta'">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==1" 
+																ng-bind="agenda.valorpromocao|finance:true:2">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==0" 
+																ng-bind="agenda.valor|finance:true:2">
+															</span>
+														</div>
+													</span>
+													<span class="metodo-pagamento">
+														<strong>Método de pagamento</strong> 
+														<span ng-bind="agenda.formapagamento"></span>
+													</span>
+												</div>
+												<div class="col-md-4">
+													<h2><i class="fa fa-map-marker"></i> Localização</h2>
+													<span class="onde">
+														<span ng-bind="agenda.nomefantasia"></span>
+													</span>
+													<span class="endereco" 
+														ng-bind="agenda.logradouro + ',' + (agenda.complemento==null?'':agenda.complemento) + ' ' + agenda.numero"></span>
+													<span class="complemento" 
+														ng-bind="agenda.bairro + ', ' + agenda.cidade + ', ' + agenda.estado + ' ' + (agenda.cep|brCep)">
+													</span>
+													<span class="telefone"
+														ng-bind="agenda.telefonecomercial|brPhoneNumber">
+													</span>
+												</div>
+												<div class="col-md-2">
+													<div ng-hide="agenda.status==4">
+														<a href="/estabelecimento/{{agenda.hashestabelecimento}}/agendamento/{{agenda.hashservico}}/reagendar/{{agenda.hash}}"
+														   class="btn btn-success"
+														   title="Reagendar"
+														   ng-disabled="agenda.status==5">
+															<i class="fa fa-calendar"></i>
+														</a>
+														<button type="button"
+																class="btn btn-danger"
+																title="Cancelar"
+																ng-click="cancel(agenda,2)"
+																ng-disabled="agenda.status==5">
+															<i class="fa fa-times"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+					                        <div class="col-md-6">
+					                          <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="changePaginate(2)" max-size="entryLimit" boundary-links="true" items-per-page="numPerPage" class="pagination-sm" previous-text="Voltar" next-text="Próximo" first-text="Primeiro" last-text="Último">
+					                          </ul>
+					                        </div>
+					                        <div class="col-md-3 col-md-offset-3 m-t-20">
+					                          <span class="pagination-length" ng-bind="'Exibindo ' + agendamentos.results.length + ' de ' + agendamentos.count.results + ' registros'"></span>
+					                        </div>
+					                    </div>
+
+									</div><!-- item agendamento -->
+
+									<div class="tab-pane fade tab-agendamento"
+										 id="tabscheduled3">
+
+										<div class="row item-agendamento"
+											ng-if="!agendamentos.results">
+											<p ng-bind="'Nenhum resultado encontrado'"></p>
+										</div>
+
+										<div class="row item-agendamento"
+											ng-if="agendamentos.results"
+											ng-repeat="agenda in agendamentos.results">
+											<div class="col-md-1">
+												<div class="data" 
+												ng-class="
+												{
+													'datacancelled':agenda.status==5,
+													'dataattended': agenda.status==4 
+												}"> 
+												<h1 class="m-t-0 p-t-5" 
+													ng-bind="agenda.dia"></h1>	
+												<span class="text-uppercase"
+													ng-bind="agenda.mes|monthabbr"></span>
+												</div>
+											</div>
+											<div class="back" 
+											ng-class="
+											{
+												'cancelled': agenda.status == '5', 
+												'attended': agenda.status == 4 
+											}">
+												<div class="col-md-3">
+													<strong>Horário</strong>
+													<h3 class="horario m-t-0 m-b-5"
+														ng-bind="agenda.horainicial +' - ' + agenda.horafinal"></h3>
+													<span class="tipo-servico">
+														<strong>Serviço</strong>
+														<span ng-bind="agenda.servico"></span>
+													</span>
+													<span class="tipo-servico">
+														<strong>Profissional</strong>
+														<span ng-bind="agenda.profissional"></span>
+													</span>
+												</div>
+												<div class="col-md-3">
+													<span class="preco">
+														<strong>Valor</strong>
+														<div ng-if="agenda.valorpago">
+															<span 
+																ng-bind="agenda.valorpago|finance:true:2">
+															</span>
+														</div>
+														<div ng-if="!agenda.valorpago">
+															<span 
+																ng-if="agenda.sobconsulta==1"
+																ng-bind="'sob consulta'">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==1" 
+																ng-bind="agenda.valorpromocao|finance:true:2">
+															</span>
+															<span 
+																ng-if="agenda.sobconsulta==0 && agenda.promocao==0" 
+																ng-bind="agenda.valor|finance:true:2">
+															</span>
+														</div>
+													</span>
+													<span class="metodo-pagamento">
+														<strong>Método de pagamento</strong> 
+														<span ng-bind="agenda.formapagamento"></span>
+													</span>
+												</div>
+												<div class="col-md-4">
+													<h2><i class="fa fa-map-marker"></i> Localização</h2>
+													<span class="onde">
+														<span ng-bind="agenda.nomefantasia"></span>
+													</span>
+													<span class="endereco" 
+														ng-bind="agenda.logradouro + ',' + (agenda.complemento==null?'':agenda.complemento) + ' ' + agenda.numero"></span>
+													<span class="complemento" 
+														ng-bind="agenda.bairro + ', ' + agenda.cidade + ', ' + agenda.estado + ' ' + (agenda.cep|brCep)">
+													</span>
+													<span class="telefone"
+														ng-bind="agenda.telefonecomercial|brPhoneNumber">
+													</span>
+												</div>
+												<div class="col-md-2">
+													<div ng-hide="agenda.status==4">
+														<a href="/estabelecimento/{{agenda.hashestabelecimento}}/agendamento/{{agenda.hashservico}}/reagendar/{{agenda.hash}}"
+														   class="btn btn-success"
+														   title="Reagendar"
+														   ng-disabled="agenda.status==5">
+															<i class="fa fa-calendar"></i>
+														</a>
+														<button type="button"
+																class="btn btn-danger"
+																title="Cancelar"
+																ng-click="cancel(agenda,3)"
+																ng-disabled="agenda.status==5">
+															<i class="fa fa-times"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div><!-- item agendamento -->
+								</div><!-- tab-container -->
+
+							</div>
+							<!-- end agendamento -->
+						</div>
+						<div class="tab-pane fade tab-panel" 
+							id="tab4"
+							ng-class="{'in active':tab=='favoritos' || tab==undefined}">
+
+							<div class="loading-box" 
+								ng-if="results.favorito.loading">
+								<p class="text-center">
+									<img src="assets/img/loading.gif"> Processando, aguarde...
+								</p>
+							</div>
+
+							<div class="row"
+								ng-show="!results.favorito.loading">
+
+								<div class="col-md-12"
+									ng-if="!favoritos.results">
+									<p>Nenhum estabelecimento favoritado</p>
+								</div>
+
+								<div class="col-md-12" 
+									ng-if="favoritos.results"
+									ng-repeat="estabelecimento in favoritos.results">
+									<section class="empresas company">
+										<div class="empresa">
+											<a ng-href="{{estabelecimento.page|link}}/{{estabelecimento.hash}}">
+												<div class="row">
+													<div class="col-md-4 col-sm-4">
+														<img ng-src="{{estabelecimento.imagem}}"
+														alt="{{estabelecimento.nomefantasia}}" 
+                               							border="0">
+													</div>
+													<div class="col-md-8 col-sm-8">
+														<div class="descricao">
+															<h4 ng-bind="estabelecimento.nomefantasia"></h4>
+															<span class="endereco" ng-bind="estabelecimento.logradouro + ',' + (estabelecimento.complemento==null?'':estabelecimento.complemento) + ' ' + estabelecimento.numero"></span>
+                                    						<span class="bairro" ng-bind="estabelecimento.bairro + ', ' + estabelecimento.cidade + ', ' + estabelecimento.estado + ', ' + (estabelecimento.cep|brCep)"></span>
+															<span class="formas-pagamento">
+																<ul>
+																	<li>
+																		<span class="avaliation">
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<=0
+						                                                        }">
+						                                                    </i>
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star': estabelecimento.avaliacao.media>=1,
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<1,
+						                                                        }">
+						                                                    </i>
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star': estabelecimento.avaliacao.media>=2,
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<2,
+						                                                        }">
+						                                                    </i>
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star': estabelecimento.avaliacao.media>=3,
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<3,
+						                                                        }">
+						                                                    </i>
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star': estabelecimento.avaliacao.media>=4,
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<4,
+						                                                        }">
+						                                                    </i>
+						                                                    <i class="fa"
+						                                                        ng-class="{
+						                                                            'fa-star': estabelecimento.avaliacao.media>=5,
+						                                                            'fa-star-o': estabelecimento.avaliacao.media<5,
+						                                                        }">
+						                                                    </i>
+						                                                    <small ng-bind="'(' + estabelecimento.avaliacao.quantidade + ')'"></small>
+						                                                </span>
+																	</li>
+																	<li ng-repeat="pagamento in estabelecimento.pagamento">
+																		<span class="payment"
+																		ng-attr-title="{{pagamento.nome}}">
+																			<i class="fa"
+																				ng-class="pagamento.icone">
+																			</i>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="item">
+																			<i class="fa fa-dollar" 
+																			ng-if="estabelecimento.servico.media>=50"></i>
+																			<i class="fa fa-dollar" ng-if="estabelecimento.servico.media>=100"></i>
+																			<i class="fa fa-dollar" ng-if="estabelecimento.servico.media>=150"></i>
+																			<i class="fa fa-dollar" ng-if="estabelecimento.servico.media>=200"></i>
+																		</span>
+																	</li>
+																	<li ng-if="estabelecimento.promocao>=1">
+																		<span class="promotion">
+																			<i>%</i> PROMOÇÃO
+																		</span>
+																	</li>
+																</ul>
+															</span>
+														</div>
+														<div class="descricao">
+															<p ng-bind="estabelecimento.sobre"></p>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</section>
+								</div>
+
+							</div>
+						</div>
+						<div class="tab-pane fade tab-panel" 
+							id="tab5"
+							ng-class="{'in active':tab=='avaliacoes' || tab==undefined}">
+							<h3>Minhas Avaliações</h3>
+
+							<div class="loading-box" 
+								ng-if="results.avaliacao.loading">
+								<p class="text-center">
+									<img src="assets/img/loading.gif"> Processando, aguarde...
+								</p>
+							</div>
+
+							<div class="row"
+								ng-if="!results.avaliacao.loading">
+
+								<div class="col-md-12"
+									ng-if="!avaliacoes.results">
+									<p>Você não fez avaliações</p>
+								</div>
+
+								<div class="col-md-12">
+									<section id="lista-avaliacao" class="avaliacao-empresa">
+
+										<div class="avaliacao ng-scope"
+											ng-repeat="avaliacao in avaliacoes.results">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>
+														<span class="empresa" 
+															ng-bind="avaliacao.nomefantasia">
+														</span>
+														<span class="data-avaliacao">
+															<i class="fa fa-clock-o"></i>
+															<span ng-bind="avaliacao.data"></span>
+														</span>
+														<span ng-if="avaliacao.status==1" 
+															class="publicado">
+															<i class="fa fa-microphone"></i>
+															<span>publicado</span>
+														</span>
+														<span ng-if="avaliacao.status==2" 
+															class="nao-publicado">
+															<i class="fa fa-microphone-slash"></i>
+															<span>não publicado</span>
+														</span>
+													</h4>
+												</div>
+												<div class="col-md-12">
+													<p class="opniao" 
+														ng-bind="avaliacao.comentario"></p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-2">
+													<span class="avaliation">
+														<i class="fa" ng-class="{
+																'fa-star-o':avaliacao.nota==0
+															}">
+														</i>
+														<i class="fa fa-star" ng-class="{
+																'fa-star':avaliacao.nota==1,
+																'fa-star-o':avaliacao.nota==1,
+															}">
+														</i>
+														<i class="fa fa-star" ng-class="{
+																'fa-star':avaliacao.nota==2,
+																'fa-star-o':avaliacao.nota==2,
+															}">
+														</i>
+														<i class="fa fa-star-o" ng-class="{
+																'fa-star':avaliacao.nota==3,
+																'fa-star-o':avaliacao.nota==3,
+															}">
+														</i>
+														<i class="fa fa-star-o" ng-class="{
+																'fa-star':avaliacao.nota==4,
+																'fa-star-o':avaliacao.nota==4,
+															}">
+														</i>
+														<i class="fa fa-star-o" ng-class="{
+																'fa-star':avaliacao.nota==5,
+																'fa-star-o':avaliacao.nota==5,
+															}">
+														</i>
+													</span>
+												</div>
+											</div>
+										</div>
+										
+									</section>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Footer template -->
+<template-footer></template-footer>
