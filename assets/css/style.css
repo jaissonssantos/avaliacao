@@ -21,11 +21,6 @@ All Contents
 
 /*----- 1. Reset.css -----*/
 
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -2755,6 +2750,7 @@ textarea.form-control:focus {
 
 	.hero-6 .intro h1 {
 		font-size: 42px;
+		font-family: 'Roboto' !important;
 	}
 
 	.hero-7 .intro h1 {
