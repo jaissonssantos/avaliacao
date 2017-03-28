@@ -526,13 +526,13 @@ body {
 .btn-edge {
 	border-radius: 3px;
 	padding: 10px 20px;
-	background: #0060ff;
-	border-color: #0060ff;
+	background: #0090E9;
+	border-color: #0090E9;
 }
 
 .btn-edge:hover, .btn-edge:focus {
-	background: #0060ff;
-	border-color: #0060ff;
+	background: #0090E9;
+	border-color: #0090E9;
 	color: #FFFFFF;
 }
 
@@ -1089,7 +1089,7 @@ input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placehold
 }
 
 .pi-features .pi-feature-inner:hover {
-	border-bottom: 3px solid #0060ff;
+	border-bottom: 3px solid #0090E9;
 }
 
 .pi-features .icon {
@@ -1099,7 +1099,7 @@ input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placehold
 
 .pi-features .icon i {
 	font-size: 42px;
-	color: #0060ff;
+	color: #0090E9;
 }
 
 .pi-features .features-text {
@@ -1548,7 +1548,7 @@ input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placehold
 }
 
 .app-features .feature-single p {
-	font-family: Poppins;
+	font-family: 'Roboto';
 	font-size: 14px;
 	color: #A1A1A1;
 	line-height: 1.4;
@@ -1806,11 +1806,20 @@ input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placehold
 
 .table-left .pricing-details span, .table-right .pricing-details span {
 	display: inline-block;
-	font-family: Poppins;
-	font-size: 28px;
+	font-family: 'Roboto';
+	font-size: 42px;
 	font-weight: 400;
 	color: #808080;
 	margin-bottom: 20px;
+}
+
+.table-left .pricing-details span abbr, .table-right .pricing-details span abbr {
+	display: block;
+	font-family: 'Roboto';
+	font-size: 13px;
+	font-weight: 400;
+	color: #808080;
+	margin-bottom: -15px;
 }
 
 .table-left .pricing-details h2, .table-right .pricing-details h2 {
@@ -1837,8 +1846,8 @@ input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placehold
 
 
 .table-left .pricing-details li, .table-right .pricing-details li {
-	font-family: Poppins;
-	font-size: 14px;
+	font-family: 'Roboto';
+	font-size: 13px;
 	font-weight: 400;
 	color: #505050;
 	line-height: 1.4;
