@@ -360,7 +360,7 @@ body {
 .navbar-default.past-main .navbar-brand {
 	font-size: 21px;
 	color: #444444;
-	padding: 5px 0;
+	padding: 0;
 }
 
 .navbar-default.past-main .navbar-toggle .icon-bar {
