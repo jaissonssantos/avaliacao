@@ -23,34 +23,24 @@ angular.module('app').config(['$routeProvider','$locationProvider',  function($r
           return $ocLazyLoad.load({
             name: 'app',
             files: [
-              // 'assets/css/principal.css', 
-              // 'app/services/destaqueService.js',
-              // 'app/controllers/aplicacao/buscaHomeController.js',
-              // 'app/controllers/aplicacao/destaquesHomeController.js',
-              // 'app/controllers/aplicacao/headerController.js',
-              // 'app/services/clienteService.js'
             ]
           });
         }]
       }
     })
 
-    .when('/cliente', {
-      templateUrl: 'views/cliente.html',
-      title: 'cliente',
-      controller: 'perfilController',
+    .when('/cadastro/estabelecimento', {
+      templateUrl: 'views/estabelecimento.html',
+      title: 'cadastro do estabelecimento',
+      controller: 'adicionarEstabelecimentoController',
       resolve: {
         lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
             name: 'app',
             /*name module(YourModuleApp)*/
             files: [
-              'app/services/clienteService.js', 
-              'app/services/agendamentoService.js', 
-              'app/controllers/cliente/perfilController.js',
-              'app/controllers/aplicacao/buscaHomeController.js',
-              'app/controllers/aplicacao/headerController.js',
-              'assets/css/principal.css'
+              'app/services/estabelecimentoService.js', 
+              'app/controllers/empresa/adicionarEstabelecimentoController.js',
             ]
           });
         }]
