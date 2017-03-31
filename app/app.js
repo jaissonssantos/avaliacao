@@ -40,7 +40,9 @@ angular.module('app').config(['$routeProvider','$locationProvider',  function($r
             /*name module(YourModuleApp)*/
             files: [
               'app/services/estabelecimentoService.js', 
-              'app/controllers/empresa/adicionarEstabelecimentoController.js',
+              'app/services/estadocidadeService.js', 
+              'app/services/cepService.js', 
+              'app/controllers/estabelecimento/adicionarEstabelecimentoController.js',
             ]
           });
         }]

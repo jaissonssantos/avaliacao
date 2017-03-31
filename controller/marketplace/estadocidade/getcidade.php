@@ -9,7 +9,7 @@ $params = json_decode(file_get_contents('php://input'));
 
 try {
     if (isset($params->estado)) {
-        $stmt = $oConexao->prepare('SELECT idcidade, nome FROM cidade WHERE idestado = :estado');
+        $stmt = $oConexao->prepare('SELECT id,nome FROM cidade WHERE idestado = :estado');
         $stmt->bindParam('estado', $params->estado);
         $stmt->execute();
         $cidade = $stmt->fetchAll(PDO::FETCH_OBJ);

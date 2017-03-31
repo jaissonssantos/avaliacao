@@ -172,7 +172,7 @@
 								<div class="form-group">
 									<label for="estado">Estado</label>
 									<div class="select-style">
-										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.idestado as estado.nome for estado in estados"
+										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.id as estado.nome for estado in estados"
 											class="form-control" required>
 											</select>
 									</div>
@@ -185,7 +185,7 @@
 								<div class="form-group">
 									<label for="cidade">Cidade</label>
 									<div class="select-style">
-										<select ng-model="estabelecimento.idcidade" ng-init="loadCidades()" ng-options="cidade.idcidade as cidade.nome for cidade in cidades"
+										<select ng-model="estabelecimento.idcidade" ng-init="loadCidades()" ng-options="cidade.id as cidade.nome for cidade in cidades"
 											class="form-control" required>
 											</select>
 									</div>

@@ -1,27 +1,15 @@
 <?php
 
+use Base\Controller;
+
 require_once 'controller.class.php';
 require_once '../conn/conexao.class.php';
-require_once '../utils/functions.php';
-require_once '../utils/Facebook/autoload.php';
-require_once '../utils/zenvia/Zenvia.php';
+require_once '../vendor/functions.php';
+require_once '../vendor/Facebook/autoload.php';
+require_once '../vendor/zenvia/Zenvia.php';
 require_once 'ApiController.php';
 require_once 'Exceptions/NotFoundException.php';
-require_once '../vendor/autoload.php';
 $routes = require_once 'routes.php';
-
-$s3 = new \Aws\S3\S3Client([
-		'version' => 'latest',
-		'region'  => 'us-east-1',
-		'endpoint' => STORAGE_HOST,
-		'credentials' => [
-			'key'    => STORAGE_KEY,
-			'secret' => STORAGE_SECRET,
-		],
-]);
-$s3->registerStreamWrapper();
-
-use Base\Controller;
 
 $pathController = $_GET['path_controller'];
 
