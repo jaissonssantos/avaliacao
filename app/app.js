@@ -43,6 +43,7 @@ angular.module('app').config(['$routeProvider','$locationProvider',  function($r
               'app/services/estadocidadeService.js', 
               'app/services/cepService.js', 
               'app/controllers/estabelecimento/adicionarEstabelecimentoController.js',
+              'assets/css/estabelecimento.css', 
             ]
           });
         }]

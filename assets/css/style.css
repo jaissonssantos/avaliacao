@@ -47,7 +47,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	/*line-height: 1;*/
 }
 ol, ul {
 	list-style: none;
@@ -101,16 +101,6 @@ body {
 	display: none;
 }
 */
-
-::-moz-selection {
-    color: #1106CC;
-    background: #FFFFFF;
-}
-
-::selection {
-    color: #1106CC;
-    background: #FFFFFF;
-}
 
 .nopadding {
 	padding: 0;
@@ -168,6 +158,20 @@ body {
 	left: 2%;
 	top: 2%;
 	z-index: 11;
+}
+
+.voltar {
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 40px;
+    z-index: 200;
+    background: url(/assets/icons/voltar.svg) no-repeat center center;
+    background-size: contain;
+    margin: 10px;
+    text-indent: -999px;
+    overflow: hidden;
+    outline: none
 }
 
 /* ------ Navbar Styling Starts ----- */

@@ -47,7 +47,7 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 
 	$rootScope.$on('estados', function(event, estados) {
     	$scope.estados = estados;
-		$scope.estabelecimento.idestado = estados[0].idestado;
+		$scope.estabelecimento.idestado = estados[0].id;
 		estadocidadeService.loadCidades(estados[0].idestado);
   	});
 
