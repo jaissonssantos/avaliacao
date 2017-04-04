@@ -22,12 +22,12 @@
 					<p>Parte 1 - Dados do Administrador</p>
 					<form name="formCadastroEstabelecimento" role="form" class="form-signin" novalidate>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
 										name="nome" 
-										ng-model="estabelecimento.nome" 
+										ng-model="estabelecimento.usuario.nome" 
 										placeholder="Nome" 
 										type="text"
 										required>
@@ -37,12 +37,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
 										name="nomeAdmin" 
-										ng-model="estabelecimento.sobrenome" 
+										ng-model="estabelecimento.usuario.sobrenome" 
 										placeholder="Sobrenome" 
 										type="text">
 										<div class="input-group-addon">
@@ -56,22 +56,31 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="email" ng-model="estabelecimento.email" ng-change="checkEmail()" ng-model-options="{ debounce: 500 }"
-										id="email" placeholder="E-mail" 
+										<input class="form-control" 
 										type="email"
+										name="email" 
+										ng-model="estabelecimento.usuario.email" 
+										ng-change="checkEmail()" 
+										ng-model-options="{ debounce: 500 }"
+										placeholder="E-mail" 
 										required>
 										<div class="input-group-addon">
-											<i class="fa fa-envelope-o"></i>
+											<i ng-class="{
+												'fa fa-check text-success' : email.notfound && formCadastroEstabelecimento.email.$valid,
+												'fa fa-times text-danger' : email.found || (formCadastroEstabelecimento.email.$touched && formCadastroEstabelecimento.email.$invalid),
+												'fa fa-spinner fa-spin' : email.loading,
+												'fa fa-envelope-o' : email
+											}"></i>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="senha" ng-model="estabelecimento.senha" id="senha" placeholder="Senha" 
+										<input class="form-control" name="senha" ng-model="estabelecimento.usuario.senha" id="senha" placeholder="Senha" 
 										type="password"
 										required>
 										<div class="input-group-addon">
@@ -80,10 +89,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.confirmaSenha" id="confirmar-senha" placeholder="Confirmar senha"
+										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.usuario.confirmaSenha" id="confirmar-senha" placeholder="Confirmar senha"
 										type="password"
 										required>
 										<div class="input-group-addon">
@@ -147,6 +156,7 @@
 									<div class="select-style">
 										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.id as estado.nome for estado in estados"
 											class="form-control" required>
+												<option value="" disabled selected>Estado</option>
 											</select>
 									</div>
 								</div>
@@ -154,11 +164,12 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div class="select-style">
-										<select ng-model="estabelecimento.idcidade" ng-init="loadCidades()" ng-options="cidade.id as cidade.nome for cidade in cidades"
+										<select ng-model="estabelecimento.idcidade" ng-options="cidade.id as cidade.nome for cidade in cidades"
 											class="form-control" required>
+											<option value="" disabled selected>Cidade</option>
 											</select>
 									</div>
 								</div>
@@ -166,7 +177,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text" required>
+										<input class="form-control" ng-model="estabelecimento.endereco" id="endereco" placeholder="Av. Brasil, 1000" type="text" required>
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -178,7 +189,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.endereco" id="endereco" placeholder="Av. Brasil, 1000" type="text" required>
+										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text" required>
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -212,9 +223,9 @@
 						<div class="row">
 							<div class="col-md-12 text-center">
 								<button ng-click="step = 1" 
-								class="btn btn-avalia-middle">Voltar</button>
+								class="btn btn-avalia-middle-left">VOLTAR</button>
 								<button ng-click="save()" ng-disabled="formCadastroEstabelecimentoAdmin.$invalid" 
-								class="btn-success btn btn-avalia-middle">CADASTRAR</button>
+								class="btn-success btn btn-avalia-middle-right">CADASTRAR</button>
 							</div>
 						</div>
 					</form>

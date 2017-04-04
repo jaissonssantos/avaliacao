@@ -10,7 +10,7 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'avaliacao');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
-define('SALT', 'h&p*wm=zo!'); //nunca mudar(salt padrão)
+define('SALT', 'x&$29#*s=!1bm'); //nunca mudar(salt padrão)
 
 //definindo as URLs padrões do sistema e site
 define('URL_APP', 'https://avalia.me');

@@ -16,8 +16,17 @@
     height: 100%;
     background-color: rgba(0,0,0,0.5);
 }
-.btn-avalia-middle{
-    width: 50%; 
+.btn-avalia-middle-left{
+    float: left;
+    width: 48.5%; 
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.btn-avalia-middle-right{
+    float: right;
+    width: 48.5%; 
     font-family: Roboto, sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -32,9 +41,6 @@
 }
 .form-control{
     font-family: Roboto, sans-serif;
-}
-.register2{
-    top: 20px !important;
 }
 .register-company{
     background-color: #fff;

@@ -4,32 +4,31 @@ use Utils\Conexao;
 
 header('Content-type: application/json');
 $oConexao = Conexao::getInstance();
-$estabelecimento = json_decode(file_get_contents('php://input'));
+$params = json_decode(file_get_contents('php://input'));
 $response = new stdClass();
 setlocale(LC_ALL, 'pt_BR.UTF8');
 
 try {
     if (!isset(
-        $estabelecimento->nomefantasia,
-        $estabelecimento->idsegmento,
-        $estabelecimento->email, 
-        $estabelecimento->telefonecomercial,
-        $estabelecimento->cep,
-        $estabelecimento->logradouro,
-        $estabelecimento->numero,
-        //$estabelecimento->complemento,
-        $estabelecimento->bairro,
-        $estabelecimento->idestado,
-        $estabelecimento->idcidade
+        $params->nomefantasia,
+        $params->idsegmento,
+        $params->email, 
+        $params->telefonecomercial,
+        $params->cep,
+        $params->logradouro,
+        $params->numero,
+        $params->bairro,
+        $params->idestado,
+        $params->idcidade
     )) {
         throw new Exception('Verifique os dados preenchidos', 400);
     }
-    if(!isset($estabelecimento->complemento)){
-     $estabelecimento->complemento = null;
+    if(!isset($params->complemento)){
+     $params->complemento = null;
     }
 
     // Gerar url (hash) do estabelecimento
-    $estabelecimento->hash = friendlyURL($estabelecimento->nomefantasia);
+    $params->hash = friendlyURL($params->nomefantasia);
     $loops = 0;
     $findHash = true;
 
@@ -37,9 +36,9 @@ try {
 
     $stmt = $oConexao->prepare('SELECT hash FROM estabelecimento WHERE hash = ? LIMIT 1');
     while($findHash){
-        $stmt->execute(array($estabelecimento->hash));
+        $stmt->execute(array($params->hash));
         $findHash = $stmt->fetchObject();
-        if($findHash) $estabelecimento->hash = $estabelecimento->hash . '-'. $loops . rand(0,9999);
+        if($findHash) $estabelecimento->hash = $params->hash . '-'. $loops . rand(0,9999);
         if($loops > 20) {
             throw new Exception('Tente usar um nome fantasia diferente', 500);
         }
@@ -51,23 +50,23 @@ try {
                  numero,complemento,bairro,idestado,idcidade,datacadastro
                 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,now())');
     $stmt->execute(array(
-        $estabelecimento->hash,
-        $estabelecimento->nomefantasia,
-        $estabelecimento->idsegmento,
-        $estabelecimento->email, 
-        $estabelecimento->telefonecomercial,
-        $estabelecimento->cep,
-        $estabelecimento->logradouro,
-        $estabelecimento->numero,
-        $estabelecimento->complemento,
-        $estabelecimento->bairro,
-        $estabelecimento->idestado,
-        $estabelecimento->idcidade
+        $params->hash,
+        $params->nomefantasia,
+        $params->idsegmento,
+        $params->email, 
+        $params->telefonecomercial,
+        $params->cep,
+        $params->logradouro,
+        $params->numero,
+        $params->complemento,
+        $params->bairro,
+        $params->idestado,
+        $params->idcidade
     ));    
 
-    $estabelecimento->senha = sha1(SALT.$estabelecimento->senha);
-    $estabelecimento->perfil = 1;
-    $estabelecimento->master = 1;
+    $params->senha = sha1(SALT.$estabelecimento->senha);
+    $params->perfil = 1;
+    $params->master = 1;
     $estabelecimento_id = $oConexao->lastInsertId();
 
     // Cadastro do usuário

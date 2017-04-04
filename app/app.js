@@ -5,7 +5,8 @@ window.app = angular.module('app', [
   'ngResource',
   'ngRoute',
   'ui.bootstrap',
-  'oc.lazyLoad'
+  'oc.lazyLoad',
+  'ui.utils.masks'
 ]);
 
 /* configuration and routs */
@@ -42,6 +43,7 @@ angular.module('app').config(['$routeProvider','$locationProvider',  function($r
               'app/services/estabelecimentoService.js', 
               'app/services/estadocidadeService.js', 
               'app/services/cepService.js', 
+              'app/services/usuarioService.js',
               'app/controllers/estabelecimento/adicionarEstabelecimentoController.js',
               'assets/css/estabelecimento.css', 
             ]

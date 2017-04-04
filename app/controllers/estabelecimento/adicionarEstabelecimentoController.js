@@ -1,7 +1,7 @@
 
 angular.module('app').controller('adicionarEstabelecimentoController', 
-['$location','$rootScope', '$scope', 'estabelecimentoService', 'estadocidadeService', 'cepService',
-function($location, $scope, $rootScope, estabelecimentoService, estadocidadeService, cepService){
+['$location','$rootScope', '$scope', 'estabelecimentoService', 'estadocidadeService', 'cepService', 'usuarioService',
+function($location, $scope, $rootScope, estabelecimentoService, estadocidadeService, cepService, usuarioService){
 
 	$scope.estabelecimento = $scope.email = $scope.cnpjcpf = {};
 
@@ -12,7 +12,8 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 	      error: (status == 'error')
 	    };
 		if($scope.status.success){
-			document.location = '/plataforma/dashboard';
+			// document.location = '/plataforma/dashboard';
+			console.log('cadastro efetuado com sucesso.');
 		}
   	});
 
@@ -24,21 +25,21 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 	    };
 	});
 
-	// $rootScope.$on('estabelecimento:email', function(event, status) {
-	//     $scope.email = {
-	//       found: (status == "found"),
-	//       notfound: (status == "notfound"),
-	// 			loading: (status === "loading")
-	//     };
-	// });
-
-	$rootScope.$on('endereco:cep', function(event, status) {
-	    $scope.endereco = {
-	      loading: (status == 'loading'),
-	      loaded: (status == 'loaded'),
-	      error: (status == 'error')
+	$rootScope.$on('usuario:email', function(event, status) {
+	    $scope.email = {
+	      found: (status == "found"),
+	      notfound: (status == "notfound"),
+				loading: (status === "loading")
 	    };
 	});
+
+	// $rootScope.$on('endereco:cep', function(event, status) {
+	//     $scope.endereco = {
+	//       loading: (status == 'loading'),
+	//       loaded: (status == 'loaded'),
+	//       error: (status == 'error')
+	//     };
+	// });
 
 	// $rootScope.$on('planos', function(event, planos) {
 	//     $scope.planos = planos;
@@ -48,7 +49,8 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 	$rootScope.$on('estados', function(event, estados) {
     	$scope.estados = estados;
 		$scope.estabelecimento.idestado = estados[0].id;
-		estadocidadeService.loadCidades(estados[0].idestado);
+		if($scope.estabelecimento.idestado)
+			estadocidadeService.loadCidades($scope.estabelecimento.idestado);
   	});
 
 	$rootScope.$on('cidades', function(event, cidades) {
@@ -71,9 +73,6 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
   	};
 
 	$scope.loadCidades = function(){
-		if(!$scope.estabelecimento.idestado){
-			return
-		}
 		estadocidadeService.loadCidades($scope.estabelecimento.idestado);
 	};
 
@@ -81,12 +80,8 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 		estadocidadeService.loadEstados();
 	};
 
-	$scope.checkCnpjcpf = function() {
-		estabelecimentoService.checkCnpjcpf($scope.estabelecimento.cnpjcpf);
+	$scope.checkEmail = function() {
+		usuarioService.checkEmail($scope.estabelecimento.usuario.email);
 	};
-
-	// $scope.checkEmail = function() {
-	// 	estabelecimentoService.checkEmail($scope.estabelecimento.email);
-	// };
 
 }]);

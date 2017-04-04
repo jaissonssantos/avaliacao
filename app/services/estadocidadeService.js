@@ -5,14 +5,14 @@ angular.module('app').service('estadocidadeService', ['$rootScope', '$http', fun
   this.loadEstados = function(){
     $http.get('/controller/marketplace/estadocidade/getestado')
     .then(function(response){
-        $rootScope.$broadcast("estados", response.data);
+        $rootScope.$broadcast("estados", response.data.results);
     });
   };
 
   this.loadCidades = function(estado){
     $http.post('/controller/marketplace/estadocidade/getcidade', {estado: estado})
     .then(function(response){
-        $rootScope.$broadcast("cidades", response.data);
+        $rootScope.$broadcast("cidades", response.data.results);
     });
   };
 

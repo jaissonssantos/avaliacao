@@ -47,7 +47,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	/*line-height: 1;*/
+	line-height: 1;
 }
 ol, ul {
 	list-style: none;
@@ -2354,7 +2354,7 @@ label {
 }
 
 .form-control:focus {
-  border-color: #D94432;
+  border-color: #ccc;
 	background: #F1F1F1;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
