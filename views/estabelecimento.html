@@ -44,7 +44,8 @@
 										name="nomeAdmin" 
 										ng-model="estabelecimento.usuario.sobrenome" 
 										placeholder="Sobrenome" 
-										type="text">
+										type="text"
+										required>
 										<div class="input-group-addon">
 											<i class="fa fa-user-o"></i>
 										</div>
@@ -92,7 +93,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.usuario.confirmaSenha" id="confirmar-senha" placeholder="Confirmar senha"
+										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.usuario.confirmasenha" id="confirmar-senha" placeholder="Confirmar senha"
 										type="password"
 										required>
 										<div class="input-group-addon">
@@ -104,7 +105,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || estabelecimento.senha != estabelecimento.confirmaSenha" class="btn-success btn btn-avalia-lg">CONTINUAR</button>
+								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || estabelecimento.senha != estabelecimento.confirmasenha" class="btn-success btn btn-avalia-lg">CONTINUAR</button>
 							</div>
 						</div>
 					</form>
@@ -126,6 +127,21 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="input-group">
+										<input class="form-control" ng-model="estabelecimento.cpfcnpj" 
+										id="cnpj" 
+										placeholder="CPF/CNPJ" 
+										ui-br-cpfcnpj-mask required>
+										<div class="input-group-addon">
+											<i class="fa fa-building-o"></i>
+										</div>
+									</div>
+								</div>
+							</div>						
 						</div>
 						<div class="row">
 							<div class="col-md-12">

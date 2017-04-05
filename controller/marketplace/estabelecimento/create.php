@@ -10,14 +10,18 @@ setlocale(LC_ALL, 'pt_BR.UTF8');
 
 try {
     if (!isset(
+        $params->usuario->nome,
+        $params->usuario->sobrenome,
+        $params->usuario->email, 
+        $params->usuario->senha,
         $params->nomefantasia,
-        $params->idsegmento,
-        $params->email, 
-        $params->telefonecomercial,
+        $params->cpfcnpj,
+        $params->telefone,
         $params->cep,
-        $params->logradouro,
-        $params->numero,
+        $params->endereco,
         $params->bairro,
+        $params->numero,
+        $params->complemento,
         $params->idestado,
         $params->idcidade
     )) {
@@ -46,40 +50,36 @@ try {
     }
 
     $stmt = $oConexao->prepare('INSERT INTO
-                 estabelecimento(hash,nomefantasia,idsegmento,email,telefonecomercial,cep,logradouro,
-                 numero,complemento,bairro,idestado,idcidade,datacadastro
-                ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,now())');
+                 estabelecimento(hash,nomefantasia,cpfcnpj,telefone,cep,endereco,
+                 numero,complemento,bairro,idcidade,created_at,updated_at
+                ) VALUES (?,?,?,?,?,?,?,?,?,now(),now())');
     $stmt->execute(array(
         $params->hash,
         $params->nomefantasia,
-        $params->idsegmento,
-        $params->email, 
-        $params->telefonecomercial,
+        $params->cpfcnpj, 
+        $params->telefone,
         $params->cep,
-        $params->logradouro,
+        $params->endereco,
         $params->numero,
         $params->complemento,
         $params->bairro,
-        $params->idestado,
         $params->idcidade
     ));    
 
-    $params->senha = sha1(SALT.$estabelecimento->senha);
-    $params->perfil = 1;
-    $params->master = 1;
+    $params->usuario->senha = sha1(SALT.$params->usuario->senha);
+    $params->usuario->perfil = 1;
     $estabelecimento_id = $oConexao->lastInsertId();
 
-    // Cadastro do usuário
+    // Cadastro do usuário - 1 - Usuário comum | 2 - Gestor
     $stmt = $oConexao->prepare('INSERT INTO
-                 usuario(nome,login,email,senha,perfil,master,idestabelecimento
-                ) VALUES (?,?,?,?,?,?,?)');
+                 usuario(nome,sobrenome,email,senha,perfil,idestabelecimento
+                ) VALUES (?,?,?,?,?,?)');
     $stmt->execute(array(
-        $estabelecimento->nomeAdmin,
-        $estabelecimento->email,
-        $estabelecimento->email, 
-        $estabelecimento->senha,
-        $estabelecimento->perfil,
-        $estabelecimento->master,
+        $params->usuario->nome,
+        $params->usuario->sobrenome,
+        $params->usuario->email, 
+        $params->usuario->senha,
+        $params->usuario->perfil,
         $estabelecimento_id
     ));
 
@@ -88,27 +88,25 @@ try {
     // Permissões do Usuário Gestor
     $stmt = $oConexao->prepare(
     'INSERT INTO usuario_permissao(
-            idusuario,roles
+            idusuario,regra
         ) VALUES (
-            :idusuario,:roles
+            :idusuario,:regra
         )');
     $usuario_permissao = array('idusuario' => $usuario_id);
-    $roles = array(
-        '/dashboard', '/agenda', '/clientes', '/servicos', '/profissionais',
-        '/usuarios', '/site', '/configuracoes', '/relatorio', '/pagamento-do-plano', '/404',
+    $regras = array(
+        '/dashboard', '/questionarios', '/estabelecimento', '/usuarios', '/relatorio', '/plano', '/404',
     );
     foreach ($roles as $role) {
-        $usuario_permissao['roles'] = $role;
+        $usuario_permissao['regra'] = $regras;
         $stmt->execute($usuario_permissao);
     }
 
-    $_SESSION['ang_plataforma_uid'] = $usuario_id;
-    $_SESSION['ang_plataforma_nome'] = $estabelecimento->nomeAdmin;
-    $_SESSION['ang_plataforma_login'] = $estabelecimento->email;
-    $_SESSION['ang_plataforma_email'] = $estabelecimento->email;
-    $_SESSION['ang_plataforma_estabelecimento'] = $estabelecimento_id;
-    $_SESSION['ang_plataforma_perfil'] = $estabelecimento->perfil;
-    $_SESSION['ang_plataforma_plano'] = 0;
+    $_SESSION['ang_avaliame_uid'] = $usuario_id;
+    $_SESSION['ang_avaliame_nome'] = $params->usuario->nome;
+    $_SESSION['ang_avaliame_sobrenome'] = $params->usuario->sobrenome;
+    $_SESSION['ang_avaliame_email'] = $params->usuario->email;
+    $_SESSION['ang_avaliame_perfil'] = $params->usuario->perfil
+    $_SESSION['ang_avaliame_estabelecimento'] = $estabelecimento_id;
 
     $oConexao->commit();
 

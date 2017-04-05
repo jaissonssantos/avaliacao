@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Base de Dados: avaliacao
-# Tempo de Geração: 2017-04-04 22:10:40 +0000
+# Tempo de Geração: 2017-04-05 17:01:02 +0000
 # ************************************************************
 
 
@@ -9785,7 +9785,7 @@ CREATE TABLE `estabelecimento` (
   `id` int(11) NOT NULL,
   `hash` varchar(200) NOT NULL DEFAULT '',
   `nomefantasia` varchar(160) DEFAULT NULL,
-  `cnpj` varchar(20) NOT NULL,
+  `cpfcnpj` varchar(20) NOT NULL DEFAULT '',
   `telefone` varchar(14) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `endereco` varchar(60) DEFAULT NULL,
@@ -9793,8 +9793,10 @@ CREATE TABLE `estabelecimento` (
   `complemento` varchar(40) DEFAULT NULL,
   `bairro` varchar(40) DEFAULT NULL,
   `idcidade` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
+  UNIQUE KEY `cnpj_UNIQUE` (`cpfcnpj`),
   KEY `fk_estabelecimento_cidade1_idx` (`idcidade`),
   CONSTRAINT `fk_estabelecimento_cidade1` FOREIGN KEY (`idcidade`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
