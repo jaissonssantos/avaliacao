@@ -1,0 +1,70 @@
+<md-header></md-header>
+
+<div id="base" ng-init="load()">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-account-child" style="font-size: 24px;height: 35px;"></i>  <a href="/gestor/categorias/">Categoria</a></li>
+          <li class="active">Nova categoria</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card">
+
+            <div class="card-body">
+              <form name="$root.categoriaForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                  <div class="col-md-9">
+                      <input type="text"
+                              ng-model="categoria.nome"
+                              name="nome"
+                              class="form-control"
+                              required >
+                      <span
+                        ng-if="categoriaForm.nome.$touched && categoriaForm.nome.$dirty"
+                        class="input-dirty-touched">
+                        <i ng-class="categoriaForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-click="update()" ng-if="categoria.id != undefined"
+                          ng-disabled="categoriaForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+                    <button ng-click="save()" ng-if="categoria.id == undefined"
+                          ng-disabled="categoriaForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <a href="/gestor/categorias/">Cancelar</a>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+    </section>
+  </div>
+  <md-sidebar></md-sidebar>
+  <md-aside></md-aside>
+</div>

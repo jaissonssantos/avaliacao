@@ -1,0 +1,174 @@
+
+<md-header></md-header>
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-account-circle" style="font-size: 24px;height: 35px;"></i> <a href="/gestor/usuarios/">Usuários</a></li>
+          <li class="active">Novo Usuário</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card">
+            <div class="card-body">
+              <form name="$root.usuarioForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Nome</label>
+                  <div class="col-md-9">
+                    <input type="text" ng-model="usuario.nome" name="nome" required class="form-control">
+                    <span ng-if="usuarioForm.nome.$touched && usuarioForm.nome.$dirty" class="input-dirty-touched">
+                      <i ng-class="usuarioForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Dados de autenticação</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Login</label>
+                  <div class="col-md-6">
+                    <input type="login" ng-model="usuario.login" ng-change="checkLogin()" ng-model-options="{ debounce: 500 }" name="login" required class="form-control">
+                    <span ng-if="usuarioForm.login.$dirty" class="input-dirty-touched">
+                      <i ng-class="{
+                        'fa fa-check text-success' : login.notfound && usuarioForm.login.$valid,
+                        'fa fa-times text-danger' : login.found || (usuarioForm.login.$touched && usuarioForm.login.$invalid),
+                        'fa fa-spinner fa-spin' : login.loading
+                      }"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Email</label>
+                  <div class="col-md-6">
+                    <input type="email" ng-model="usuario.email" ng-change="checkEmail()" ng-model-options="{ debounce: 500 }" name="email" required class="form-control">
+                    <span ng-if="usuarioForm.email.$dirty" class="input-dirty-touched">
+                      <i ng-class="{
+                        'fa fa-check text-success' : email.notfound && usuarioForm.email.$valid,
+                        'fa fa-times text-danger' : email.found || (usuarioForm.email.$touched && usuarioForm.email.$invalid),
+                        'fa fa-spinner fa-spin' : email.loading
+                      }"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Senha</label>
+                  <div class="col-md-4">
+                    <input type="password" ng-model="usuario.senha" name="senha" required class="form-control">
+                    <span ng-if="usuarioForm.senha.$dirty" class="input-dirty-touched">
+                      <i ng-class="usuarioForm.senha.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Confirmar senha</label>
+                  <div class="col-md-4">
+                    <input type="password" ng-model="usuario.confirmarsenha" name="confirmarsenha" required class="form-control">
+                    <span ng-if="usuarioForm.confirmarsenha.$dirty" class="input-dirty-touched">
+                      <i ng-class="usuarioForm.confirmarsenha.$valid && usuario.senha == usuario.confirmarsenha ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Nível de acesso</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Perfil</label>
+                  <div class="col-md-3">
+                    <select ng-model="usuario.perfil"
+                          name="perfil"
+                          class="form-control">
+                              <option value="1">Gestor</option>
+                              <option value="2">Atendente</option>
+                              <option value="3">Profissional</option>
+                    </select>
+                    <span ng-if="usuarioForm.perfil.$touched && usuarioForm.perfil.$dirty" class="input-dirty-touched">
+                      <i ng-class="usuarioForm.perfil.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div ng-if="usuario.perfil == 3 || usuario.perfil == 2" class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Profissional</label>
+                  <div class="col-md-3">
+                       <select
+                        ng-init="loadProfissionais()"
+                        ng-model="usuario.idprofissional"
+                        ng-options="profissional.id as profissional.nome for profissional in profissionais"
+                        class="form-control"
+                        required>
+                      </select>
+                  </div>
+                  <div ng-if="usuario.perfil == 2" class="col-md-3">
+                    <button ng-click="addProfissional(usuario.idprofissional)" class="btn btn-sm btn-primary">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group" ng-if="usuario.perfil == 2 && usuario.profissionais.length">
+                  <div class="col-md-9 col-md-offset-3">
+                    <div class="table-modal">
+                      <table class="table table-striped table-hover no-margin">
+                        <thead>
+                          <tr>
+                            <th width="2%">#</th>
+                            <th width="20%">Profissional</th>
+                            <th width="14.7%"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="profissional in usuario.profissionais">
+                            <td>{{$index+1}}</td>
+                            <td>{{profissional.nome}}</td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" ng-click="delProfissional(profissional.id)">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                    </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button
+                      ng-click="save()"
+                      ng-disabled="usuario.confirmarsenha != usuario.senha || usuarioForm.$invalid || status.loading"
+                      class="btn btn-sm btn-primary">
+                      <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> Salvar
+                    </button>
+
+                    <a href="/gestor/usuarios/">Cancelar</a>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <md-sidebar></md-sidebar>
+
+  <md-aside></md-aside>
+
+</div>

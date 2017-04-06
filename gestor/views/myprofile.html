@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3 class="modal-title">Meu perfil</h3>
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">×</button>
+</div>
+<div class="modal-body card">
+
+	<div ng-if="usuario.isloading" class="row">
+		<div class="col-md-12 text-center">
+	        <i class="fa fa-2x fa-spinner fa-spin"></i>
+	        <p>Aguarde processando...</p>
+		</div>
+	</div>
+
+    <section ng-if="!usuario.isloading">
+		<div class="section-body contain-lg">
+			<div class="row espaco">
+			    <div class="col-sm-12 controls">
+			      <label>Nome</label>
+			      <span class="dados-agendamento ng-binding">{{usuario.nome}}</span>
+			    </div>
+			    <div class="col-sm-6">
+			      <label class="control-label">Login</label><br>
+			      <span class="dados-agendamento ng-binding">{{usuario.login}}</span>
+			    </div>
+			    <div class="col-sm-6">
+			      <label class="control-label">E-mail</label><br>
+			      <span class="dados-agendamento ng-binding">{{usuario.email}}</span>
+			    </div>
+			    <div class="col-sm-6">
+			      	<label class="control-label">Perfil</label><br>
+			      	<span class="dados-agendamento" ng-if="usuario.perfil == 1">Gestor</span>
+		            <span class="dados-agendamento" ng-if="usuario.perfil == 2">Atendente</span>
+		            <span class="dados-agendamento" ng-if="usuario.perfil == 3">Profissional</span>
+			    </div>
+			</div><!-- END-->
+        </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-sm btn-default" type="button" ng-click="cancel()">Fechar</button>
+</div>

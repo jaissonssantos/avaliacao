@@ -1,0 +1,225 @@
+<md-header></md-header>
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content" ng-init="load();">
+
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-settings" style="font-size: 24px;height: 35px;"></i> <a href="configuracoes/">Configurações</a></li>
+          <li>Marketplace</li>
+          <li class="active">Estabelecimento</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div ng-if="success" class="alert alert-success">
+            <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span ng-bind="success"></span>
+          </div>
+
+          <div ng-if="error" class="alert alert-warning">
+            <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span ng-bind="error"></span>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <form name="$root.estabelecimentoForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome fantasia</label>
+                  <div class="col-md-9">
+                     <input ng-model="estabelecimento.nomefantasia"
+                      name="nomefantasia" class="form-control" required />
+                    <span ng-if="estabelecimentoForm.nomefantasia.$touched && estabelecimentoForm.nomefantasia.$dirty" class="input-dirty-touched">
+                      <i ng-class="estabelecimentoForm.nomefantasia.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Sobre</label>
+                  <div class="col-md-9">
+                     <textarea ng-model="estabelecimento.sobre"
+                     rows="5" name="sobre" class="form-control" required></textarea>
+                    <p class="hint-block">Descrição breve sobre o estabelecimento, negócio ou serviços</p>
+                    <span ng-if="estabelecimentoForm.sobre.$touched && estabelecimentoForm.sobre.$dirty" class="input-dirty-touched">
+                      <i ng-class="estabelecimentoForm.sobre.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Imagens</h3>
+
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <p>Para publicar as imagens do estabelecimento, é preciso fornecer no <b>mínimo uma imagem que será definida como principal</b>.</p>
+                    <ul>
+                      <li>JPEG ou PNG de 24 bits (sem Alfa)</li>
+                      <li>Dimensão máxima: 800 pixels por 800 pixels</li>
+                      <li>Tamanho máximo do arquivo: 1.024 KB</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Imagem(principal)</label>
+                  <div class="col-md-6">
+                     <input id="faux" 
+                          type="text" 
+                          placeholder="Selecionar arquivo do meu dispositivo" />
+                      <a href="#" id="browse">Procurar </a>
+                      <div id="wrapper">
+                          <input name="fileone" 
+                            type="file" 
+                            ng-model="estabelecimento.fileone" 
+                            accept="image/*"
+                            ngf-pattern="'.jpg,.jpeg,.png'"
+                            ngf-max-width="800" 
+                            ngf-max-height="800" 
+                            ngf-max-size="1MB" 
+                            ngf-capture="'camera'"
+                            ng-required="estabelecimento.imagem[0].file == undefined && estabelecimento.imagem[0].ordem == 1"
+                            ngf-select
+                            inputfilegetname />
+                      </div>
+                      <span ng-if="estabelecimentoForm.fileone.$error.maxSize" class="input-alert-error">
+                        <li>O tamanho do arquivo selecionado é superior a 1.024 KB</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.fileone.$error.maxHeight" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de altura</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.fileone.$error.maxWidth" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de largura</li>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group" ng-repeat="img in estabelecimento.imagem" ng-if="img.principal == 1 && img.ordem == 1">
+                  <div class="col-md-6 col-md-offset-3">
+                    <img ng-src="../assets/img/empresas/{{img.file}}" class="img-thumbnail img-responsive">
+                  </div>
+                </div>  
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Imagem</label>
+                  <div class="col-md-6">
+                     <input id="faux" type="text" placeholder="Selecionar arquivo do meu dispositivo" />
+                      <a href="#" id="browse">Procurar </a>
+                      <div id="wrapper">
+                          <input name="filetwo" 
+                            type="file" 
+                            ng-model="estabelecimento.filetwo" 
+                            accept="image/*"
+                            ngf-pattern="'.jpg,.jpeg,.png'"
+                            ngf-max-width="800" 
+                            ngf-max-height="800" 
+                            ngf-max-size="1MB" 
+                            ngf-capture="'camera'"
+                            ngf-select
+                            inputfilegetname />
+                      </div>
+                      <span ng-if="estabelecimentoForm.filetwo.$error.maxSize" class="input-alert-error">
+                        <li>O tamanho do arquivo selecionado é superior a 1.024 KB</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.filetwo.$error.maxHeight" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de altura</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.filetwo.$error.maxWidth" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de largura</li>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group" ng-repeat="img in estabelecimento.imagem" ng-if="img.principal == 0 && img.ordem == 2">
+                  <div class="col-md-6 col-md-offset-3">
+                    <img ng-src="../assets/img/empresas/{{img.file}}" class="img-thumbnail img-responsive">
+                    <div class="input-dirty-touched m-t-10">
+                      <button class="btn btn-sm btn-danger" ng-click="delImagem($index, img)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Imagem</label>
+                  <div class="col-md-6">
+                     <input id="faux" type="text" placeholder="Selecionar arquivo do meu dispositivo" />
+                      <a href="#" id="browse">Procurar </a>
+                      <div id="wrapper">
+                          <input name="filethree" 
+                            type="file" 
+                            ng-model="estabelecimento.filethree" 
+                            accept="image/*"
+                            ngf-pattern="'.jpg,.jpeg,.png'"
+                            ngf-max-width="800" 
+                            ngf-max-height="800" 
+                            ngf-max-size="1MB" 
+                            ngf-capture="'camera'"
+                            ngf-select
+                            inputfilegetname />
+                      </div>
+                      <span ng-if="estabelecimentoForm.filethree.$error.maxSize" class="input-alert-error">
+                        <li>O tamanho do arquivo selecionado é superior a 1.024 KB</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.filethree.$error.maxHeight" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de altura</li>
+                      </span>
+                      <span ng-if="estabelecimentoForm.filethree.$error.maxWidth" class="input-alert-error">
+                        <li>A dimensão do arquivo selecionado é superior a 800 pixels de largura</li>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group" ng-repeat="img in estabelecimento.imagem" ng-if="img.principal == 0 && img.ordem == 3">
+                  <div class="col-md-6 col-md-offset-3">
+                    <img ng-src="../assets/img/empresas/{{img.file}}" class="img-thumbnail img-responsive">
+                    <div class="input-dirty-touched m-t-10">
+                      <button class="btn btn-sm btn-danger" ng-click="delImagem($index, img)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button
+                      ng-click="update()"
+                      ng-disabled="estabelecimentoForm.$invalid || status.loading"
+                      ng-class="{disabled: estabelecimentoForm.$invalid}"
+                      class="btn btn-sm btn-primary"
+                      ng-switch="status.loading">
+                      <span ng-switch-default>Salvar</span>
+                      <span ng-switch-when="true">
+                          <i ng-if="status.loading" 
+                          class="fa fa-spin fa-spinner"></i> Salvando...</span>
+                    </button>
+
+                    <a href="configuracoes">Voltar</a>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <md-sidebar></md-sidebar>
+
+  <md-aside></md-aside>
+
+</div>

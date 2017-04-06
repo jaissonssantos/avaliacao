@@ -1,0 +1,530 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: rgb(229, 233, 236) !important;
+	font-family: Roboto, sans-serif !important;
+}
+a {
+  cursor: pointer;
+  outline: none !important;
+}
+/*****************************************
+	Login
+******************************************/
+
+.login { background: url(../img/background/bg3.jpg) no-repeat center center; background-size: cover; height: 100%; }
+	.login .transparencia { position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+.site-logo { background: url(../img/logo.svg) no-repeat center center; background-size: contain; width: 250px; height: 100px; margin: auto; }
+.btn-acessar { background-color: rgb(118, 187, 44); color: rgb(255, 255, 255); }
+	.btn-acessar:hover { background-color: rgba(118, 187, 44, 0.7); color: rgb(255, 255, 255); }
+.nova-conta input { border-color: rgb(57, 126, 172) !important; }
+.voltar { position: absolute; display: block; width: 40px; height: 40px; z-index: 200; background: url(../img/ic-voltar.svg) no-repeat center center; background-size: contain; margin: 10px; text-indent: -999px; overflow: hidden; outline: none; }
+
+.form-signin section { padding: 0; }
+.form-signin .input-group-addon { padding: 6px 12px; }
+.form-signin .help-block { display: block;  text-align: center; width: 100%; font-size: 14px; color: #737373;}
+
+.btn-acessar {
+    background-color: rgb(118, 187, 44) !important;
+    color: rgb(255, 255, 255) !important;
+}
+.esqueceu { color: #337ab7; margin-top: 3px; font-size: 14px; }
+
+/*
+00 -  Account login and lock screen page
+------------------------------------------------------------*/
+.login label{
+  color: #fff;
+  font-size: 12px;
+  font-family: Ubuntu, sans-serif;
+  font-weight: 100;
+}
+.login .checkbox-styled:not(ie8) input ~ span::before, .radio-styled:not(ie8) input ~ span::before{
+  border-color: #fff;
+}
+
+.account-wall {
+  margin: 60px auto 0 auto;
+  padding: 0px 0px 20px 0px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  width: 306px;
+  background-color: #222222;
+  border-radius: 2px;
+}
+.account-wall .account-avatar {
+  min-height: 118px;
+}
+.account-wall .account-avatar img {
+  margin-left: 11px;
+  margin-top: 11px;
+  position: absolute;
+  width: 96px;
+}
+.account-wall .login-title {
+  color: #6f7b8a;
+  display: block;
+  font-size: 26px;
+  font-weight: 300;
+  margin: 20px 0 10px;
+  text-transform: uppercase;
+}
+.account-wall .login-title span {
+  font-weight: 700;
+}
+.account-wall .login-title small {
+  display: block;
+  color: #6f7b8a;
+  font-size: 12px;
+  font-weight: 300;
+  padding-top: 10px;
+  text-transform: capitalize;
+}
+.account-wall .form-signin {
+  margin: 0 auto;
+  max-width: 330px;
+  padding: 15px;
+}
+.account-wall .form-signin .form-signin-heading, .account-wall .form-signin .checkbox, .account-wall .form-signin section {
+  margin-bottom: 10px;
+}
+.account-wall .form-signin .form-control {
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 16px;
+  font-family: Ubuntu, sans-serif;
+  font-weight: 100;
+  height: auto;
+  padding: 10px 20px !important;
+  position: relative;
+  color: #555;
+}
+.account-wall .form-signin .input-group {
+  background-color: #FFF;
+  border-top: 1px #f5f5f5 solid;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: -1px;
+}
+.account-wall .form-signin .input-group:nth-child(2) {
+  margin-bottom: 20px;
+}
+.account-wall .form-signin .input-group-addon {
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+.account-wall .form-signin .input-group-addon i {
+  color: #e1e1e1;
+  margin: auto 5px;
+  text-align: center;
+  width: 18px;
+  padding: 12px 0;
+}
+.account-wall .form-signin .input-group-addon i:after {
+  border-left: 1px #e1e1e1 solid;
+  content: "";
+  height: 50%;
+  margin-left: 15px;
+  position: absolute;
+  top: 25%;
+}
+.account-wall span.or {
+  color: #666666;
+  display: block;
+  font-size: 12px;
+  margin: 20px 10px 25px;
+  position: relative;
+  text-align: center;
+}
+.account-wall span.or:after {
+  background-color: rgb(57, 126, 172);
+  color: rgb(255, 255, 255);
+  content: attr(data-text);
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.account-wall span.or:before {
+  background-color: rgb(57, 126, 172);
+  content: "";
+  height: 1px;
+  left: -10px;
+  right: -10px;
+  position: absolute;
+  top: 50%;
+}
+.account-wall .help {
+  margin-top: 5px;
+}
+.account-wall .footer-link {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+  color: rgb(243, 128, 115);
+}
+
+.btn-mark{
+  font-family: Ubuntu, sans-serif !important;
+  font-weight: 100 !important;
+  font-size: 14px;
+  color: #fff !important;
+  background: transparent;
+  background-color: rgb(243, 128, 115) !important;
+  border: rgb(243, 128, 115);
+  -webkit-transition: 0.1s ease-in;
+  -moz-transition: 0.1s ease-in;
+  -o-transition: 0.1s ease-in;
+  transition: 0.1s ease-in;
+}
+.btn-mark:hover{
+  background-color: #FF553F;
+  border: #FF553F;
+  color: #fff;
+  -webkit-transition: 0.1s ease-in;
+  -moz-transition: 0.1s ease-in;
+  -o-transition: 0.1s ease-in;
+  transition: 0.1s ease-in;
+}
+
+/*****************************************
+	Rodape
+******************************************/
+
+footer { display: block; position: relative; min-height: 100px; margin: 20px 0 0 0; background-color: rgb(255, 255, 255); padding: 10px 20px; }
+	footer .sobre { border-bottom: solid 1px rgba( 0, 0, 0, 0.05 ); }
+		footer .sobre p { font-size: 12px; text-align: left; color: #000; padding: 0; background-color: #fff; }
+	footer .links-agende { list-style: none; margin: 0; padding: 0; display: block; width: 100%; text-align: center; }
+		footer .links-agende li { display: inline-block; padding: 10px; }
+			footer .links-agende li a { color: rgba(0, 0, 0, 0.4); }
+			footer .links-agende li a:hover { color: rgba(0, 0, 0, 0.7); }
+
+@media screen and (max-width: 992px) {
+	footer { min-height: auto; }
+	footer .sobre { display: none; }
+}	
+
+/*****************************************
+	(Loading) Pagina
+******************************************/
+.loader-page-container{ display: block; background: #FFF; width: 100%; min-height: 500px; text-align: center; }
+  .loader-page-container img{ margin-top: 240px; margin-bottom: 15px; top: 50%; }
+
+.loading-box{ position: absolute; display: block; height: 100%; width: 100%; float: left; font-size: 13px; line-height: 46px; opacity: 1; transition: all .2s ease; z-index: 10000; top: 0; background-color: rgba(0, 0, 0, 0.3); margin-left: -15px; margin-top: -1px; }
+  .loading-box p{ color: #777; font-family: Roboto, sans-serif; font-weight: 300; position: absolute; font-size: 16px; width: 100%; height: 45px; text-align: center; bottom: 0; top: 5%; background: #fff; opacity: 1; text-transform: uppercase; transition: all .2s ease; }
+
+/*****************************************
+	Cores do Icones
+******************************************/
+.fa-color-success{ color: rgb(118, 187, 44); }
+
+/*****************************************
+	Alertas
+******************************************/
+.mensagem{ margin-top: 10px; height: auto; overflow: hidden; }
+	.mensagem i{height: auto; background: rgb(55, 162, 70); margin-right: 15px; padding: 13px 15px; float: left; color: #FFF; }
+	.mensagem-fa-icon-sucesso{ background: rgb(61, 180, 78); color: #fff; border-radius: 0; font-size: 16px; }
+	.mensagem-fa-icon-error{ background: rgb(282,67,54); color: #fff; border-radius: 0; font-size: 16px; }
+	.mensagem i.error{background: rgb(245, 57, 61);}
+
+/*****************************************
+	Formulário com validação
+******************************************/
+span.text-danger{ text-transform: lowercase; font-size: 12px !important; color: red !important; font-weight: normal;}
+
+/**********************************************
+  FORMAS DE PAGAMENTO
+***********************************************/
+.forma-pagamento {  }
+  
+  .forma-pagamento label { display: block; width: 100%; text-align: left; text-transform: uppercase; font-size: 12px;  }
+    .forma-pagamento label small { text-transform: lowercase; padding-left: 5px; font-size: 11px; color: red; font-weight: normal; }
+  
+  .forma-pagamento .visa { display: block; background: url(../img/ic-visa.svg) no-repeat center center; background-size: 60px; width: 60px; height: 50px; text-indent: -999px; overflow: hidden; position: relative; cursor: pointer; padding: 10px; } 
+    .forma-pagamento .visa:hover, .forma-pagamento .tipo-boleto:active, .forma-pagamento .tipo-boleto:focus { border: solid 1px rgb(51, 51, 51); background-color: rgb(242, 242, 242); }
+    
+  .forma-pagamento .master { display: block; background: url(../img/ic-master.svg) no-repeat center center; background-size: 60px; width: 60px; height: 50px; text-indent: -999px; overflow: hidden; position: relative; cursor: pointer; padding: 10px; } 
+    .forma-pagamento .master:hover, .forma-pagamento .tipo-boleto:active, .forma-pagamento .tipo-boleto:focus { border: solid 1px rgb(51, 51, 51); background-color: rgb(242, 242, 242); }
+    
+  .forma-pagamento .american { display: block; background: url(../img/ic-american-express.svg) no-repeat center center; background-size: 60px; width: 60px; height: 50px; text-indent: -999px; overflow: hidden; position: relative; cursor: pointer; padding: 10px; } 
+    .forma-pagamento .american:hover, .forma-pagamento .tipo-boleto:active, .forma-pagamento .tipo-boleto:focus { border: solid 1px rgb(51, 51, 51); background-color: rgb(242, 242, 242); }
+  
+  .forma-pagamento .desabilitado { opacity: 0.3; filter: alpha(opacity=30); /* For IE8 and earlier */ }
+  .forma-pagamento .habilitado { opacity: 1; filter: alpha(opacity=100); /* For IE8 and earlier */ }
+  
+  .formas { display: block; margin-top: 10px; }
+  .desconto { display: block; width: 100%; text-align: center; margin-top: 35px !important; }
+
+/*****************************************
+	PÁGINA CLIENTE
+******************************************/
+
+.pagina-cliente { border: solid 1px red; }
+.footer-empresa footer { background-color: #67B0D1; }
+	.footer-empresa footer .page-scroll { text-align: center; }
+	.footer-empresa footer p { text-align: center; color: #fff; font-family: Roboto, sans-serif; }
+
+
+
+/*****************************************
+  Calendario
+******************************************/
+.calendario { border: solid 1px rgb(59, 130, 174); position: relative; margin-top: 10px; height: auto; overflow: hidden; background-color: rgb(255, 255, 255); padding-left: 0; padding-right: 0;     border-radius: 0 0 2px 2px; }
+  .calendario h1 { display: block; width: 100%; text-align: center; padding: 15px 0; margin: 0; font-size: 18px; font-weight: normal; text-transform: uppercase; color: rgb(255, 255, 255); background-color: rgb(59, 130, 174); position: relative; }
+    .calendario h1 span { display: block; position: absolute; width: 50px; height: 100%; color: rgb(255, 255, 255); background-color: rgb(59, 130, 174); top: 0; left: 0; font-size: 20px; padding: 13px 0; }
+      .fase-completa { background: url(../img/ic-check-branco.svg) no-repeat center center rgb(118, 187, 44) !important; background-size: 35px !important; text-indent: -999px; overflow: hidden; }
+
+  .calendario .mes { text-align: center; padding: 15px 0; font-size: 16px; }
+  .calendario .faixa-dias { width: 100%; height: 100px; }
+  .calendario .loading{padding: 15px 0; min-height: 635px}
+  .calendario .loading .loader{margin-top: 50%; top: -150px;}
+    .calendario .faixa-dias .seta { display: block; width: 4%; height: 110px; position: absolute; z-index: 50; transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; -moz-transition: all 0.5s linear; }
+      .calendario .faixa-dias .seta:hover { transition: all 0.5s linear; -o-transition: all 0.5s linear; -webkit-transition: all 0.5s linear; -moz-transition: all 0.5s linear; background-color: rgba(0, 0, 0, 0.02); }
+    .calendario .faixa-dias .seta-esq { left: 0; background: url(../img/seta-esq.svg) no-repeat center center rgba(0, 0, 0, 0.04); background-size: 10px; }
+    .calendario .faixa-dias .seta-dir { right: 0; background: url(../img/seta-dir.svg) no-repeat center center rgba(0, 0, 0, 0.04); background-size: 10px; }
+    .calendario .faixa-dias .dias { list-style: none; margin: 0 4%; padding: 0; position: absolute; z-index: 40; display: block; width: 92%; height: 110px; overflow: hidden; }
+      .calendario .faixa-dias .dias li { display: block; float: left; width: 14.28%; height: 110px; background-color: rgba(0, 0, 0, 0.04); cursor: pointer; border-top: solid 4px rgba(0, 0, 0, 0.07); border-right: solid 1px rgb(255, 255, 255); transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+        .calendario .faixa-dias .dias li:first-child { border-left: solid 1px #fff; }
+        .calendario .faixa-dias .dias li:last-child { border-right: 0; }
+
+      .calendario .faixa-dias .dias li:hover, .calendario .faixa-dias .dias li:focus, .calendario .faixa-dias .dias li:active { border-top: solid 4px #76bb2c; background-color: #fff; transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+      .calendario .faixa-dias .dias li.selecionado, .calendario .faixa-dias .dias li.selecionadosunday, .calendario .faixa-dias .dias li.selecionadonotday { border-top: solid 4px #76bb2c; background-color: #fff; transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+      .calendario .faixa-dias .dias li.desabilitado { background-color: rgba(0, 0, 0, 0.04); border-top: solid 4px rgba(0, 0, 0, 0.07); cursor: no-drop; }
+        .calendario .faixa-dias .dias li.desabilitado .dia, .calendario .faixa-dias .dias li.desabilitado .dia-semana { color: rgba(0, 0, 0, 0.1); }
+      .calendario .faixa-dias .dias li .dia { display: block; font-size: 30px; font-weight: bold; text-align: center; margin-top: 12px; }
+      .calendario .faixa-dias .dias li .dia-semana { display: block; font-size: 16px; text-align: center; }
+
+  .calendario .hora-valor { width: 92%; height: auto; margin: 10px 4% 20px 4%; border-radius: 0 0 2px 2px; padding: 15px 0; }
+    .calendario .hora-valor ul.lista-calendario { list-style: none; margin: 0 5%; padding: 0; background-color: rgb(255, 255, 255); width: 90%; height: 385px; overflow-y: scroll; }
+      .calendario .hora-valor ul.lista-calendario li { border-bottom: solid 1px rgba(0, 0, 0, 0.07); padding: 5px 0 6px 0; overflow: hidden; cursor: pointer; transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+        .calendario .hora-valor ul.lista-calendario li i { display: block; float: left; width: 20px; height: 20px; background: none; margin-right: 10px; transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+        .calendario .hora-valor ul.lista-calendario li:hover i { background: url(../img/ic-check.svg) no-repeat center center; transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+      .calendario .hora-valor ul.lista-calendario li:hover, .calendario .hora-valor ul li:focus { background-color: rgba(118, 187, 44, 0.1); }
+      .calendario .hora-valor ul.lista-calendario li.selecionado { background-color: rgba(118, 187, 44, 0.1); }
+        .calendario .hora-valor ul.lista-calendario li.selecionado i { display: block; float: left; width: 20px; height: 20px; background: url(../img/ic-check.svg) no-repeat center center; margin-right: 10px; }
+
+      .calendario .hora-valor ul.lista-calendario li span { display: block; float: left; width: 50%; padding: 0 20px; }
+      .calendario .hora-valor ul.lista-calendario li span:last-child { text-align: right; }
+
+    .calendario .hora-valor .bt-desabilitado { margin: 0 5%; letter-spacing: 2px; width: 90%; background-color: rgba(0, 0, 0, 0.02); color: rgba(0, 0, 0, 0.1); padding: 15px 0; border: 0; font-size: 14px; cursor: no-drop; }
+    .calendario .hora-valor .bt-continuar { margin: 0 5%; letter-spacing: 2px; width: 90%; background-color: rgb(118, 187, 44); color: rgb(255, 255, 255); padding: 15px 0; border: 0; font-size: 14px; transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+    .calendario .hora-valor .bt-continuar:hover { background-color: rgba(118, 187, 44, 0.9); transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -webkit-transition: all 0.2s linear; }
+
+    .calendario .hora-valor .agendado{ background-color: rgba(118, 187, 44, 0.1); }
+
+
+.text-legend-fontsize13{font-size: 13px !important; line-height: 16px;}
+.text-legend-agendado{color: #1e90ff;}
+.text-legend-agendado-online{color: #0066cc}
+.text-legend-confirmado{color: #ff934c}
+.text-legend-aguardando{color: #ff6000}
+.text-legend-atendido{color: #2e7d27}
+
+.dados-servico { border-radius: 0 0 2px 2px; padding: 0 0 10px 0; margin-top: 10px; display: block; width: 100%; position: relative; background-color: rgb(255, 255, 255);  border: solid 1px rgb(59, 130, 174); }
+
+  .dados-servico div { border-bottom: solid 1px rgba(0, 0, 0, 0.07); padding: 0; overflow: hidden; }
+  .dados-servico div:last-child { border: 0; }
+  .dados-servico .nome-servico { font-family: Calibri, sans-serif; font-size: 20px; display: block; width: 100%; font-weight: bold; }
+  .dados-servico .tempo-servico { font-family: Calibri, sans-serif; font-size: 16px; display: block; width: 100%; font-weight: normal; }
+  .dados-servico .descricao-servico { font-family: Calibri, sans-serif; font-size: 13px; display: block; width: 100%; font-weight: normal; letter-spacing: -0.00099em; color: #999; }
+  .dados-servico .valor-taxado { font-family: Calibri, sans-serif; font-size: 16px !important;
+    display: block !important; width: 0% !important; font-weight: 100 !important; position: relative !important;margin-top: 13px !important; text-decoration: line-through; color: #666; float: left; min-width: 25%; }
+  .dados-servico .valor-servico { font-family: Calibri, sans-serif; font-size: 24px; display: block; width: 100%; font-weight: bold; position: relative; margin-top: 5px; }
+
+  .dados-servico .titulo { display: block; float: left; width: 20%; text-align: left; font-size: 16px; font-family: Calibri, sans-serif; font-weight: bold; }
+  .dados-servico .texto { display: block; float: left; width: 80%; text-align: left; font-size: 16px; font-family: Calibri, sans-serif; font-weight: bold; }
+    .dados-servico .texto select { width: 100%; border: solid 1px rgba(0, 0, 0, 0.07); font-family: Calibri. sans-serif; font-size: 18px; padding: 5px; }
+    .dados-servico .texto a { display: block; position: relative; margin-bottom: 5px; }
+    .dados-servico .texto p { margin-bottom: 5px; font-family: Calibri, sans-serif; font-weight: normal; }
+    .dados-servico .texto img{ width: 40px; height: 40px; float: left; margin-right: 10px;  }
+    .dados-servico .textocompletar{ width: 100%; }
+    .dados-servico .textocompletar span{ width: 80%; float: left; font-size: 12px; color: #666; }
+
+.mais-info { background-color: rgb(255, 255, 255); padding: 15px; margin: 10px 0; -webkit-box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.4); -moz-box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.4); box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.4);  }
+  .mais-info h2 { font-size: 21px; font-family: Calibri, sans-serif; display: block; width: 100%; }
+  .mais-info h3 { font-size: 16px; font-family: Calibri, sans-serif; display: block; width: 100%; }
+  .mais-info ul li { font-size: 16px; font-family: Calibri, sans-serif; padding: 3px 0; }
+    .mais-info ul.passo-passo { list-style: none; margin: 0; padding: 0; }
+      .passo-passo li { text-align: center; }
+        .passo-passo li strong { display: block; width: 100%; font-size: 20px; }
+
+@media screen and (max-width: 992px) {
+  .dados-servico { top: 0; margin-top: 15px; }
+}
+
+/* sala de espera */
+select { border: solid 1px #c2c2c2 !important; border-radius: 2px !important; /* -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2) !important; -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2) !important; box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2) !important; */ }
+.sala-espera { }
+.dados-servico {min-height: 100px;}
+  .dados-servico h2 { display: block; width: 100%; text-align: center; margin: 0 0 20px 0; background-color: rgb(59, 130, 174); color: #fff; font-family: geogrotesque_smbdsemibold,sans-serif; font-size: 18px; text-transform: uppercase; padding: 16px 0;  }
+  .sala-espera div { display: block; width: 100%; text-align: center; font-size: 14px; font-family: geogrotesque_rgregular, sans-serif;  }
+  .sala-espera select { width: 90%; margin: 10px auto 20px auto; font-size: 16px; font-weight: bold; }
+  
+  .dados-servico ul { width: 90%; margin: auto; list-style: decimal-leading-zero; padding: 0; }
+  .dados-servico ul li { font-weight: bold; font-size: 15px; margin-left: 40px; }
+
+.display-n, .display-none{display: none;}
+
+/* configurações de formulário em .card */
+.text-light-gray, .text-light-gray:hover, .text-light-gray:active, .text-light-gray:focus, .text-light-gray a, .text-light-gray a:focus{ color: #bbb; font-size: 17px; margin-top: 9px; margin-bottom: 9px; }
+.card .form-horizontal .hint-block { display: block; margin-top: 5px; margin-bottom: 10px; color: #959595; }
+.card .form-group .input-group-addon{ background: #c2c2c2; padding-right: 10px; }
+.card .form-group > label, .form-group .control-label{opacity: 0.8}
+.card .form-group .form-control{ border: 1px solid rgba(12, 12, 12, 0.12); border-top: 1px solid #c2c2c2; height: 32px; padding: 6px 12px; background: #FFF; line-height: 1.42857143; font-size: 13px; }
+.card .form-group textarea{height: auto !important;}
+.card .form-control[disabled]{ background-color: #eee;opacity: 1; }
+.card .form-horizontal .form-group{ margin-bottom: 15px; }
+.card .form-group .input-alert-error{color: #a94442; width: 100%; margin: 5px 0;}
+.card .form-group .input-dirty-touched{position: absolute; right: 22px; top: 5px; z-index: 99;}
+.card .form-group .filter{padding-left: 0;}
+.card .form-group .filter li{list-style: none; float: left; margin-right: 5px;}
+.card .form-group .filter li a.badge{font-weight: normal; padding: 5px 10px; border-radius: 10px; font-size: 11px; background-color: rgba(12,12,12,0.06)}
+.card .form-group .filter li a.badge:hover{color: #313534; background-color: rgba(12,12,12,0.09)}
+.card label abbr{margin-left: 2px; margin-right: 2px; color: #F44317;}
+.card .panel-wide { margin-left: -24px !important; margin-right: -24px !important; }
+.card .btn-sm{font-size: 13px; text-transform: none;}
+.card .btn-label { display: block; float: left; margin: -6px 12px -6px -11px; padding: 8px 10px; position: relative; background: rgba(0,0,0,0.06); line-height: 15px; border-bottom-left-radius: 2px; border-top-left-radius: 2px; }
+.card .pagination{ margin: 0; }
+.card .pagination-sm li a{ font-size: 11px; }
+.card .pagination-length{ margin: 5px 0; display: block; text-align: right; }
+.card .row-a{ cursor: pointer; }
+.card .action-table .pull-right{margin-left: 15px;}
+.card .card-head > .nav-tabs{ padding: 0;}
+.card.card-underline .card-head .nav-tabs{margin-top: 15px;}
+.card.card-underline .nav > li > a {padding: 15px;}
+.card.card-underline .nav-tabs > li > a:hover{background: transparent; border-bottom: 2px solid #dddddd;}
+.card.card-underline .nav-tabs > li.active > a:hover{border-bottom: 2px solid #0aa89e;}
+.card .nav-tabs > li > a{ text-transform: inherit; }
+.card .nav-tabs > li > a .badge{ top: -0.1em; margin-left: 0.1em; }
+.card .tab-content > .tab-pane{padding: 10px 0;}
+.card #faux, #browse {position:absolute;}
+.card #faux {
+    border: 1px solid rgba(12, 12, 12, 0.12);
+    border-top: 1px solid #c2c2c2;
+    height: 32px;
+    padding: 6px 12px;
+    background: #FFF;
+    line-height: 1.42857143;
+    font-size: 13px;
+    min-width: 90%;
+}
+
+#browse {
+    display : inline-block;
+    background: #c2c2c2;
+    color: #313534;
+    text-decoration: none;
+    line-height: 24px;
+    text-align: center;
+    opacity: 0.9;
+    padding: 4px 12px;
+    height: 32px;
+    left : 88.5%;
+    cursor: pointer;
+}
+#wrapper {
+    opacity: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: 0;
+}
+#wrapper input{
+  height: 32px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/*configurações do botão em modo de envio de arquivo*/
+.fileupload{ margin: 20px 0; }
+.btn-file{ position: relative; background: rgba(0,0,0, 0.6); border: none; padding: 22px 18px; margin-top: 50px; }
+.btn-file:hover{ background: rgba(0,0,0, 0.4); }
+.btn-file h3{ text-shadow: none; margin-top: 12px; color: #FFF; font-weight: 400; }
+.btn-file p{ text-shadow: none; color: #FFF; font-weight: 400;  font-size: 13px; text-transform: none; }
+.btn-file input{display: block;width: 100%;height: 100%;opacity: 0;overflow: hidden;position: absolute;top: 0;left: 0;cursor: pointer;}
+
+/* configurações de formulário no modal */
+.modal .card{ -webkit-box-shadow: none;  box-shadow: none; }
+.modal-header { background-color: #3B82AE; color: #fff; }
+.modal-header .close{margin-top: -30px; margin-right: 10px; }
+.modal .form-horizontal .hint-block { display: block; margin-top: 5px; margin-bottom: 10px; color: #959595; }
+.modal .form-group .input-group-addon{ background: #c2c2c2; padding-right: 10px; }
+.modal .form-group > label, .form-group .control-label{opacity: 0.8}
+.modal .form-group .form-control{ border: 1px solid rgba(12, 12, 12, 0.12); border-top: 1px solid #c2c2c2; height: 32px; padding: 6px 12px; background: #FFF; line-height: 1.42857143; font-size: 13px; }
+.modal .form-group textarea{height: auto !important;}
+.modal .form-control[disabled]{ background-color: #eee;opacity: 1; }
+.modal .form-horizontal .form-group{ margin-bottom: 15px; }
+.modal .form-group .input-dirty-touched{position: absolute; right: 22px; top: 5px; z-index: 99;}
+.modal .table-modal{padding: 5px; background: #F5f5f5; }
+.modal label abbr{margin-left: 2px; margin-right: 2px; color: #F44317;}
+
+/* Utility classes */
+.m-t-0 { margin-top: 0 !important; }
+.m-t-5 { margin-top: 5px !important; }
+.m-t-10 { margin-top: 10px !important; }
+.m-t-15 { margin-top: 15px !important; }
+.m-t-20 { margin-top: 20px !important; }
+
+/*****************************************
+  Modal de Detalhe do Agendamento
+******************************************/
+
+.modal-body label { font-weight: bold; }
+.modal-body fieldset legend { margin-bottom: 10px; border-bottom: solid 1px rgba(0, 0, 0, 0.1); display: block; }
+.modal-body fieldset h2 { text-align: right; }
+  .modal-body fieldset h2 b { background-color: rgba(0, 0, 0, 0.04); padding: 5px 20px; }
+.modal-body fieldset ul { list-style: none; margin: 0; padding: 0 5px; }
+  .modal-body fieldset ul li { padding: 5px; border-bottom: dotted 1px rgba(0, 0, 0, 0.2); }
+  .modal-body fieldset ul li:last-child { border: 0; }
+.dados-agendamento { display: block; padding: 5px; background-color: rgba(0, 0, 0, 0.04); }
+
+.iconContainer svg { overflow: visible !important; }
+footer svg { overflow: visible !important; }
+
+
+/*****************************************
+  Área Administrativa
+******************************************/
+
+.agenda {position: relative;}
+
+.calendario .hora-valor .lista-calendario .valor a {
+    border-radius: 0 !important;
+    display: inline-block;
+    padding: 0 !important;
+    text-align: center !important;
+    z-index: 100 !important;
+    z-index: 100 !important;
+}
+.calendario .hora-valor .lista-calendario .valor a:hover { background: rgba(0, 0, 0, 0.03) !important; }
+
+.calendario .hora-valor .lista-calendario .valor a i { padding: 0 !important; text-align: center; margin: 0 !important; width: 100% !important; background: transparent !important; position: relative; top: -7px; }
+
+/* Modal */
+.help-block { color: red; margin-bottom: 15px; position: initial; }
+.modal .form-group .form-control { margin-bottom: 15px; }
+.modal .autocomplete { position: relative; top: -15px; }
+  .autocomplete ul { list-style: none; margin: 0; padding: 0; }
+    .autocomplete ul li:first-child { border: 0; }
+    .autocomplete ul li { border-bottom: dotted 1px rgba(0, 0, 0, 0.1); }
+    .autocomplete ul li a { font-weight: bold; display: block; width: 100%; background-color: rgba(0, 0, 0, 0.04); padding: 2px 5px; }
+
+	/* Utility classes */
+.m-t-0 { margin-top: 0 !important; }
+.m-t-5 { margin-top: 5px !important; }
+.m-t-10 { margin-top: 10px !important; }
+.m-t-15 { margin-top: 15px !important; }
+.m-t-20 { margin-top: 20px !important; }
+.m-b-0 { margin-bottom: 0px !important; }
+.m-b-20 { margin-bottom: 20px !important; }

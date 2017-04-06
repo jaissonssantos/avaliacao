@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="app">
+<head>
+
+
+    <title>MARKDAY - DASHBOARD</title>
+
+    <!-- BEGIN META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="your,keywords">
+    <meta name="description" content="Short explanation about this website">
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <!-- END META -->
+
+    <base href="/">
+
+    <!-- BEGIN STYLESHEETS -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/materialadmin.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/material-design-iconic-font.min.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/libs/rickshaw/rickshaw.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/libs/morris/morris.core.css" />
+    <link type="text/css" rel="stylesheet" href="/assets/css/theme-default/ng-tags-input.min.css" />
+    <link href="/assets/css/style_gestor.css" rel="stylesheet"/>
+    <!-- END STYLESHEETS -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/assets/js/libs/utils/html5shiv.js?1403934957"></script>
+    <script type="text/javascript" src="/assets/js/libs/utils/respond.min.js?1403934956"></script>
+    <![endif]-->
+
+</head>
+<body class="menubar-hoverable header-fixed" ng-view>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular-route.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular-resource.min.js"></script>
+<script type="text/javascript" src="lib/ui-bootstrap/angular-ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/oclazyload/ocLazyLoad.min.js"></script>
+<script type="text/javascript" src="lib/angular-input-masks/input-mask.js"></script>
+<script type="text/javascript" src="lib/angular-input-masks/angular-br-filters.js"></script>
+<script type="text/javascript" src="lib/ui-mask/mask.min.js"></script>
+<script type="text/javascript" src="lib/angular-upload/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="lib/angular-upload/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="lib/angular-tagsinput/ng-tags-input.min.js"></script>
+
+<script type="text/javascript" src="/gestor/app/app.js"></script>
+<script type="text/javascript" src="/gestor/app/services/aplicacaoService.js"></script>
+<script type="text/javascript" src="/gestor/app/services/loginService.js"></script>
+<script type="text/javascript" src="/gestor/app/services/sessionService.js"></script>
+<script type="text/javascript" src="/gestor/app/services/agendaservices.js"></script>
+<script type="text/javascript" src="/gestor/app/filters/datebrfilter.js"></script>
+<script type="text/javascript" src="/gestor/app/directives/weekdirective.js"></script>
+<script type="text/javascript" src="/gestor/app/directives/paneldirective.js"></script>
+<script type="text/javascript" src="/gestor/app/directives/plataformdirective.js"></script>
+
+<!-- Bootstrap UI -->
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
+<script src="/lib/angular-locale/angular-locale_pt-br.js"></script>
+
+<!-- Moment JS -->
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/moment-with-locales.js"></script>
+<script src="/assets/js/moment-timezone-with-data.js"></script>
+
+<!-- BEGIN JAVASCRIPT -->
+<script src="/assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+<script src="/assets/js/libs/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript">var $jQuery = jQuery.noConflict();</script>
+<script type="text/javascript">var $jq = jQuery.noConflict();</script>
+<script type="text/javascript">var jQuery  = jQuery.noConflict();</script>
+<script src="/assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+
+<!-- DatePicker ADM -->
+<script type="text/javascript" src="/assets/plugins/datepicker-ADM/js/ADM-dateTimePicker.min.js"></script>
+
+<!--
+<script src="/assets/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="/assets/js/libs/spin.js/spin.min.js"></script>
+<script src="/assets/js/libs/autosize/jquery.autosize.min.js"></script>
+<script src="/assets/js/libs/flot/jquery.flot.min.js"></script>
+<script src="/assets/js/libs/flot/jquery.flot.time.min.js"></script>
+<script src="/assets/js/libs/flot/jquery.flot.resize.min.js"></script>
+<script src="/assets/js/libs/flot/jquery.flot.orderBars.js"></script>
+<script src="/assets/js/libs/flot/jquery.flot.pie.js"></script>
+<script src="/assets/js/libs/flot/curvedLines.js"></script>
+<script src="/assets/js/libs/jquery-knob/jquery.knob.min.js"></script>
+<script src="/assets/js/libs/sparkline/jquery.sparkline.min.js"></script> -->
+<!-- <script src="/assets/js/libs/d3/d3.min.js"></script>
+<script src="/assets/js/libs/d3/d3.v3.js"></script>
+<script src="/assets/js/libs/rickshaw/rickshaw.min.js"></script>
+<script src="/assets/js/core/source/App.js"></script>
+<script src="/assets/js/core/source/AppNavigation.js"></script>
+<script src="/assets/js/core/source/AppOffcanvas.js"></script>
+<script type="text/javascript" src="/assets/plugins/datetime/datetime.js"></script>
+<script type="text/javascript" src="/assets/plugins/pluginsForBS/pluginsForBS.js"></script>
+ -->
+
+</body>
+</html>

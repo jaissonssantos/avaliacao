@@ -1,0 +1,107 @@
+<md-header></md-header>
+
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-trending-up" style="font-size: 24px;height: 35px;"></i> <a href="relatorio/">Relatório</a></li>
+          <li class="active">Agendamento/status</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+         
+            <div class="card">
+              <div class="card-body">
+                
+                  <form name="$root.relatorioForm" class="form-horizontal" role="form" novalidate>
+                  <h3 class="text-light text-light-gray">Filtros</h3>
+                  
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <ul class="filter">
+                        <li><a href="" class="badge style-default">Hoje</a></li>
+                        <li><a href="" class="badge style-default">Mês atual</a></li>
+                        <li><a href="" class="badge style-default">Mês anterior</a></li>
+                        <li><a href="" class="badge style-default">Últimos 30 dias</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Início</label>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="text" 
+                          class="form-control">
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Término</label>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="text" 
+                          class="form-control">
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Status</label>
+                    <div class="col-md-3">
+                      <select class="form-control">
+                        <option value="">Filtre</option>
+                        <option value="1">Agendado</option>
+                        <option value="2">Agendado online</option>
+                        <option value="3">Confirmado</option>
+                        <option value="4">Atendido</option>
+                        <option value="5">Cancelado</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <hr class="panel-wide">
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <button
+                        ng-click="filter()"
+                        ng-disabled="relatorioForm.$invalid || status.loading"
+                        ng-class="{disabled: relatorioForm.$invalid}"
+                        class="btn btn-sm btn-primary"
+                        ng-switch="status.loading">
+                        <span ng-switch-default>Exibir</span>
+                          <span ng-switch-when="true">
+                            <i ng-if="status.loading" 
+                            class="fa fa-spin fa-spinner"></i> Aguarde...</span>
+                      </button>
+
+                      <a href="relatorio">Voltar</a>
+
+                    </div>
+                  </div>
+
+                </form>
+
+
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <md-sidebar></md-sidebar>
+
+  <md-aside></md-aside>
+
+</div>
