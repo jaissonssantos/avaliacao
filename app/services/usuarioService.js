@@ -13,7 +13,7 @@ angular.module('app').service('usuarioService', ['$rootScope', '$timeout', '$htt
           $rootScope.$broadcast("usuario:email", "found");
       },
       function(response){
-        if(response && response.data.error == 'Email não cadastrado'){
+        if(response && response.data.error){
           $rootScope.$broadcast("usuario:email", "notfound");
         }
       });

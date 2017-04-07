@@ -120,6 +120,7 @@
     color: #2ecc71;
     margin-right: 7px;
 }
-
-
+.nopadding {
+    padding: 0 !important;
+}
 

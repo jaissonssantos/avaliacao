@@ -83,11 +83,17 @@
 									<div class="input-group">
 										<input class="form-control" name="senha" ng-model="estabelecimento.usuario.senha" id="senha" placeholder="Senha" 
 										type="password"
+										ng-minlength="5"
+										ng-maxlength="20"
 										required>
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
 									</div>
+									<p ng-if="formCadastroEstabelecimento.senha.$error.minlength || formCadastroEstabelecimento.senha.$error.maxlength"
+									class="text-left nopadding">
+										Sua senha deve conter de 5 a 20 carateres
+									</p>
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -139,7 +145,6 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<p ng-bind="cpfcnpj"></p>
 										<input class="form-control" 
 										name="cpfcnpj"
 										ng-model="estabelecimento.cpfcnpj" 
@@ -149,10 +154,10 @@
 										ui-br-cpfcnpj-mask required>
 										<div class="input-group-addon">
 											<i ng-class="{
+												'fa fa-building-o' : cpfcnpj,
 												'fa fa-check text-success' : cpfcnpj.notfound && formCadastroEstabelecimentoAdmin.cpfcnpj.$valid,
 												'fa fa-times text-danger' : cpfcnpj.found || (formCadastroEstabelecimentoAdmin.cpfcnpj.$touched && formCadastroEstabelecimentoAdmin.cpfcnpj.$invalid),
-												'fa fa-spinner fa-spin' : cpfcnpj.loading,
-												'fa fa-building-o' : cpfcnpj
+												'fa fa-spinner fa-spin' : cpfcnpj.loading
 											}"></i>
 										</div>
 									</div>
@@ -176,7 +181,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.cep" id="cep" ui-br-cep-mask placeholder="CEP" type="text" required>
+										<input class="form-control" ng-model="estabelecimento.cep" id="cep" ui-br-cep-mask placeholder="CEP" type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -187,7 +192,7 @@
 								<div class="form-group">
 									<div class="select-style">
 										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.id as estado.nome for estado in estados"
-											class="form-control" required>
+											class="form-control" >
 												<option value="" disabled selected>Estado</option>
 											</select>
 									</div>
@@ -200,7 +205,7 @@
 								<div class="form-group">
 									<div class="select-style">
 										<select ng-model="estabelecimento.idcidade" ng-options="cidade.id as cidade.nome for cidade in cidades"
-											class="form-control" required>
+											class="form-control">
 											<option value="" disabled selected>Cidade</option>
 											</select>
 									</div>
@@ -209,7 +214,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.endereco" id="endereco" placeholder="Av. Brasil, 1000" type="text" required>
+										<input class="form-control" ng-model="estabelecimento.endereco" id="endereco" placeholder="Av. Brasil, 1000" type="text" >
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -221,7 +226,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text" required>
+										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -233,7 +238,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.numero" id="numero" placeholder="Número" type="number" required>
+										<input class="form-control" ng-model="estabelecimento.numero" id="numero" placeholder="Número" type="number">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>

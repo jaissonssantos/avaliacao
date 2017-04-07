@@ -1,7 +1,7 @@
 <?php
 
 use Utils\Conexao;
-sleep(3);
+
 header('Content-type: application/json');
 $oConexao = Conexao::getInstance();
 $params = json_decode(file_get_contents('php://input'));

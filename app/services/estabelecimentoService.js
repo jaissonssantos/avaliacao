@@ -15,7 +15,7 @@ angular.module('app').service('estabelecimentoService', ['$rootScope', '$timeout
     .then(function(response){
       $rootScope.$broadcast("estabelecimento:cpfcnpj", "found");
     },function(response){
-      if(response.data.error == 'CPF/CNPJ não cadastrados'){
+      if(response.data.error){
         $rootScope.$broadcast("estabelecimento:cpfcnpj", "notfound");
       }
     });

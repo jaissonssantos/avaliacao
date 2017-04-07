@@ -21,17 +21,17 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 
 	$rootScope.$on('estabelecimento:cpfcnpj', function(event, status) {
 	    $scope.cpfcnpj = {
-	      found: (status == "found"),
-	      notfound: (status == "notfound"),
-				loading: (status === "loading")
+	      	found: (status == "found"),
+	      	notfound: (status == "notfound"),
+			loading: (status === "loading")
 	    };
 	});
 
 	$rootScope.$on('usuario:email', function(event, status) {
 	    $scope.email = {
-	      found: (status == "found"),
-	      notfound: (status == "notfound"),
-				loading: (status === "loading")
+	      	found: (status == "found"),
+	      	notfound: (status == "notfound"),
+			loading: (status === "loading")
 	    };
 	});
 
