@@ -3,7 +3,7 @@ angular.module('app').controller('adicionarEstabelecimentoController',
 ['$location','$rootScope', '$scope', 'estabelecimentoService', 'estadocidadeService', 'cepService', 'usuarioService',
 function($location, $scope, $rootScope, estabelecimentoService, estadocidadeService, cepService, usuarioService){
 
-	$scope.estabelecimento = $scope.email = $scope.cnpjcpf = {};
+	$scope.estabelecimento = $scope.email = $scope.cpfcnpj = {};
 
 	$rootScope.$on('estabelecimento:save', function(event, status) {
     	$scope.status = {
@@ -11,14 +11,16 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 	      success: (status == 'success'),
 	      error: (status == 'error')
 	    };
-		if($scope.status.success){
+	    if(status.error)
+	    	$scope.error = status.error;
+		if(status.success){
 			// document.location = '/plataforma/dashboard';
 			console.log('cadastro efetuado com sucesso.');
 		}
   	});
 
-	$rootScope.$on('estabelecimento:cnpjcpf', function(event, status) {
-	    $scope.cnpjcpf = {
+	$rootScope.$on('estabelecimento:cpfcnpj', function(event, status) {
+	    $scope.cpfcnpj = {
 	      found: (status == "found"),
 	      notfound: (status == "notfound"),
 				loading: (status === "loading")
@@ -82,6 +84,10 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 
 	$scope.checkEmail = function() {
 		usuarioService.checkEmail($scope.estabelecimento.usuario.email);
+	};
+
+	$scope.checkCpfCnpj = function() {
+		estabelecimentoService.checkcpfcnpj($scope.estabelecimento.cpfcnpj);
 	};
 
 }]);

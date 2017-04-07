@@ -38,21 +38,23 @@ try {
 
     $oConexao->beginTransaction();
 
-    $stmt = $oConexao->prepare('SELECT hash FROM estabelecimento WHERE hash = ? LIMIT 1');
-    while($findHash){
-        $stmt->execute(array($params->hash));
-        $findHash = $stmt->fetchObject();
-        if($findHash) $estabelecimento->hash = $params->hash . '-'. $loops . rand(0,9999);
-        if($loops > 20) {
-            throw new Exception('Tente usar um nome fantasia diferente', 500);
-        }
-        $loops++;
-    }
+    $count = $oConexao->prepare(
+        'SELECT 
+            COUNT(*) 
+        FROM estabelecimento 
+        WHERE hash = ?'
+    );
+    $count->execute(array($params->hash));
+    $count_results = $count->fetchColumn();
+
+    if($count_results)
+        throw new Exception('Tente usar um nome fantasia diferente', 500);
+
 
     $stmt = $oConexao->prepare('INSERT INTO
                  estabelecimento(hash,nomefantasia,cpfcnpj,telefone,cep,endereco,
                  numero,complemento,bairro,idcidade,created_at,updated_at
-                ) VALUES (?,?,?,?,?,?,?,?,?,now(),now())');
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,now(),now())');
     $stmt->execute(array(
         $params->hash,
         $params->nomefantasia,
@@ -72,8 +74,8 @@ try {
 
     // Cadastro do usuário - 1 - Usuário comum | 2 - Gestor
     $stmt = $oConexao->prepare('INSERT INTO
-                 usuario(nome,sobrenome,email,senha,perfil,idestabelecimento
-                ) VALUES (?,?,?,?,?,?)');
+                 usuario(nome,sobrenome,email,senha,perfil,idestabelecimento,created_at,updated_at
+                ) VALUES (?,?,?,?,?,?,now(),now())');
     $stmt->execute(array(
         $params->usuario->nome,
         $params->usuario->sobrenome,
@@ -96,17 +98,17 @@ try {
     $regras = array(
         '/dashboard', '/questionarios', '/estabelecimento', '/usuarios', '/relatorio', '/plano', '/404',
     );
-    foreach ($roles as $role) {
-        $usuario_permissao['regra'] = $regras;
+    foreach ($regras as $regra) {
+        $usuario_permissao['regra'] = $regra;
         $stmt->execute($usuario_permissao);
     }
 
-    $_SESSION['ang_avaliame_uid'] = $usuario_id;
-    $_SESSION['ang_avaliame_nome'] = $params->usuario->nome;
-    $_SESSION['ang_avaliame_sobrenome'] = $params->usuario->sobrenome;
-    $_SESSION['ang_avaliame_email'] = $params->usuario->email;
-    $_SESSION['ang_avaliame_perfil'] = $params->usuario->perfil
-    $_SESSION['ang_avaliame_estabelecimento'] = $estabelecimento_id;
+    $_SESSION['ang_av_uid'] = $usuario_id;
+    $_SESSION['ang_av_nome'] = $params->usuario->nome;
+    $_SESSION['ang_av_sobrenome'] = $params->usuario->sobrenome;
+    $_SESSION['ang_av_email'] = $params->usuario->email;
+    $_SESSION['ang_av_perfil'] = $params->usuario->perfil;
+    $_SESSION['ang_av_estabelecimento'] = $estabelecimento_id;
 
     $oConexao->commit();
 
@@ -114,8 +116,8 @@ try {
     $response->success = 'Cadastrado sucesso';
 } catch (PDOException $e) {
     http_response_code(500);
-    $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde';
-    //$response->error = $e->getMessage();
+    // $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde';
+    $response->error = $e->getMessage();
 } catch (Exception $e) {
     http_response_code($e->getCode());
     $response->error = $e->getMessage();

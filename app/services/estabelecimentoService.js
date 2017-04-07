@@ -6,6 +6,21 @@ angular.module('app').service('estabelecimentoService', ['$rootScope', '$timeout
     $rootScope.$broadcast('estabelecimento', estabelecimento)
   }
 
+  this.checkcpfcnpj = function(cpfcnpj){
+    if(!cpfcnpj || cpfcnpj.length < 11){
+      return;
+    }
+    $rootScope.$broadcast("estabelecimento:cpfcnpj", "loading");
+    $http.post('/controller/marketplace/estabelecimento/checkcpfcnpj', {cpfcnpj: cpfcnpj})
+    .then(function(response){
+      $rootScope.$broadcast("estabelecimento:cpfcnpj", "found");
+    },function(response){
+      if(response.data.error == 'CPF/CNPJ não cadastrados'){
+        $rootScope.$broadcast("estabelecimento:cpfcnpj", "notfound");
+      }
+    });
+  };
+
   this.save = function(){
     $http.post('/controller/marketplace/estabelecimento/create', self.estabelecimento)
     .then(function(response){

@@ -105,7 +105,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || estabelecimento.senha != estabelecimento.confirmasenha" class="btn-success btn btn-avalia-lg">CONTINUAR</button>
+								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || estabelecimento.usuario.senha != estabelecimento.usuario.confirmasenha || email.found" class="btn-success btn btn-avalia-lg">CONTINUAR</button>
 							</div>
 						</div>
 					</form>
@@ -115,6 +115,13 @@
 					<h2>Experimente Grátis por 30 dias</h2>
 					<p>Parte 2 - Dados do Estabelecimento</p>
 					<form name="formCadastroEstabelecimentoAdmin" role="form" class="form-signin" novalidate>
+						<div class="row" ng-if="error">
+							<div class="col-md-12">
+								<div class="alert alert-error">
+									<p ng-bind="error"></p>
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
@@ -132,12 +139,21 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.cpfcnpj" 
-										id="cnpj" 
-										placeholder="CPF/CNPJ" 
+										<p ng-bind="cpfcnpj"></p>
+										<input class="form-control" 
+										name="cpfcnpj"
+										ng-model="estabelecimento.cpfcnpj" 
+										placeholder="CPF/CNPJ"
+										ng-change="checkCpfCnpj()" 
+										ng-model-options="{ debounce: 500 }" 
 										ui-br-cpfcnpj-mask required>
 										<div class="input-group-addon">
-											<i class="fa fa-building-o"></i>
+											<i ng-class="{
+												'fa fa-check text-success' : cpfcnpj.notfound && formCadastroEstabelecimentoAdmin.cpfcnpj.$valid,
+												'fa fa-times text-danger' : cpfcnpj.found || (formCadastroEstabelecimentoAdmin.cpfcnpj.$touched && formCadastroEstabelecimentoAdmin.cpfcnpj.$invalid),
+												'fa fa-spinner fa-spin' : cpfcnpj.loading,
+												'fa fa-building-o' : cpfcnpj
+											}"></i>
 										</div>
 									</div>
 								</div>
@@ -240,7 +256,7 @@
 							<div class="col-md-12 text-center">
 								<button ng-click="step = 1" 
 								class="btn btn-avalia-middle-left">VOLTAR</button>
-								<button ng-click="save()" ng-disabled="formCadastroEstabelecimentoAdmin.$invalid" 
+								<button ng-click="save()" ng-disabled="formCadastroEstabelecimentoAdmin.$invalid || status.loading || cpfcnpj.found" 
 								class="btn-success btn btn-avalia-middle-right">CADASTRAR</button>
 							</div>
 						</div>

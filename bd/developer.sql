@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Base de Dados: avaliacao
-# Tempo de Geração: 2017-04-05 17:01:02 +0000
+# Tempo de Geração: 2017-04-07 02:02:58 +0000
 # ************************************************************
 
 
@@ -26,12 +26,12 @@
 DROP TABLE IF EXISTS `cidade`;
 
 CREATE TABLE `cidade` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idestado` int(11) NOT NULL,
   `nome` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cidade_estado_idx` (`idestado`),
-  CONSTRAINT `fk_cidade_estado` FOREIGN KEY (`idestado`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `cidade_ibfk_1` FOREIGN KEY (`idestado`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `cidade` WRITE;
@@ -9764,7 +9764,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cliente`;
 
 CREATE TABLE `cliente` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(60) NOT NULL,
   `email` varchar(160) NOT NULL,
   `telefone` varchar(14) NOT NULL,
@@ -9782,7 +9782,7 @@ CREATE TABLE `cliente` (
 DROP TABLE IF EXISTS `estabelecimento`;
 
 CREATE TABLE `estabelecimento` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `hash` varchar(200) NOT NULL DEFAULT '',
   `nomefantasia` varchar(160) DEFAULT NULL,
   `cpfcnpj` varchar(20) NOT NULL DEFAULT '',
@@ -9798,7 +9798,7 @@ CREATE TABLE `estabelecimento` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cnpj_UNIQUE` (`cpfcnpj`),
   KEY `fk_estabelecimento_cidade1_idx` (`idcidade`),
-  CONSTRAINT `fk_estabelecimento_cidade1` FOREIGN KEY (`idcidade`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `estabelecimento_ibfk_1` FOREIGN KEY (`idcidade`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9809,14 +9809,14 @@ CREATE TABLE `estabelecimento` (
 DROP TABLE IF EXISTS `estabelecimento_cliente`;
 
 CREATE TABLE `estabelecimento_cliente` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) NOT NULL,
   `idestabelecimento` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_estabelecimento_cliente_cliente1_idx` (`idcliente`),
   KEY `fk_estabelecimento_cliente_estabelecimento1_idx` (`idestabelecimento`),
-  CONSTRAINT `fk_estabelecimento_cliente_cliente1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_estabelecimento_cliente_estabelecimento1` FOREIGN KEY (`idestabelecimento`) REFERENCES `estabelecimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT ` ` FOREIGN KEY (`idestabelecimento`) REFERENCES `estabelecimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `estabelecimento_cliente_ibfk_1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9827,7 +9827,7 @@ CREATE TABLE `estabelecimento_cliente` (
 DROP TABLE IF EXISTS `estado`;
 
 CREATE TABLE `estado` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sigla` char(2) NOT NULL,
   `nome` varchar(120) NOT NULL,
   PRIMARY KEY (`id`)
@@ -9876,14 +9876,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `pergunta`;
 
 CREATE TABLE `pergunta` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idquestionario` int(11) NOT NULL,
   `titulo` varchar(60) NOT NULL,
   `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT '1 - Escolha única\n2 - Multipla escolha',
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 - não exibir\n1 - exibir',
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta1_idx` (`idquestionario`),
-  CONSTRAINT `fk_resposta_pergunta1` FOREIGN KEY (`idquestionario`) REFERENCES `questionario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `pergunta_ibfk_1` FOREIGN KEY (`idquestionario`) REFERENCES `questionario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9894,7 +9894,8 @@ CREATE TABLE `pergunta` (
 DROP TABLE IF EXISTS `questionario`;
 
 CREATE TABLE `questionario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idusuario` int(11) NOT NULL,
   `hash` varchar(255) NOT NULL,
   `titulo` varchar(120) NOT NULL,
   `introducao` varchar(120) DEFAULT NULL,
@@ -9903,10 +9904,8 @@ CREATE TABLE `questionario` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1 - Ativo\n2 - Inativo\n3- Arquivado\n4 - Finalizado',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `idusuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_questionario_usuario1_idx` (`idusuario`),
-  CONSTRAINT `fk_questionario_usuario1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_questionario_usuario1_idx` (`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9917,12 +9916,12 @@ CREATE TABLE `questionario` (
 DROP TABLE IF EXISTS `resposta`;
 
 CREATE TABLE `resposta` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(60) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idpergunta` int(11) NOT NULL,
+  `titulo` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta2_idx` (`idpergunta`),
-  CONSTRAINT `fk_resposta_pergunta2` FOREIGN KEY (`idpergunta`) REFERENCES `pergunta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `resposta_ibfk_1` FOREIGN KEY (`idpergunta`) REFERENCES `pergunta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9933,14 +9932,13 @@ CREATE TABLE `resposta` (
 DROP TABLE IF EXISTS `resposta_cliente`;
 
 CREATE TABLE `resposta_cliente` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) NOT NULL,
   `idresposta` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_cliente_cliente1_idx` (`idcliente`),
   KEY `fk_resposta_cliente_resposta1_idx` (`idresposta`),
-  CONSTRAINT `fk_resposta_cliente_cliente1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_resposta_cliente_resposta1` FOREIGN KEY (`idresposta`) REFERENCES `resposta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `resposta_cliente_ibfk_1` FOREIGN KEY (`idresposta`) REFERENCES `resposta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9951,7 +9949,7 @@ CREATE TABLE `resposta_cliente` (
 DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idestabelecimento` int(11) NOT NULL,
   `nome` varchar(60) NOT NULL,
   `sobrenome` varchar(40) DEFAULT NULL,
@@ -9965,7 +9963,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_usuario_estabelecimento1_idx` (`idestabelecimento`),
-  CONSTRAINT `fk_usuario_estabelecimento1` FOREIGN KEY (`idestabelecimento`) REFERENCES `estabelecimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idestabelecimento`) REFERENCES `estabelecimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -9976,12 +9974,12 @@ CREATE TABLE `usuario` (
 DROP TABLE IF EXISTS `usuario_permissao`;
 
 CREATE TABLE `usuario_permissao` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idusuario` int(11) NOT NULL,
   `regra` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuario_permissao_usuario1_idx` (`idusuario`),
-  CONSTRAINT `fk_usuario_permissao_usuario1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `usuario_permissao_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
