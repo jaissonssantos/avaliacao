@@ -3,7 +3,8 @@ angular.module('app').controller('adicionarEstabelecimentoController',
 ['$location','$rootScope', '$scope', 'estabelecimentoService', 'estadocidadeService', 'cepService', 'usuarioService',
 function($location, $scope, $rootScope, estabelecimentoService, estadocidadeService, cepService, usuarioService){
 
-	$scope.estabelecimento = $scope.email = $scope.cpfcnpj = {};
+	$scope.estabelecimento = $scope.email = $scope.cpfcnpj = $scope.enderecos = {};
+	$scope.estados = [];
 
 	$rootScope.$on('estabelecimento:save', function(event, status) {
     	$scope.status = {
@@ -35,18 +36,13 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 	    };
 	});
 
-	// $rootScope.$on('endereco:cep', function(event, status) {
-	//     $scope.endereco = {
-	//       loading: (status == 'loading'),
-	//       loaded: (status == 'loaded'),
-	//       error: (status == 'error')
-	//     };
-	// });
-
-	// $rootScope.$on('planos', function(event, planos) {
-	//     $scope.planos = planos;
-	// 		$scope.estabelecimento.idplano = planos[0].id;
-	// });
+	$rootScope.$on('endereco:cep', function(event, status) {
+	    $scope.endereco = {
+	      loading: (status == 'loading'),
+	      loaded: (status == 'loaded'),
+	      error: (status == 'error')
+	    };
+	});
 
 	$rootScope.$on('estados', function(event, estados) {
     	$scope.estados = estados;
@@ -57,12 +53,27 @@ function($location, $scope, $rootScope, estabelecimentoService, estadocidadeServ
 
 	$rootScope.$on('cidades', function(event, cidades) {
     	$scope.cidades = cidades;
-		$scope.estabelecimento.idcidade = cidades[0].idcidade;
+		if($scope.enderecos.cep){
+			$scope.cidades.forEach(function(cidade){
+				if(cidade.nome.toUpperCase() == $scope.enderecos.cidade.toUpperCase())
+					$scope.estabelecimento.idcidade = cidade.id;
+		    });
+		}else{
+			$scope.estabelecimento.idcidade = cidades[0].idcidade;
+		}
   	});
 
-	$rootScope.$on('endereco', function(event, endereco) {
-		$scope.estabelecimento.bairro = endereco.bairro;
-	    $scope.estabelecimento.logradouro = endereco.logradouro;
+	$rootScope.$on('endereco', function(event, enderecos) {
+		$scope.enderecos = enderecos;
+		$scope.estabelecimento.bairro = enderecos.bairro;
+	    $scope.estabelecimento.endereco = enderecos.logradouro;
+
+	    $scope.estados.forEach(function(estado){
+	    	if(estado.sigla == enderecos.estado){
+	    		$scope.estabelecimento.idestado = estado.id;
+	    		estadocidadeService.loadCidades($scope.estabelecimento.idestado);
+	    	}
+	    });
 	});
 
 	$scope.save = function(){

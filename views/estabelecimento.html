@@ -154,9 +154,9 @@
 										ui-br-cpfcnpj-mask required>
 										<div class="input-group-addon">
 											<i ng-class="{
-												'fa fa-building-o' : cpfcnpj,
-												'fa fa-check text-success' : cpfcnpj.notfound && formCadastroEstabelecimentoAdmin.cpfcnpj.$valid,
-												'fa fa-times text-danger' : cpfcnpj.found || (formCadastroEstabelecimentoAdmin.cpfcnpj.$touched && formCadastroEstabelecimentoAdmin.cpfcnpj.$invalid),
+												'fa fa-building-o' : !formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
+												'fa fa-check text-success' : cpfcnpj.notfound && formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
+												'fa fa-times text-danger' : cpfcnpj.found && formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
 												'fa fa-spinner fa-spin' : cpfcnpj.loading
 											}"></i>
 										</div>
@@ -168,8 +168,13 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.telefone" id="telefone" placeholder="Telefone" type="tel"
-											ui-br-phone-number required>
+										<input class="form-control" 
+										ng-model="estabelecimento.telefone" 
+										id="telefone" 
+										placeholder="Telefone" 
+										type="tel"
+										ui-br-phone-number 
+										required>
 										<div class="input-group-addon">
 											<i class="fa fa-mobile"></i>
 										</div>
@@ -181,9 +186,21 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.cep" id="cep" ui-br-cep-mask placeholder="CEP" type="text">
+										<input class="form-control" 
+										ng-model="estabelecimento.cep" 
+										name="cep" 
+										placeholder="CEP" 
+										ng-change="searchCep()" 
+										ng-model-options="{ debounce: 500 }" 
+										type="text"
+										ui-br-cep-mask >
 										<div class="input-group-addon">
-											<i class="fa fa-map-marker"></i>
+											<i ng-class="{
+												'fa fa-map-marker' : !formCadastroEstabelecimentoAdmin.cep.$touched,
+												'fa fa-check text-success' : endereco.loaded,
+												'fa fa-times text-danger' : endereco.error,
+												'fa fa-spinner fa-spin' : endereco.loading
+											}"></i>
 										</div>
 									</div>
 								</div>
@@ -214,7 +231,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.endereco" id="endereco" placeholder="Av. Brasil, 1000" type="text" >
+										<input class="form-control" ng-model="estabelecimento.endereco" name="endereco" placeholder="Av. Brasil, 1000" type="text" >
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>

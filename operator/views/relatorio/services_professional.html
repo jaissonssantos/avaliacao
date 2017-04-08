@@ -1,0 +1,170 @@
+<md-header></md-header>
+
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-trending-up" style="font-size: 24px;height: 35px;"></i> <a href="relatorio/">Relatório</a></li>
+          <li class="active">Agendamento</li>
+          <li class="active">Serviços</li>
+          <li class="active">Professional</li>
+        </ol>
+      </div>
+
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+            <div class="card">
+              <div class="card-body">
+                  <form name="$root.relatorioForm" class="form-horizontal" role="form" novalidate>
+                  <h3 class="text-light text-light-gray">Filtros</h3>
+
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <ul class="filter">
+                        <li><a href="javascript:void(0)" 
+                          ng-click="setToday()"
+                          class="badge style-default">Hoje</a></li>
+                        <li><a href="javascript:void(0)" 
+                          ng-click="setMonthCurrent()"
+                          class="badge style-default">Mês atual</a></li>
+                        <li><a href="javascript:void(0)" 
+                          ng-click="setMonthLast()"
+                          class="badge style-default">Mês anterior</a></li>
+                        <li><a href="javascript:void(0)" 
+                          ng-click="setLast30Days()"-
+                          class="badge style-default">Últimos 30 dias</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Início</label>
+                    <div class="col-md-4">
+                      <adm-dtp ng-model='agendamento.inicio' options='{default: "today",calType: "gregorian", format: "DD/MM/YYYY", autoClose: true, multiple: false, transition: false}' required></adm-dtp>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Término</label>
+                    <div class="col-md-4">
+                      <adm-dtp ng-model='agendamento.fim' options='{default: "today", calType: "gregorian", format: "DD/MM/YYYY", autoClose: true, multiple: false, transition: false}' required></adm-dtp>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Serviços</label>
+                    <div class="col-md-4">
+                       <select
+                       ng-model="agendamento.servico"
+                       ng-options="servico.id as servico.nome for servico in servicos"
+                       class="form-control">
+                       <option value="">Todos serviços</option>
+                     </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label form-horizontal">Profissional</label>
+                    <div class="col-md-4">
+                      <select
+                       ng-model="agendamento.profissional"
+                       ng-options="profissional.id as profissional.nome for profissional in profissionais"
+                       class="form-control">
+                       <option value="">Todos profissionais</option>
+                     </select>
+                    </div>
+                  </div>
+
+                  <hr class="panel-wide">
+                  <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <button ng-click="search()"
+                            ng-disabled="relatorioForm.$invalid || status.loading"
+                            class="btn btn-sm btn-primary">
+                            <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> Exibir
+                      </button>
+                      <a href="relatorio/">Voltar</a>
+                    </div>
+                  </div>
+
+                  <hr class="panel-wide" ng-if="agendamentos.results.length">
+                </form>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+
+                      <table ng-if="agendamentos.count == 0" class="table table-striped table-hover">
+                        <tr class="active">
+                          <td>Nenhum resultado carregado</td>
+                        </tr>
+                      </table>
+
+                      <table ng-if="agendamentos.results.length" class="table table-striped table-hover">
+                        <thead>
+                          <th width="1%">#</th>
+                          <th width="25%">Profissional</th>
+                          <th width="25%">Cliente</th>
+                          <th width="15%">Quando</th>
+                          <th width="15%">Até</th>
+                          <th width="10%">Status</th>
+                          <th width="15%">Serviços</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="agendamento in agendamentos.results">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="agendamento.profissional"></td>
+                            <td ng-bind="agendamento.cliente"></td>
+                            <td ng-bind="agendamento.data|timedate: 'DD/MM/YYYY HH:mm'"></td>
+                            <td ng-bind="agendamento.datafim|timedate: 'DD/MM/YYYY HH:mm'"></td>
+                            <td ng-switch="agendamento.status">
+                              <span ng-switch-when="1">
+                                <span class="label style-info text-normal">Agendado</span>
+                              </span>
+                              <span ng-switch-when="2">
+                                <span class="label style-warning text-normal">Agendado via marketplace</span>
+                              </span>
+                              <span ng-switch-when="3">
+                                <span class="label style-default text-normal">Confirmado</span>
+                              </span>
+                              <span ng-switch-when="4">
+                                <span class="label style-success text-normal">Atendido</span>
+                              </span>
+                              <span ng-switch-when="5">
+                                <span class="label style-danger text-normal">Cancelado</span>
+                              </span>
+                            </td>
+                            <td>
+                              <span class="label style-info text-normal" 
+                                ng-bind="agendamento.servicos"></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr class="panel-wide" ng-if="agendamentos.results.length">
+                    <div class="row" ng-if="agendamentos.results.length">
+                      <div class="col-md-12">
+                        <span class="pagination-length" ng-bind="'Exibindo ' + agendamentos.count + ' registros'"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <md-sidebar></md-sidebar>
+
+  <md-aside></md-aside>
+
+</div>

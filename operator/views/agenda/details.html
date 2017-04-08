@@ -1,0 +1,106 @@
+<div class="modal-header">
+    <h3 class="modal-title">Detalhes do agendamento</h3>
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">×</button>
+</div>
+<div class="modal-body card">
+	
+	<div ng-if="results.loading" class="row">
+		<div class="col-md-12 text-center">
+	        <i class="fa fa-2x fa-spinner fa-spin"></i>
+	        <p>Aguarde processando...</p>
+		</div>
+	</div>
+
+	<form id="formnovo" name="formnovo" class="form-horizontal" 
+		ng-if="!results.loading">
+	    <fieldset class="m-b-10">
+	        <legend>Informações do Profissional</legend>
+	        <div class="row">
+	            <div class="col-sm-6">
+	                <label class="titulo-modal">Profissional</label>
+	                <span class="dados-agendamento"
+	                	ng-bind="agenda.profissional"></span>
+	            </div>
+	            <div class="col-sm-6">
+		            <label class="titulo-modal">Especialidade </label>
+	                <span class="dados-agendamento"
+	                	ng-bind="agenda.profissao"></span>
+	            </div>
+	        </div>
+	    </fieldset>
+	    <fieldset class="m-b-10">
+	        <legend>Informações do Agendamento</legend>
+	        <div class="row" ng-if="agenda.convenio">
+	            <div class="col-sm-12">
+	              <label class="control-label">Convênio</label><br>
+	              <span class="dados-agendamento p-l-15 block-warning"
+	              	ng-bind="agenda.convenio"></span>
+	            </div>
+	        </div><!-- END-->
+	        <div class="row">
+	            <div class="col-sm-6">
+	              <label class="control-label">Quando?</label><br>
+	              <span class="dados-agendamento"
+	              	ng-bind="agenda.data"></span>
+	            </div>
+	            <div class="col-sm-6">
+	              <label class="control-label">A que horas?</label><br>
+	              <span class="dados-agendamento"
+	              	ng-bind="agenda.horainicial + ' - ' + agenda.horafinal"></span>
+	            </div>
+	        </div><!-- END-->   
+	    </fieldset><!-- END FIELDSET -->
+	    <fieldset class="m-b-10">
+	        <legend>Informações do Cliente</legend>
+	        <div class="row espaco">
+	            <div class="col-sm-12 controls">
+		          <label>Nome</label>
+	              <span class="dados-agendamento"
+	              	ng-bind="agenda.clientenome"></span>
+	            </div>
+	             <div class="col-sm-6">
+	              <label class="control-label">Número celular</label><br>
+	              <span class="dados-agendamento"
+	              	ng-bind="agenda.telefonecelular|brPhoneNumber"></span>
+	            </div>
+	             <div class="col-sm-6">
+	              <label class="control-label">E-mail</label><br>
+	              <span class="dados-agendamento"
+	              	ng-bind="agenda.clienteemail"></span>
+	            </div>
+	        </div><!-- END-->
+	    </fieldset><!-- END FIELDSET -->
+	    <fieldset class="m-b-10">
+	        <legend>Informações dos Serviços</legend>
+	        <ul class="dados-agendamento">
+	            <li ng-repeat="servico in agenda.servicos">
+	                <span ng-bind="servico.nome"></span>
+	                <span class="pull-right" 
+	                	ng-if="servico.valorpromocao==0 && servico.valorpororcamento!=1"
+	                	ng-bind="servico.valor|finance:true:2"></span>
+	                <span class="pull-right" 
+	                	ng-if="servico.valorpromocao>0 && servico.valorpororcamento!=1"
+	                	ng-bind="servico.valorpromocao|finance:true:2"></span>
+	            </li>
+	        </ul>
+	        <h2 ng-if="total">Total: <b ng-bind="total|finance:true:2"></b></h2>
+	    </fieldset>
+	     <fieldset>
+	        <legend>Observações</legend>
+	        <div class="row">
+	            <div class="col-sm-12 controls">
+	                <span ng-if="agenda.observacao!=undefined" 
+	                	class="dados-agendamento"
+	                	ng-bind="agenda.observacao"></span>
+	                <span ng-if="agenda.observacao==undefined" 
+	                	class="dados-agendamento">N/A</span>
+	            </div>
+	        </div>
+	    </fieldset>
+	</form>
+	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-sm btn-default" ng-click="cancel()">Cancelar</button>
+</div>
+<!-- end modal -->

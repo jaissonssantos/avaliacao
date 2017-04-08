@@ -1,0 +1,195 @@
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- BEGIN BASE-->
+<div id="base">
+
+	<!-- BEGIN OFFCANVAS LEFT -->
+	<div class="offcanvas">
+	</div><!--end .offcanvas-->
+	<!-- END OFFCANVAS LEFT -->
+
+
+	<!-- BEGIN CONTENT-->
+	<div id="content" ng-init="load();">
+		<section>
+			<div class="section-body contain-lg">
+
+				<!-- BEGIN FIRST VISION REPORT -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body no-padding">
+								<div class="alert alert-callout alert-success no-margin">
+									<h1 class="pull-right text-success"><i class="md md-account-circle"></i></h1>
+									<strong class="text-xl">{{painel.totalcustomers}}</strong>
+									<i ng-if="results.loading" 
+                          				class="fa fa-spin fa-2x fa-spinner"></i>
+									<br>
+									<span class="opacity-50">TOTAL DE CLIENTES</span>
+								</div>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body no-padding">
+								<div class="alert alert-callout alert-danger no-margin">
+									<h1 class="pull-right text-danger"><i class="md md-alarm-off"></i></h1>
+									<strong class="text-xl">{{painel.servicecanceled}}</strong>
+									<i ng-if="results.loading" 
+                          				class="fa fa-spin fa-2x fa-spinner"></i>
+									<br>
+									<span class="opacity-50">TOTAL DE SERVIÇOS CANCELADOS</span>
+								</div>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+				</div><!--end .row -->
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body no-padding">
+								<div class="alert alert-callout alert-warning no-margin">
+									<h1 class="pull-right text-warning"><i class="md md-alarm"></i></h1>
+									<strong class="text-xl">{{painel.servicescheduling}}</strong>
+									<i ng-if="results.loading" 
+                          				class="fa fa-spin fa-2x fa-spinner"></i>
+									<br>
+									<span class="opacity-50">TOTAL DE SERVIÇOS AGENDADOS</span>
+								</div>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body no-padding">
+								<div class="alert alert-callout alert-info no-margin">
+									<h1 class="pull-right text-info"><i class="md md-language"></i></h1>
+									<strong class="text-xl">{{painel.marketplacescheduling}}</strong>
+									<i ng-if="results.loading" 
+                          				class="fa fa-spin fa-2x fa-spinner"></i>
+									<br>
+									<span class="opacity-50">TOTAL DE SERVIÇOS VIA MARKETPLACE</span>
+								</div>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body no-padding">
+								<div class="alert alert-callout alert-info no-margin">
+									<h1 class="pull-right text-info"><i class="md md-store"></i></h1>
+									<strong class="text-xl">{{painel.servicerun}}</strong>
+									<i ng-if="results.loading" 
+                          				class="fa fa-spin fa-2x fa-spinner"></i>
+									<br>
+									<span class="opacity-50">TOTAL DE SERVIÇOS EXECUTADOS</span>
+								</div>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+				</div><!--end .row -->
+				<!-- END FIRST VISION REPORT -->
+
+				<!-- BEGIN SERVICES REPORT -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-head style-info">
+								<header> <i class="fa fa-list-ol"></i>&nbsp; SERVIÇOS MAIS EXECUTADOS</header>
+							</div><!--end .card-head -->
+							<div class="card-body no-padding height-9 scroll">
+								<div class="text-center" 
+									style="margin-top: 30%"
+									ng-if="results.loading">
+									<i class="fa fa-spin fa-2x fa-spinner"></i>
+								</div>
+								<ul class="list divider-full-bleed">
+									<li class="tile" ng-repeat="a in painel.servicerunmore"
+										ng-if="painel.servicerunmore != undefined">
+										<div class="tile-content">
+											<div class="tile-text">{{a.nome}}</div>
+										</div>
+										<span class="numero primeiro">{{a.total}}</span>
+									</li>
+									<li class="tile" 
+									ng-if="painel.servicerunmore == undefined">
+										<div class="tile-content">
+											<div class="tile-text">Ops! nenhum serviço executado até o momento
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-head style-info">
+								<header> <i class="fa fa-birthday-cake"></i>&nbsp; ANIVERSARIANTE DO MÊS
+								</header>
+								<!-- <div class="tools" ng-if="painel.birthdaycostumers != undefined">
+									<a class="btn btn-icon-toggle btn-close active">
+										<i class="md md-perm-phone-msg"></i>
+									</a>
+								</div> -->
+							</div><!--end .card-head -->
+							<div class="card-body no-padding height-9 scroll">
+								<div class="text-center" 
+									style="margin-top: 30%"
+									ng-if="results.loading">
+									<i class="fa fa-spin fa-2x fa-spinner"></i>
+								</div>
+								<ul class="list divider-full-bleed" 
+									ng-show="!results.loading">
+									<li class="tile" ng-repeat="a in painel.birthdaycostumers" 
+										ng-if="painel.birthdaycostumers != undefined">
+										<div class="tile-content">
+											<div 
+												class="tile-icon">
+												<img src="{{a.image}}" alt="{{a.nome}}">
+											</div>
+											<div class="tile-text">{{a.nome}}
+												<small>{{a.phone|brPhoneNumber}}</small>
+											</div>
+										</div>
+										<span class="numero aniversario">{{a.date}}</span>
+									</li>
+									<li class="tile" 
+										ng-if="painel.birthdaycostumers == undefined">
+										<div class="tile-content">
+											<div class="tile-text">Ops! nenhum aniversariante para o mês atual
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div><!--end .card-body -->
+						</div><!--end .card -->
+					</div><!--end .col -->
+				</div><!--end .row -->
+				<!-- END SERVICES REPORT -->
+
+			</div><!--end .section-body -->
+		</section>
+	</div><!--end #content-->
+	<!-- END CONTENT -->
+
+
+	<!-- SIDEBAR -->
+	<md-sidebar></md-sidebar><!--end #sidebar-->
+	<!-- END SIDEBAR -->
+
+	<!-- ASIDE -->
+	<md-aside></md-aside><!--end #aside-->
+	<!-- ENDE ASIDE -->
+
+
+</div><!--end #base-->
+<!-- END BASE -->

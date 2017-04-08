@@ -1,0 +1,188 @@
+
+<md-header></md-header>
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content" ng-init="load()">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-view-list" style="font-size: 24px;height: 35px;"></i> <a href="servicos/">Serviços</a></li>
+          <li class="active">Editar serviço</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card">
+            <div class="card-body">
+              <form name="$root.servicoForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                  <div class="col-md-9">
+                    <input type="text" ng-model="servico.nome" name="nome" required class="form-control">
+                    <span ng-if="servicoForm.nome.$touched && servicoForm.nome.$dirty" class="input-dirty-touched">
+                      <i ng-class="servicoForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Descrição</label>
+                  <div class="col-md-9">
+                  <textarea ng-model="servico.descricao" name="descricao" class="form-control">
+                  </textarea>
+                  <span ng-if="servicoForm.descricao.$touched && servicoForm.descricao.$dirty" class="input-dirty-touched">
+                    <i ng-class="servicoForm.descricao.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                  </span>
+                </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Visibilidade</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Atendimento privado</label>
+                  <div class="col-md-9">
+                    <label class="checkbox-inline checkbox-styled">
+                      <input
+                          type="checkbox"
+                          ng-checked="servico.interno"
+                          ng-model="servico.interno"
+                          ng-true-value="true"
+                          ng-false-value="false"
+                      ><span>Sim</span>
+                    </label>
+                    <p class="hint-block">Atendimento e agendamento apenas no estabelecimento</p>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Pós análise</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Valor por orçamento</label>
+                  <div class="col-md-9">
+                    <label class="checkbox-inline checkbox-styled">
+                      <input
+                          type="checkbox"
+                          ng-checked="servico.valorpororcamento"
+                          ng-model="servico.valorpororcamento"
+                          ng-true-value="true"
+                          ng-false-value="false"
+                      ><span>Sim</span>
+                    </label>
+                    <p class="hint-block">Valor a ser pago após a análise profissional</p>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Valores</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Valor</label>
+                  <div class="col-md-3">
+                    <input type="text" ng-model="servico.valor" name="valor" ng-required="!servico.valorpororcamento" ui-number-mask="2" class="form-control" ng-disabled="servico.valorpororcamento">
+                    <span ng-if="servicoForm.valor.$dirty" class="input-dirty-touched">
+                      <i ng-class="servicoForm.valor.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Valor promocao</label>
+                  <div class="col-md-9">
+                    <label class="checkbox-inline checkbox-styled">
+                      <input
+                          type="checkbox"
+                          ng-checked="servico.promocao"
+                          ng-model="servico.promocao"
+                          ng-true-value="true"
+                          ng-false-value="false"
+                          ng-disabled="servico.valorpororcamento"
+                      ><span>Sim</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-3 col-md-offset-3">
+                    <input ng-disabled="!servico.promocao" type="text" ng-model="servico.valorpromocao" name="valorpromocao" ui-number-mask="2" class="form-control">
+                    <span ng-if="servicoForm.valorpromocao.$dirty" class="input-dirty-touched">
+                      <i ng-class="servicoForm.valorpromocao.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Organização</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Categoria</label>
+                  <div class="col-md-3">
+                       <select
+                        ng-init="loadCategorias()"
+                        ng-model="servico.idservico_categoria"
+                        ng-options="categoria.id as categoria.nome for categoria in categorias"
+                        class="form-control">
+                      </select>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Duração</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Tempo médio do serviço</label>
+                  <div class="col-md-3">
+                    <select ng-model="servico.duracao"
+                          id="duracao"
+                          name="duracao"
+                          class="form-control">
+                              <option value="15">15 minutos</option>
+                              <option value="30">30 minutos</option>
+                              <option value="45">45 minutos</option>
+                              <option value="60">1 hora</option>
+                              <option value="75">1 hora e 15 minutos</option>
+                              <option value="90">1 hora e 30 minutos</option>
+                              <option value="105">1 hora e 45 minutos</option>
+                              <option value="120">2 horas</option>
+                    </select>
+                    <span ng-if="servicoForm.duracao.$touched && servicoForm.duracao.$dirty" class="input-dirty-touched">
+                      <i ng-class="servicoForm.duracao.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button
+                      ng-click="update()"
+                      ng-disabled="servicoForm.$invalid || status.loading"
+                      class="btn btn-sm btn-primary">
+                      <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> Salvar
+                    </button>
+
+                    <a href="configuracoes/list/service/">Voltar</a>
+
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <md-sidebar></md-sidebar>
+
+  <md-aside></md-aside>
+
+</div>
+>

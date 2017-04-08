@@ -1,0 +1,217 @@
+<md-header></md-header>
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content" ng-init="load();">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="fa fa-2x fa-calendar"></i>  <a href="/agenda">Agenda</a></li>
+          <li class="active">Finalizar</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              <div ng-if="success" class="text-center">
+                <div class="border-radius-icon border-success">
+                  <i class="md md-done text-success md-4x"></i>
+                </div>
+                <h4 ng-bind="success"></h4>
+                <a href="javascript:void(0);" 
+                  ng-click="cancel()" 
+                  class="btn btn-sm btn-primary">Retornar à agenda</a>
+                <p>ou</p>
+                <a href="javascript:void(0);" 
+                  ng-click="receipt()" 
+                  class="btn btn-sm btn-success">Imprimir comprovante</a>
+              </div>
+
+              <form ng-if="!success" name="agendaFormFinalizar" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Agendado</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Profissional</label>
+                    <input type="hidden" id="profissional" name="profissional" value="">
+                    <div class="col-md-9">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.profissional + '/' + agenda.profissao"></div>
+                    </div>
+                </div>
+
+                <div ng-if="agenda.convenio!=undefined" class="form-group block-warning">
+                  <label class="col-md-3 control-label form-horizontal">Convênio</label>
+                    <div class="col-md-9">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.convenio"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Cliente</label>
+                  <div class="col-md-9">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.clientenome"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Número celular</label>
+                  <div class="col-md-9">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.telefonecelular|brPhoneNumber"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">E-mail</label>
+                  <div class="col-md-9">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.clienteemail"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Quando?</label>
+                  <div class="col-md-3">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.data"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">A que horas?</label>
+                  <div class="col-md-3">
+                      <div class="form-control disabled"
+                        ng-bind="agenda.horainicial + ' - ' + agenda.horafinal"></div>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Pagamento</h3>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                      <div class="table-modal">
+                        <table class="table table-striped no-margin">
+                          <thead>
+                            <tr>
+                              <th width="1%">#</th>
+                              <th width="49%">Serviço</th>
+                              <th width="10%" class="text-right p-r-12">Valor</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-if="!agenda.servicos.length">
+                              <td colspan="4">Nenhum serviço adicionado</td>
+                            </tr>
+                            <tr ng-if="agenda.servicos.length" 
+                              ng-repeat="servico in agenda.servicos">
+                              <td ng-bind="$index+1"></td>
+                              <td ng-bind="servico.nome"></td>
+                              <td class="text-right">
+                                <input ng-if="servico.valorpororcamento==1" 
+                                  type="text" 
+                                  ng-model="servico.valorpgto" 
+                                  name="valor" 
+                                  ng-keyup="calculoServicoValorPago(servico.id)"
+                                  autocomplete="off"
+                                  ui-number-mask="2" 
+                                  class="form-control text-right">
+                                <span class="p-r-12"
+                                  ng-if="servico.promocao==0 && servico.valorpororcamento!=1"
+                                  ng-bind="servico.valor|finance:true:2"></span>
+                                <span class="p-r-12"
+                                  ng-if="servico.promocao==1 && servico.valorpororcamento!=1"
+                                  ng-bind="servico.valorpromocao|finance:true:2"></span>
+                              </td>
+                            </tr>
+                            <tr ng-if="agenda.servicos.length" class="active">
+                              <td colspan="2" class="text-right text-medium">Total</td>
+                              <td class="text-right text-medium p-r-12"
+                                ng-bind="total|finance:true:2"></td>
+                            </tr>
+                          </tbody>
+                        </table><!-- end table -->
+                      </div><!-- end .table-modal -->  
+                    </div><!-- end .col-md-12 -->
+                </div><!-- end .form-group -->
+
+
+                <div class="form-group block-default-light">
+                    <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Forma de pagamento</label>
+                    <div class="col-md-3">
+                        <div class="radio radio-styled">
+                          <label>
+                            <input type="radio" 
+                              ng-model="agenda.idformapagamento" 
+                              name="idformapagamento"
+                              ng-value="4"
+                              required>
+                            <span>No estabelecimento</span>
+                          </label>
+                        </div>
+                        <span class="help-block text-danger" ng-show="agendaFormFinalizar.idformapagamento.$dirty && agendaFormFinalizar.idformapagamento.$error.required">Qual o tipo de pagamento?</span>
+                    </div>
+                </div><!-- end .form-group -->
+
+                <div ng-if="agenda.convenio!=undefined" class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Convênio</label>
+                  <div class="col-md-3">
+                      <input type="text"
+                            id="valorconvenio"
+                            name="valorconvenio"
+                            ng-model="agenda.valorconvenio"
+                            class="form-control" 
+                            ng-keyup="calculoConvenio();" 
+                            autocomplete="off"
+                            ui-number-mask="2" 
+                            ng-required="agenda.convenio!=undefined">
+                            <span class="help-block text-danger" ng-show="agendaFormFinalizar.valorpagamento.$dirty && agendaFormFinalizar.valorpagamento.$error.required">Qual o valor do pagamento?</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Total</label>
+                  <div class="col-md-3">
+                      <input type="text"
+                            ng-model="agenda.valor"
+                            id="valor"
+                            name="valor"
+                            class="form-control"
+                            ui-number-mask="2"
+                            disabled
+                            required>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-click="finalize()"
+                          ng-class="{disabled: agendaFormFinalizar.$invalid || !agenda.valor}"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Finalizar
+                    </button>
+
+                    <a href="javascript:void(0);" ng-click="cancel()">Cancelar</a>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+    </section>
+  </div>
+  <md-sidebar></md-sidebar>
+  <md-aside></md-aside>
+</div>

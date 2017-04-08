@@ -1,0 +1,123 @@
+<!-- header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- BEGIN BASE-->
+<div id="base">
+
+    <!-- BEGIN OFFCANVAS LEFT -->
+    <div class="offcanvas">
+    </div><!--end .offcanvas-->
+    <!-- END OFFCANVAS LEFT -->
+
+
+    <!-- BEGIN CONTENT-->
+    <div id="content" class="content-grey-ligth"
+        ng-init="loadAplicacao();">
+        <section>
+        <div class="row">
+
+
+            <div ng-if="results.aplicacao.loading || results.profissional.loading || results.loading">
+                <div class="col-sm-12 text-center loading-calendar">
+                    <img src="assets/img/loading.gif">
+                </div>
+            </div>
+
+            <div id="calendar"></div>
+
+            <div class="feedback-calendar"
+                ng-if="status.agenda.drop.loading || status.agenda.block.loading">
+                <img src="assets/img/loading.gif" style="width:24px">
+                Aguarde processando...
+            </div>
+
+            <md-tooltip-calendar></md-tooltip-calendar>
+
+
+            
+            <!-- <div class="col-md-12">
+
+                <section class="calendario card border-none" 
+                    ng-init="getprofessional();">
+                    <h1 class="style-info">Calendário</h1>
+                    
+                    
+
+                </section>
+            </div>
+            
+            <div class="col-md-2">
+
+                <section class="dados-servico card border-none m-b-15">
+                    <div class="sala-espera">
+                        <h2 class="style-info">Profissional</h2>
+                        <select class="form-control input-sm" name="professional" 
+                            id="professional" 
+                            ng-model="scheduling.professional" 
+                            ng-options="e.nome for e in professional track by e.id"
+                            ng-change="changeProfessional()">
+                            </select>
+                    </div>
+                </section>
+                <section class="dados-servico card border-none m-b-15">
+                    <h2 class="style-info">Clientes do Dia</h2>
+                    <div ng-show="clientesdodia.length > 0">
+                        <ul>
+                            <li ng-repeat="cli in clientesdodia">
+                                <p ng-bind="cli.cliente"></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="text-center" ng-show="clientesdodia.length == 0">
+                        <span>Não existem clientes para hoje</span>
+                    </div>
+                </section>
+                <section class="dados-servico card border-none m-b-15">
+                    <h2 class="style-info">Legenda</h2>
+                    <p class="text-default-light text-uppercase" style="padding-left:25px;">Ações no calendário</p>
+                    <div>
+                        <ul style="list-style:none">
+                            <li style="margin-left: 15px; font-weight: 400;">
+                                <span>
+                                    <i class="fa fa-retweet" style="margin-right: 5px;"></i> Remarcar
+                                </span>
+                            </li>
+                            <li style="margin-left: 15px; font-weight: 400;">
+                                <span>
+                                    <i class="md md-attach-money text-success" style="margin-right: 5px;"></i> Finalizar
+                                </span>
+                            </li>
+                            <li style="margin-left: 15px; font-weight: 400;">
+                                <span>
+                                    <i class="fa fa-bars text-primary" style="margin-right: 5px;"></i> Detalhes
+                                </span>
+                            </li>
+                            <li style="margin-left: 15px; font-weight: 400;">
+                                <span>
+                                    <i class="md md-cancel text-danger" style="margin-right: 5px;"></i> Cancelar
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div> -->
+
+            
+        </div>
+        </section>
+    </div><!--end #content-->
+    <!-- END CONTENT -->
+
+
+    <!-- SIDEBAR -->
+    <md-sidebar></md-sidebar><!--end #sidebar-->
+    <!-- END SIDEBAR -->
+
+    <!-- ASIDE -->
+    <md-aside></md-aside><!--end #aside-->
+    <!-- ENDE ASIDE -->
+
+
+</div><!--end #base-->
+<!-- END BASE

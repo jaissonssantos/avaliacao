@@ -8,7 +8,7 @@ angular.module('app').service('usuarioService', ['$rootScope', '$timeout', '$htt
 
   this.checkEmail = function(email){
     $rootScope.$broadcast("usuario:email", "loading");
-    $http.post('/controller/marketplace/usuario/checkemail', {email: email})
+    $http.post('/controller/guest/usuario/checkemail', {email: email})
       .then(function(response){
           $rootScope.$broadcast("usuario:email", "found");
       },

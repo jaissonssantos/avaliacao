@@ -4,20 +4,20 @@ angular.module('app').service('cepService', ['$rootScope', '$http', function($ro
       return;
     }
     $rootScope.$broadcast('endereco:cep', 'loading');
-    $http({
-      url: 'http://api.postmon.com.br/v1/cep/' + cep,
-    }).success(function(response) {
-      $rootScope.$broadcast('endereco:cep', 'loaded');
-      var endereco = {
-        cep: response.cep,
-        estado: response.estado,
-        cidade: response.cidade,
-        bairro: response.bairro,
-        logradouro: response.logradouro
-      };
-      $rootScope.$broadcast('endereco', endereco);
-    }).error(function(error) {
-      $rootScope.$broadcast('endereco:cep', 'error');
-    });
+    $http({url: 'http://api.postmon.com.br/v1/cep/' + cep})
+      .then(function(response) {
+        $rootScope.$broadcast('endereco:cep', 'loaded');
+        var endereco = {
+          cep: response.data.cep,
+          estado: response.data.estado,
+          cidade: response.data.cidade,
+          bairro: response.data.bairro,
+          logradouro: response.data.logradouro
+        };
+        $rootScope.$broadcast('endereco', endereco);
+      },
+      function(response){
+          $rootScope.$broadcast('endereco:cep', 'error');
+      });
   };
 }]);

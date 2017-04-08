@@ -11,7 +11,7 @@ angular.module('app').service('estabelecimentoService', ['$rootScope', '$timeout
       return;
     }
     $rootScope.$broadcast("estabelecimento:cpfcnpj", "loading");
-    $http.post('/controller/marketplace/estabelecimento/checkcpfcnpj', {cpfcnpj: cpfcnpj})
+    $http.post('/controller/guest/estabelecimento/checkcpfcnpj', {cpfcnpj: cpfcnpj})
     .then(function(response){
       $rootScope.$broadcast("estabelecimento:cpfcnpj", "found");
     },function(response){
@@ -22,7 +22,7 @@ angular.module('app').service('estabelecimentoService', ['$rootScope', '$timeout
   };
 
   this.save = function(){
-    $http.post('/controller/marketplace/estabelecimento/create', self.estabelecimento)
+    $http.post('/controller/guest/estabelecimento/create', self.estabelecimento)
     .then(function(response){
       $rootScope.$broadcast("estabelecimento:save", response.data);
     }, function(response){

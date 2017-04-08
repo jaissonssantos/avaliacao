@@ -1,0 +1,236 @@
+<md-header></md-header>
+
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="md md-account-child" style="font-size: 24px;height: 35px;"></i>  <a href="clientes/">Clientes</a></li>
+          <li class="active">Novo cliente</li>
+          <li class="active" ng-bind="cliente.nome"></li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card">
+
+            <div class="card-body">
+              <form name="$root.clienteForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                  <div class="col-md-9">
+                      <input type="text"
+                              ng-model="cliente.nome"
+                              name="nome"
+                              class="form-control"
+                              required >
+                      <span
+                        ng-if="clienteForm.nome.$touched && clienteForm.nome.$dirty"
+                        class="input-dirty-touched">
+                        <i ng-class="clienteForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>E-mail</label>
+                  <div class="col-md-9">
+                      <input type="email"
+                            ng-model="cliente.email"
+                            ng-change="checkEmail()"
+                            ng-model-options="{ debounce: 500 }"
+                            name="email"
+                            class="form-control"
+                            required>
+                      <span ng-if="clienteForm.email.$dirty" class="input-dirty-touched">
+                        <i ng-class="{
+                          'fa fa-check text-success' : email.notfound && clienteForm.email.$valid,
+                          'fa fa-times text-danger' : email.found || (clienteForm.email.$touched && clienteForm.email.$invalid),
+                          'fa fa-spinner fa-spin' : email.loading
+                        }"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>CPF</label>
+                  <div class="col-md-3">
+                      <input ng-model="cliente.cpf"
+                            ng-change="checkCpf()"
+                            ng-model-options="{ debounce: 500 }"
+                            name="cpf"
+                            class="form-control"
+                            ui-br-cpf-mask
+                            minlength="14"
+                            required>
+                      <span ng-if="clienteForm.cpf.$dirty" class="input-dirty-touched">
+                        <i ng-class="{
+                          'fa fa-check text-success' : cpf.notfound && clienteForm.cpf.$valid,
+                          'fa fa-times text-danger' : cpf.found || (clienteForm.cpf.$touched && clienteForm.cpf.$invalid),
+                          'fa fa-spinner fa-spin' : cpf.loading
+                        }"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Data de Nascimento</label>
+                  <div class="col-md-3">
+                      <input type="tel"
+                              ng-model="cliente.datanascimento"
+                              name="datanascimento"
+                              class="form-control"
+                              required
+                              placeholder="dd/mm/yyyy"
+                              ui-mask="99/99/9999"
+                              >
+                      <span
+                        ng-if="clienteForm.datanascimento.$touched && clienteForm.datanascimento.$dirty"
+                        class="input-dirty-touched">
+                        <i ng-class="clienteForm.datanascimento.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Telefones</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Número celular</label>
+                  <div class="col-md-3">
+                      <input type="tel"
+                            ng-model="cliente.telefonecelular"
+                            name="telefonecelular"
+                            ui-br-phone-number
+                            class="form-control"
+                            required>
+                      <span ng-if="clienteForm.telefonecelular.$dirty" class="input-dirty-touched">
+                        <i ng-class="clienteForm.telefonecelular.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                      </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Número comercial</label>
+                  <div class="col-md-3">
+                      <input type="tel"
+                            ng-model="cliente.telefonecomercial"
+                            name="telefonecomercial"
+                            ui-br-phone-number
+                            class="form-control">
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Endereço</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">CEP</label>
+                  <div class="col-md-3">
+                      <input type="tel"
+                            ng-model="cliente.cep"
+                            ng-change="searchCep()"
+                            ng-model-options="{ debounce: 500 }"
+                            name="cep"
+                            ui-br-cep-mask
+                            class="form-control"
+                            minlength="9">
+                      <p class="hint-block">Não sabe o CEP? Consulte <a href="http://www.buscacep.correios.com.br/" target="_blank" class="link">aqui</a>.</p>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Bairro</label>
+                  <div class="col-md-9">
+                      <input type="text"
+                            ng-model="cliente.bairro"
+                            name="bairro"
+                            class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Logradouro</label>
+                  <div class="col-md-6">
+                      <input type="text"
+                            ng-model="cliente.logradouro"
+                            name="logradouro"
+                            class="form-control">
+                  </div>
+
+                  <label class="col-md-1 control-label form-horizontal">Número</label>
+                  <div class="col-md-2">
+                      <input type="tel"
+                            ng-model="cliente.numero"
+                            name="numero"
+                            ui-number-mask="0"
+                            class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Complemento</label>
+                  <div class="col-md-9">
+                      <input type="text"
+                            ng-model="cliente.complemento"
+                            name="complemento"
+                            class="form-control"
+                            maxlength="60">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Estado</label>
+                  <div class="col-md-9">
+                      <select
+                        ng-init="loadEstados()"
+                        ng-change="loadCidades()"
+                        ng-model="cliente.idestado"
+                        ng-options="estado.idestado as estado.sigla for estado in estados"
+                        class="form-control">
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Cidade</label>
+                  <div class="col-md-9">
+                       <select
+                        ng-model="cliente.idcidade"
+                        ng-options="cidade.idcidade as cidade.nome for cidade in cidades"
+                        class="form-control">
+                      </select>
+                  </div>
+                </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-click="save()"
+                          ng-disabled="clienteForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i>
+                          Salvar
+                    </button>
+
+                    <a href="clientes/">Cancelar</a>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+    </section>
+  </div>
+  <md-sidebar></md-sidebar>
+  <md-aside></md-aside>
+</div>

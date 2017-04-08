@@ -1,0 +1,149 @@
+<md-header></md-header>
+
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content" ng-init="load()">
+
+    <div class="row section-breadcrumb">
+       <div class="col-md-12">
+         <ol class="breadcrumb">
+            <li><i class="fa fa-users"></i> <a href="configuracoes/list/staff">Profissionais</a></li>
+            <li class="active">Editar profissional</li>
+            <li class="active" ng-bind="profissional.nome"></li>
+          </ol>
+       </div>
+    </div>
+
+    <section>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+
+              <div ng-if="error" class="alert alert-danger">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span ng-bind="error"></span>
+              </div>
+
+              <form name="$root.profissionalForm" class="form-horizontal" role="form" novalidate>
+                <h3 class="text-light text-light-gray">Informações</h3>
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Nome</label>
+                  <div class="col-md-9">
+                    <input type="text" ng-model="profissional.nome" name="nome" required class="form-control">
+                    <span ng-if="profissional.nome.length" class="input-dirty-touched">
+                      <i ng-class="profissionalForm.nome.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Profissão</label>
+                  <div class="col-md-6">
+                  <input type="text" ng-model="profissional.profissao" name="profissao" required class="form-control">
+                  <p class="hint-block">Ex.: Cabelereiro, Manicure e outros</p>
+                  <span ng-if="profissional.profissao.length" class="input-dirty-touched">
+                    <i ng-class="profissionalForm.profissao.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                  </span>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal">Descrição</label>
+                  <div class="col-md-9">
+                    <textarea ng-model="profissional.descricao" name="descricao" class="form-control">
+                    </textarea>
+                    <span ng-if="profissionalForm.descricao.$touched && profissionalForm.descricao.$dirty" class="input-dirty-touched">
+                      <i ng-class="profissionalForm.descricao.$valid ? 'fa fa-check text-success' : 'fa fa-times text-danger'"></i>
+                    </span>
+                  </div>
+                </div>
+
+              <hr class="panel-wide">
+                <h3 class="text-light text-light-gray">Atendimento</h3>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label form-horizontal"><abbr>*</abbr>Dias de Atendimento</label>
+                  <div class="col-md-3">
+                    <select ng-model="profissional.dia" class="form-control">
+                      <option value="0">Domingo</option>
+                      <option value="1">Segunda-Feira</option>
+                      <option value="2">Terça-Feira</option>
+                      <option value="3">Quarta-Feira</option>
+                      <option value="4">Quinta-Feira</option>
+                      <option value="5">Sexta-Feira</option>
+                      <option value="6">Sábado</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <button ng-click="addDiaTrabalho(profissional.dia)" class="btn btn-sm btn-primary">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <div class="col-md-9 col-md-offset-3" ng-if="profissional.diastrabalho.length">
+                    <div class="table-modal">
+                      <table class="table table-striped table-hover no-margin">
+                        <thead>
+                          <tr>
+                            <th width="30%">Dia</th>
+                            <th width="15%">Expediente(Das)</th>
+                            <th width="15%">Almoço(Início)</th>
+                            <th width="15%">Almoço(Fim)</th>
+                            <th width="15%">Expediente(Às)</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr ng-repeat="diatrabalho in profissional.diastrabalho">
+                            <td ng-switch="diatrabalho.dia">
+                              <span ng-switch-when="0">Domingo</span>
+                              <span ng-switch-when="1">Segunda-Feira</span>
+                              <span ng-switch-when="2">Terça-Feira</span>
+                              <span ng-switch-when="3">Quarta-Feira</span>
+                              <span ng-switch-when="4">Quinta-Feira</span>
+                              <span ng-switch-when="5">Sexta-Feira</span>
+                              <span ng-switch-when="6">Sábado</span>
+                            </td>
+                            <td><input ng-model="diatrabalho.expediente_inicio" ui-mask="99:99" size="5" type="text" required></td>
+                            <td><input ng-model="diatrabalho.almoco_inicio" ui-mask="99:99" size="5" type="text" ng-required="diatrabalho.dia != 0 && diatrabalho.dia != 6"></td>
+                            <td><input ng-model="diatrabalho.almoco_fim" ui-mask="99:99" size="5" type="text" ng-required="diatrabalho.dia != 0 && diatrabalho.dia != 6"></td>
+                            <td><input ng-model="diatrabalho.expediente_fim" ui-mask="99:99" size="5" type="text" required></td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" ng-click="delDiaTrabalho(diatrabalho.dia)">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+
+                <hr class="panel-wide">
+                <div class="form-group">
+                  <div class="col-md-9 col-md-offset-3">
+                    <button ng-click="update()"
+                          ng-disabled="profissionalForm.$invalid || status.loading"
+                          class="btn btn-sm btn-primary">
+                          <i ng-if="status.loading" class="fa fa-spin fa-spinner"></i> Salvar
+                    </button>
+                    <a href="configuracoes/list/staff/">Voltar</a>
+                  </div>
+                </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <md-sidebar></md-sidebar>
+  <md-aside></md-aside>
+</div>

@@ -1,0 +1,165 @@
+<md-header></md-header>
+<div id="base">
+
+  <div class="offcanvas">
+  </div>
+
+  <div id="content" ng-init="load();">
+    <section>
+      <div class="section-header">
+        <ol class="breadcrumb">
+          <li><i class="fa fa-2x fa-calendar"></i>  <a href="/agenda">Agenda</a></li>
+          <li class="active">Comprovante</li>
+        </ol>
+      </div>
+      <div class="section-body contain-lg">
+        <div class="col-md-12">
+
+          <div class="card card-printable style-default-light">
+
+            <div ng-if="!results.loading" class="card-head">
+              <div class="tools">
+                <div class="btn-group">
+                  <a class="btn btn-floating-action btn-success" href="agenda/" title="retorna à agenda">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                  <a class="btn btn-floating-action btn-primary" 
+                    href="javascript:void(0);" 
+                    onclick="javascript:window.print();"
+                    title="Imprimir comprovante">
+                    <i class="md md-print"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body style-default-bright">
+
+              <div ng-if="results.loading" class="row">
+                <div class="col-md-12 text-center">
+                      <i class="fa fa-2x fa-spinner fa-spin"></i>
+                      <p>Aguarde processando...</p>
+                </div>
+              </div>
+
+              <div ng-if="!results.loading" class="row">
+                <div class="col-xs-8">
+                  <h1 class="text-light">
+                    <i class="md md-business fa-fw fa-2x text-info"> </i>
+                    <span ng-bind="agenda.estabelecimentonome|splitText:' ':0"></span>
+                    <strong class="text-info" 
+                      ng-bind="agenda.estabelecimentonome|splitText:' ':1"></strong>
+                  </h1>
+                </div>
+                <div class="col-xs-4 text-right">
+                  <h1 class="text-light text-default-light">Comprovante</h1>
+                </div>
+              </div>
+
+              <div ng-if="!results.loading" class="row">
+                <div class="col-xs-4">
+                  <h4 class="text-light">Estabelecimento</h4>
+                  <address>
+                    <strong ng-bind="agenda.estabelecimentonome"></strong><br>
+                    <span ng-bind="agenda.logradouro"></span><br>
+                    <span ng-bind="agenda.bairro + ','"></span> <span ng-bind="agenda.cidade + ','"></span> <span ng-bind="agenda.numero + ','"></span><span ng-bind="agenda.cep|brCep"></span>
+                    <span ng-if="agenda.complemento!=undefined" ng-bind="agenda.complemento"></span><br>
+                    <abbr title="Phone">Número telefone:</abbr> 
+                    <span ng-bind="agenda.estabelecimentotelefone|brPhoneNumber"></span><br>
+                  </address>
+                </div><!--end .col -->
+                <div class="col-xs-4">
+                  <h4 class="text-light">Profissional/Cliente</h4>
+                  <address>
+                    <strong ng-bind="agenda.profissional"></strong><br>
+                    <span ng-bind="agenda.profissao"></span><br>
+                    <strong ng-bind="agenda.clientenome"></strong><br>
+                    <abbr title="Phone">Número celular:</abbr>
+                    <span ng-bind="agenda.clientenumerocelular|brPhoneNumber"></span>
+                  </address>
+                </div><!--end .col -->
+                <div class="col-xs-4">
+                  <div class="well">
+                    <div class="clearfix">
+                      <div class="pull-left">Nº DA FATURA</div>
+                      <div class="pull-left text-xs" ng-bind="agenda.pagamento.codigo"></div>
+                    </div>
+                    <div class="clearfix">
+                      <div class="pull-left">DATA DO AGENDAMENTO:</div>
+                      <div class="pull-right" ng-bind="agenda.data"></div>
+                    </div>
+                    <div class="clearfix">
+                      <div class="pull-left">DATA DA FINALIZAÇÃO:</div>
+                      <div class="pull-right" ng-bind="agenda.pagamento.data"></div>
+                    </div>
+                  </div>
+                </div><!--end .col -->
+              </div><!-- end .row -->
+
+
+              <div ng-if="!results.loading" class="row">
+                <div class="col-md-12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th style="width:60px" class="text-center">#</th>
+                        <th class="text-left">SERVIÇO</th>
+                        <th style="width:140px"></th>
+                        <th style="width:90px" class="text-right">VALOR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="servico in agenda.servicos">
+                        <td class="text-center" ng-bind="$index+1"></td>
+                        <td ng-bind="servico.nome"></td>
+                        <td></td>
+                        <td class="text-right" ng-bind="servico.valor|finance:true:2"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" rowspan="4">
+                          <h3 class="text-light opacity-50">Anotações</h3>
+                          <p><small>Acesse a 2ª via de comprovante do seus agendamentos em Meu perfil > Comprovante de agendamentos. O menu ficará disponível após o você efetuar o login na plataforma do Markday, através do endereço web www.markday.com.br/login. Informando suas credenciais no link acima para emitir a 2ª via.</small></p>
+                          <p><strong><em>Obrigado por sua escolha, volte sempre.</em></strong></p>
+                        </td>
+                        <td class="text-right"><strong>Subtotal</strong></td>
+                        <td class="text-right">
+                          <span ng-if="agenda.pagamento.valorconvenio==undefined"
+                            ng-bind="agenda.pagamento.valor|finance:true:2"></span>
+                          <s ng-if="agenda.pagamento.valorconvenio!=undefined"
+                            ng-bind="agenda.pagamento.valor|finance:true:2"></s>
+                        </td>
+                      </tr>
+                      <tr ng-if="agenda.pagamento.valorconvenio!=undefined">
+                        <td class="text-right hidden-border">
+                            <strong>Convênio</strong>
+                            <span>/</span>
+                            <span ng-bind="agenda.convenio"></span>
+                        </td>
+                        <td class="text-right hidden-border" 
+                          ng-bind="agenda.pagamento.valorconvenio|finance:true:2"></td>
+                      </tr>
+                      <tr>
+                        <td class="text-right"><strong class="text-lg text-info">Total</strong></td>
+                        <td class="text-right">
+                          <strong class="text-lg text-info"
+                            ng-if="agenda.pagamento.valorconvenio==undefined"
+                            ng-bind="agenda.pagamento.valor|finance:true:2"></strong>
+                            <strong class="text-lg text-info"
+                            ng-if="agenda.pagamento.valorconvenio!=undefined"
+                            ng-bind="agenda.pagamento.valorconvenio|finance:true:2"></strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!--end .col -->
+              </div>
+              
+            </div>
+          </div>
+      </div>
+    </div>
+    </section>
+  </div>
+  <md-sidebar></md-sidebar>
+  <md-aside></md-aside>
+</div>
