@@ -1,100 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="app">
-
 <head>
-
-    <title>Markday - Dashboard</title>
-
-    <!-- BEGIN META -->
+    <title>Avaliame - Dashboard</title>
+    <base href="/operator/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="your,keywords">
     <meta name="description" content="Short explanation about this website">
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    <!-- END META -->
-
-    <base href="/plataforma/">
-
-    <!-- BEGIN STYLESHEETS -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/libs/rickshaw/rickshaw.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/libs/morris/morris.core.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/ng-tags-input.min.css" />
-    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin_print.css" media="print" />
-    <link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
-    <!-- END STYLESHEETS -->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="assets/js/libs/utils/html5shiv.js?1403934957"></script>
-    <script type="text/javascript" src="assets/js/libs/utils/respond.min.js?1403934956"></script>
-    <![endif]-->
-
+    <link rel="shortcut icon" href="assets/plugins/images/favicon.png">
+    <link href='main.css' rel='stylesheet' type='text/css'/>
 </head>
-<body class="menubar-hoverable header-fixed" ng-view>
+<body ng-view>
 
-<!-- lib angular js -->
-<script type="text/javascript" 
-    src="https://code.angularjs.org/1.5.7/angular.min.js"></script>
-<script type="text/javascript" 
-    src="https://code.angularjs.org/1.5.7/angular-route.min.js"></script>
-<script type="text/javascript" 
-    src="https://code.angularjs.org/1.5.7/angular-resource.min.js"></script>
-<script type="text/javascript" 
-    src="lib/ui-bootstrap/angular-ui-bootstrap.min.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-locale/angular-locale_pt-br.js"></script>
-<script type="text/javascript" 
-    src="lib/oclazyload/ocLazyLoad.min.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-input-masks/input-mask.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-input-masks/angular-br-filters.js"></script>
-<script type="text/javascript" 
-    src="lib/ui-mask/mask.min.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-upload/ng-file-upload-shim.min.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-upload/ng-file-upload.min.js"></script>
-<script type="text/javascript" 
-    src="lib/angular-tagsinput/ng-tags-input.min.js"></script>
-<!-- cdn textAngular -->
-<script type="text/javascript"  
-    src='https://cdn.jsdelivr.net/g/angular.textangular@1.5.0(textAngular-rangy.min.js+textAngular-sanitize.min.js+textAngular.min.js)'></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular-route.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.7/angular-resource.min.js"></script>
+<script type="text/javascript" src="lib/ui-bootstrap/angular-ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/angular-locale/angular-locale_pt-br.js"></script>
+<script type="text/javascript" src="lib/oclazyload/ocLazyLoad.min.js"></script>
+<script type="text/javascript" src="lib/angular-input-masks/input-mask.js"></script>
+<script type="text/javascript" src="lib/angular-input-masks/angular-br-filters.js"></script>
+<script type="text/javascript" src="lib/ui-mask/mask.min.js"></script>
 
-<!-- application -->
+<!-- AngularJS app -->
 <script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/services/aplicacaoService.js"></script>
-<script type="text/javascript" src="app/filters/datePTBRFilter.js"></script>
-<script type="text/javascript" src="app/filters/plataformFilter.js"></script>
-<script type="text/javascript" src="app/directives/plataform.js"></script>
+<!-- <script type="text/javascript" src="app/services/aplicacaoService.js"></script> -->
+<!-- <script type="text/javascript" src="app/filters/datePTBRFilter.js"></script> -->
+<!-- <script type="text/javascript" src="app/filters/plataformFilter.js"></script> -->
+<!-- <script type="text/javascript" src="app/directives/plataform.js"></script> -->
 
 <!-- javascript -->
-<script src="assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
-<script src="assets/js/libs/bootstrap/bootstrap.min.js"></script>
-<script src="assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>  
-<script type="text/javascript" 
-    src="assets/plugins/datepicker-ADM/js/ADM-dateTimePicker.min.js">
-</script>
-
-<!-- moment JS -->
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/moment-timezone-with-data.js"></script>
-
-<!-- cdn fullcalendar -->
-<script type="text/javascript" 
-    src="assets/plugins/fullcalendar/js/fullcalendar.min.js">
-</script>
-<script type="text/javascript" 
-    src="assets/plugins/fullcalendar/js/scheduler.min.js">
-</script>
-<script type="text/javascript" 
-    src="assets/plugins/fullcalendar/js/pt-br.js">
-</script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src="assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 
 </body>
 </html>
