@@ -1,7 +1,5 @@
 <?php
 
-namespace Utils\Url;
-
 class Url
 {
     private static $url = null;

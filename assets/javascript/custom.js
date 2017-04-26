@@ -4,7 +4,6 @@ jQuery(function($) {
 
   // get the value of the bottom of the #main element by adding the offset of that element plus its height, set it as a variable
   var mainbottom = $('body div.wrapper #main').offset();
-  console.log(mainbottom);
   
   // on scroll,
   $(window).on('scroll', function(){
