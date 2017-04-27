@@ -6,7 +6,6 @@ header('Content-type: application/json');
 $oConexao = Conexao::getInstance();
 $params = json_decode(file_get_contents('php://input'));
 $response = new stdClass();
-setlocale(LC_ALL, 'pt_BR.UTF8');
 
 try {
     if (!isset(
@@ -108,6 +107,7 @@ try {
     $_SESSION['avaliacao_sobrenome'] = $params->sobrenome;
     $_SESSION['avaliacao_email'] = $params->email;
     $_SESSION['avaliacao_perfil'] = $params->perfil;
+    $_SESSION['avaliacao_gestor'] = false;
     $_SESSION['avaliacao_estabelecimento'] = $estabelecimento_id;
 
     $oConexao->commit();

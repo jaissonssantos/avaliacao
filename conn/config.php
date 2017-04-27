@@ -18,3 +18,5 @@ define('TITLE_APP', 'Avalia.me');
 define('EMAIL', 'contato@avalia.me');
 define('DEBUG', false);
 
+//http://eliteadmin.themedesigner.in/demos/bootstrap4/elite-hospital/index.html?
+

@@ -1,6 +1,9 @@
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="assets/css/login.css">
+
 <a href="/" class="voltar">Voltar</a>
 <!-- Login Content -->
-<div class="login" ng-init="getLogin(); getCheckLoginActive();">
+<div class="login">
     <div class="transparencia"></div>
     <div class="container">
         <div class="row">
@@ -10,22 +13,11 @@
                     <section class="align-lg-center">
                         <a href="/"><div class="site-logo"></div></a>
                     </section>
-                    <form name="$root.formEntrar" 
-                        role="form" class="form-signin" novalidate>
-                        <section>
-                            <div ng-if="error" 
-                                class="alert alert-warning" 
-                                ng-bind="error">
+                    <form id="formLogin" name="formLogin" class="form-signin">
+                        <section id="errorLogin" class="hidden">
+                            <div class="alert alert-warning">
+                                <p></p>
                             </div>
-                            <span class="help-block text-center" 
-                                ng-if="formEntrar.email.$dirty && formEntrar.email.$error.required">O campo e-mail é obrigatório
-                            </span>
-                            <span class="help-block text-center" 
-                                ng-if="formEntrar.email.$error.email">Informe um e-mail válido
-                            </span>
-                            <span class="help-block text-center" 
-                                ng-if="formEntrar.senha.$dirty && formEntrar.senha.$error.required">O campo senha é obrigatório
-                            </span>
                         </section>
                         <section>
                             <div class="input-group">
@@ -33,11 +25,10 @@
                                     <i class="fa fa-user"></i>
                                 </div>
                                 <input type="email"
-                                    class="form-control"
+                                    id="email"
                                     name="email"
-                                    placeholder="E-mail"
-                                    ng-model="cliente.email" 
-                                    required>
+                                    class="form-control"
+                                    placeholder="E-mail">
                             </div>
 
                             <div class="input-group">
@@ -45,54 +36,46 @@
                                     <i class="fa fa-key"></i>
                                 </div>
                                 <input type="password"
-                                    class="form-control" 
+                                    id="senha"
                                     name="senha" 
-                                    placeholder="Senha" 
-                                    ng-model="cliente.senha"
-                                    required>
+                                    class="form-control" 
+                                    placeholder="Senha">
                             </div>
 
                             <button id="acessar" 
-                                type="submit" 
-                                ng-click="login()"
-                                class="btn btn-lg btn-mark btn-block" 
-                                ng-disabled="results.loading || formEntrar.$invalid" 
-                                ng-switch="results.loading">
-                                    <span ng-switch-default>ACESSAR</span>
-                                    <span ng-switch-when="true">AGUARDE...</span>
+                                class="btn btn-lg btn-login btn-block">
+                                    <span>ACESSAR</span>
                             </button>
                         </section>
                         <section class="clearfix">
                             <div class="checkbox-styled iCheck pull-left check-errado">
                                 <label class="lembrar">
-                                    <input type="checkbox" ng-model="cliente.lembrarme">
+                                    <input id="lembrarme" name="lembrarme" type="checkbox">
                                     <span>Lembrar-me</span>
                                 </label>
                             </div>
-                            <a href="/redefinir-senha" 
-                                class="pull-right esqueceu">Esqueceu sua senha?</a>
                         </section>
                         <br />
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="/controller/marketplace/aplicacao/fblogin" 
+                                <a href="/estabelecimento" 
                                     target="_self" 
                                     class="btn btn-lg btn-block btn-facebook">
-                                    Entrar com Facebook
+                                    Nova conta
                                 </a>
                             </div>
                         </div>
 
                         <span class="or" data-text="Ou"></span>
 
-                        <a href="/cadastro" 
+                        <a href="/recuperar-senha" 
                             target="_self" 
                             class="btn btn-lg btn-inverse btn-block">
-                            Nova Conta
+                            Esqueceu sua senha?
                         </a>
                     </form>
                     <a href="/empresa" 
-                        class="footer-link">&copy; 2016 Kambô Tecnologia &trade; </a>
+                        class="footer-link">&copy; <?=date('Y')?> Avalia.me &trade; </a>
                 </div>
                 <!-- //account-wall-->
 
@@ -104,3 +87,7 @@
     <!-- //container-->
 </div>
 <!-- END Login Content -->
+
+<!-- javascripts -->
+<script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript" src="javascripts/vendor/login.js"></script>

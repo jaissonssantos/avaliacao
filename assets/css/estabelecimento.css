@@ -1,7 +1,16 @@
-/*@import url(../plugins/form/icheck/skins/all.css);*/
-/*@import url(../plugins/form/switch/switch.css);*/
-/*@import url(../plugins/datetime/datetime.css);*/
-/*@import url(checkbox-styled.css);*/
+.voltar {
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 40px;
+    z-index: 200;
+    background: url(/assets/icons/voltar.svg) no-repeat center center;
+    background-size: contain;
+    margin: 10px;
+    text-indent: -999px;
+    overflow: hidden;
+    outline: none
+}
 .fundo-estabelecimento{
     position: absolute;
     display: block;
