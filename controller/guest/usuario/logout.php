@@ -11,7 +11,7 @@ try {
 
 	if(session_id()){
 		session_destroy();
-		$response->success = 'Cliente saiu da plataforma Markday';
+		$response->success = 'Usuário saiu da plataforma';
 		http_response_code(200);
 	}
 

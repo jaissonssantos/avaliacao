@@ -323,7 +323,7 @@
 <?php require_once 'views/template/footer.php'; ?>
 
 <!-- javascripts -->
-<!-- <script type="text/javascript" src="javascripts/vendor/login.js"></script> -->
+<script type="text/javascript" src="javascripts/vendor/office/dashboard.js"></script>
 
 <!--Morris JavaScript -->
 <script src="assets/template/plugins/bower_components/raphael/raphael-min.js"></script>

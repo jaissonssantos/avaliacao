@@ -15,8 +15,8 @@
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="javascript:void(0)"><i class="ti-user"></i> Minha conta</a></li>
-                    <li><a href="javascript:void(0)"><i class="fa fa-power-off"></i> Sair</a></li>
+                    <li><a id="minhaconta" href="javascript:void(0)"><i class="ti-user"></i> Minha conta</a></li>
+                    <li><a id="sair" href="javascript:void(0)"><i class="fa fa-power-off"></i> Sair</a></li>
                 </ul>
             </li>
             <li class="nav-small-cap m-t-10">Ações</li>

@@ -22,6 +22,7 @@
             <li><a class="page-scroll" href="#features">Benefícios</a></li>
             <li><a class="page-scroll" href="#pricing">Preço</a></li>
             <li><a class="page-scroll" href="#contact">Contato</a></li>
+            <li><a class="page-scroll" href="/login">Entrar</a></li>
         </ul>
       </div>
     </div>
