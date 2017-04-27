@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Base de Dados: avaliacao
-# Tempo de Geração: 2017-04-07 02:02:58 +0000
+# Tempo de Geração: 2017-04-27 07:52:13 +0000
 # ************************************************************
 
 
@@ -9786,7 +9786,7 @@ CREATE TABLE `estabelecimento` (
   `hash` varchar(200) NOT NULL DEFAULT '',
   `nomefantasia` varchar(160) DEFAULT NULL,
   `cpfcnpj` varchar(20) NOT NULL DEFAULT '',
-  `telefone` varchar(14) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `endereco` varchar(60) DEFAULT NULL,
   `numero` int(11) DEFAULT NULL,
@@ -9801,6 +9801,18 @@ CREATE TABLE `estabelecimento` (
   CONSTRAINT `estabelecimento_ibfk_1` FOREIGN KEY (`idcidade`) REFERENCES `cidade` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `estabelecimento` WRITE;
+/*!40000 ALTER TABLE `estabelecimento` DISABLE KEYS */;
+
+INSERT INTO `estabelecimento` (`id`, `hash`, `nomefantasia`, `cpfcnpj`, `telefone`, `cep`, `endereco`, `numero`, `complemento`, `bairro`, `idcidade`, `created_at`, `updated_at`)
+VALUES
+	(1,'kambo-tecnologia','Kambo tecnologia','00507557220','68999781476','69911768','R tal',193,'Casa','Boa União',16,'2017-04-06 21:04:40','2017-04-06 21:04:40'),
+	(2,'kambo-beta','Kambo beta','94027063724','6832253186','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
+	(3,'onedeveloper','OneDeveloper','19715461000179','1140089765','04859230','Rua Anita Malfatti',11849,'Sala 109','Jardim Alvorada (Zona Sul)',9422,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
+	(4,'so-bronze','Só Bronze','784.918.753-95','(68) 9997-81476','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,'2017-04-27 01:30:57','2017-04-27 01:30:57');
+
+/*!40000 ALTER TABLE `estabelecimento` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump da tabela estabelecimento_cliente
@@ -9966,6 +9978,18 @@ CREATE TABLE `usuario` (
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idestabelecimento`) REFERENCES `estabelecimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+
+INSERT INTO `usuario` (`id`, `idestabelecimento`, `nome`, `sobrenome`, `email`, `senha`, `perfil`, `gestor`, `status`, `created_at`, `updated_at`)
+VALUES
+	(1,1,'Jaisson','Santos','jaissonssantos@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,NULL,NULL),
+	(2,2,'Jaisson','Santos','jaisson@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
+	(3,3,'Davi','Luiz','daviluiznsantos@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
+	(4,4,'Fabiana','Silva','fabiana@gmail.com','51f89e21b7283add3e0ae52655e60a85edfb16d0',1,0,1,'2017-04-27 01:30:57','2017-04-27 01:30:57');
+
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump da tabela usuario_permissao
@@ -9982,6 +10006,42 @@ CREATE TABLE `usuario_permissao` (
   CONSTRAINT `usuario_permissao_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `usuario_permissao` WRITE;
+/*!40000 ALTER TABLE `usuario_permissao` DISABLE KEYS */;
+
+INSERT INTO `usuario_permissao` (`id`, `idusuario`, `regra`)
+VALUES
+	(1,1,'/dashboard'),
+	(2,1,'/questionarios'),
+	(3,1,'/estabelecimento'),
+	(4,1,'/usuarios'),
+	(5,1,'/relatorio'),
+	(6,1,'/plano'),
+	(7,1,'/404'),
+	(8,2,'/dashboard'),
+	(9,2,'/questionarios'),
+	(10,2,'/estabelecimento'),
+	(11,2,'/usuarios'),
+	(12,2,'/relatorio'),
+	(13,2,'/plano'),
+	(14,2,'/404'),
+	(15,3,'/dashboard'),
+	(16,3,'/questionarios'),
+	(17,3,'/estabelecimento'),
+	(18,3,'/usuarios'),
+	(19,3,'/relatorio'),
+	(20,3,'/plano'),
+	(21,3,'/404'),
+	(22,4,'/dashboard'),
+	(23,4,'/questionarios'),
+	(24,4,'/estabelecimento'),
+	(25,4,'/usuarios'),
+	(26,4,'/relatorio'),
+	(27,4,'/plano'),
+	(28,4,'/404');
+
+/*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
