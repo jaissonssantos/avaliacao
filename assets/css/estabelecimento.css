@@ -3,6 +3,7 @@
 /*@import url(../plugins/datetime/datetime.css);*/
 /*@import url(checkbox-styled.css);*/
 .fundo-estabelecimento{
+    position: absolute;
     display: block;
     width: 100%;
     height: 100%;
@@ -15,6 +16,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
+    z-index: 9;
 }
 .btn-avalia-middle-left{
     float: left;
@@ -48,7 +50,7 @@
     overflow: hidden;
     position: relative;
     top: 100px;
-    margin-bottom: 680px;
+    z-index: 99;
 }
 .register-company h2{
     background-color: #D94432;
@@ -70,6 +72,10 @@
     font-style: italic;
     margin-top: 15px;
 }
+.register-company .alert p{
+    margin: 0;
+    padding: 0;
+}
 .register-company form{
     padding: 10px 30px;
 }
@@ -85,6 +91,7 @@
 .list-itens{
     position: relative;
     top: 100px;
+    z-index: 9;
 }
 .list-itens h1{
     display: block;

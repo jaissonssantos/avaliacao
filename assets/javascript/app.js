@@ -12,15 +12,6 @@ var app = {};
 				error : args.error
             });
 		},
-		testjson : function(url) {
-			this.getjson( {
-				url : url,
-				contentType : 'application/json',
-				success : function(data) {
-					console.log( data )
-				}
-			} )
-		},
 		getjson : function(args) {
 			if (args.loading)
 				args.loading()

@@ -1,4 +1,4 @@
-<!-- style CSS -->
+<!-- css -->
 <link href="assets/css/style.css" rel="stylesheet">
 
 <div class="wrapper">
@@ -34,7 +34,7 @@
           <div class="col-sm-8 col-sm-offset-2">
             <div class="intro">
               <h1 class="wow fadeInDown">Crie sua pesquisa grátis de forma fácil e<br class="visible-lg">rápido</h1>
-              <a href="/cadastro/estabelecimento" class="btn btn-action btn-nofill wow fadeInDown" data-wow-delay="0.1s">Quero criar minha conta</a>
+              <a href="/estabelecimento" class="btn btn-action btn-nofill wow fadeInDown" data-wow-delay="0.1s">Quero criar minha conta</a>
             </div>
           </div>
           <div class="col-sm-12 text-center">
@@ -210,7 +210,7 @@
                     <li>Colete dados via link, email, Facebook</li>
                     <li>Resposta atualizadas em tempo real</li>
                   </ul>
-                  <a href="/cadastro/estabelecimento/gratuito" class="btn btn-primary btn-action btn-edge">Eu quero</a>
+                  <a href="/estabelecimento" class="btn btn-primary btn-action btn-edge">Eu quero</a>
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@
                   <li>Exportação de dados</li>
                   <li>Suporte técnico</li>
                 </ul>
-                <a href="/cadastro/estabelecimento/pago" class="btn btn-primary btn-action btn-edge">Cadastre-se já</a>
+                <a href="/estabelecimento" class="btn btn-primary btn-action btn-edge">Cadastre-se já</a>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@
             <div class="cta-big-inner wow fadeInRight">
               <h1>Utilize uma ferramenta gratuita e eficaz.</h1>
               <p>A necessidade de conhecer os seus clientes transforma seu negócios para sua tomada de decisão.</p>
-              <a href="/cadastro/plano/pago" class="btn btn-action btn-white">Cadastre-se já</a>
+              <a href="/estabelecimento" class="btn btn-action btn-white">Cadastre-se já</a>
             </div>
           </div>
         </div>
@@ -350,3 +350,9 @@
 
   </div> <!-- Main -->
 </div><!-- Wrapper -->
+
+<!-- javascripts -->
+<script type="text/javascript" src="assets/javascript/plugins.js"></script>
+<script type="text/javascript" src="assets/javascript/custom.js"></script>
+<script type="text/javascript" src="assets/javascript/validator.js"></script>
+<script type="text/javascript" src="assets/javascript/contact.js"></script>

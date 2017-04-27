@@ -1,3 +1,15 @@
+<?php
+    if (!isset(
+        $_SESSION['avaliacao_uid'],
+        $_SESSION['avaliacao_nome'],
+        $_SESSION['avaliacao_sobrenome'],
+        $_SESSION['avaliacao_email'],
+        $_SESSION['avaliacao_perfil'],
+        $_SESSION['avaliacao_estabelecimento']
+    )) {
+        header('Location: /login');
+    }
+?>
 <!-- Bootstrap Core CSS -->
 <link href="assets/template/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="assets/template/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">

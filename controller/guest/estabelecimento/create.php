@@ -10,10 +10,10 @@ setlocale(LC_ALL, 'pt_BR.UTF8');
 
 try {
     if (!isset(
-        $params->usuario->nome,
-        $params->usuario->sobrenome,
-        $params->usuario->email, 
-        $params->usuario->senha,
+        $params->nome,
+        $params->sobrenome,
+        $params->email, 
+        $params->senha,
         $params->nomefantasia,
         $params->cpfcnpj,
         $params->telefone,
@@ -22,8 +22,8 @@ try {
         $params->bairro,
         $params->numero,
         $params->complemento,
-        $params->idestado,
-        $params->idcidade
+        $params->estado,
+        $params->cidade
     )) {
         throw new Exception('Verifique os dados preenchidos', 400);
     }
@@ -65,11 +65,11 @@ try {
         $params->numero,
         $params->complemento,
         $params->bairro,
-        $params->idcidade
+        $params->cidade
     ));    
 
-    $params->usuario->senha = sha1(SALT.$params->usuario->senha);
-    $params->usuario->perfil = 1;
+    $params->senha = sha1(SALT.$params->senha);
+    $params->perfil = 1;
     $estabelecimento_id = $oConexao->lastInsertId();
 
     // Cadastro do usuário - 1 - Usuário comum | 2 - Gestor
@@ -77,11 +77,11 @@ try {
                  usuario(nome,sobrenome,email,senha,perfil,idestabelecimento,created_at,updated_at
                 ) VALUES (?,?,?,?,?,?,now(),now())');
     $stmt->execute(array(
-        $params->usuario->nome,
-        $params->usuario->sobrenome,
-        $params->usuario->email, 
-        $params->usuario->senha,
-        $params->usuario->perfil,
+        $params->nome,
+        $params->sobrenome,
+        $params->email, 
+        $params->senha,
+        $params->perfil,
         $estabelecimento_id
     ));
 
@@ -103,12 +103,12 @@ try {
         $stmt->execute($usuario_permissao);
     }
 
-    $_SESSION['ang_av_uid'] = $usuario_id;
-    $_SESSION['ang_av_nome'] = $params->usuario->nome;
-    $_SESSION['ang_av_sobrenome'] = $params->usuario->sobrenome;
-    $_SESSION['ang_av_email'] = $params->usuario->email;
-    $_SESSION['ang_av_perfil'] = $params->usuario->perfil;
-    $_SESSION['ang_av_estabelecimento'] = $estabelecimento_id;
+    $_SESSION['avaliacao_uid'] = $usuario_id;
+    $_SESSION['avaliacao_nome'] = $params->nome;
+    $_SESSION['avaliacao_sobrenome'] = $params->sobrenome;
+    $_SESSION['avaliacao_email'] = $params->email;
+    $_SESSION['avaliacao_perfil'] = $params->perfil;
+    $_SESSION['avaliacao_estabelecimento'] = $estabelecimento_id;
 
     $oConexao->commit();
 

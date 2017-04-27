@@ -5,8 +5,6 @@ use Base\Controller;
 require_once 'controller.class.php';
 require_once '../conn/conexao.class.php';
 require_once '../vendor/functions.php';
-require_once '../vendor/Facebook/autoload.php';
-require_once '../vendor/zenvia/Zenvia.php';
 require_once 'ApiController.php';
 require_once 'Exceptions/NotFoundException.php';
 $routes = require_once 'routes.php';

@@ -1,6 +1,9 @@
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="assets/css/estabelecimento.css">
+
 <div class="transparencia"></div>
 <div class="fundo-estabelecimento">
-	<a href="/" class="voltar ng-scope">Voltar</a>
+	<a href="/" class="voltar">Voltar</a>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
@@ -16,21 +19,20 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-md-5" ng-init="step = 1">
-				<div ng-show="step == 1" class="register-company">
+			<div class="col-md-5">
+				<div id="step-1" class="register-company">
 					<h2>Experimente de forma gratuito por 15 dias</h2>
 					<p>Parte 1 - Dados do Administrador</p>
-					<form name="formCadastroEstabelecimento" role="form" class="form-signin" novalidate>
+					<form id="formUsuario" name="formUsuario" class="form-signin">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
+										id="nome" 
 										name="nome" 
-										ng-model="estabelecimento.usuario.nome" 
 										placeholder="Nome" 
-										type="text"
-										required>
+										type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-user-o"></i>
 										</div>
@@ -41,11 +43,10 @@
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
-										name="nomeAdmin" 
-										ng-model="estabelecimento.usuario.sobrenome" 
+										id="sobrenome" 
+										name="sobrenome" 
 										placeholder="Sobrenome" 
-										type="text"
-										required>
+										type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-user-o"></i>
 										</div>
@@ -59,19 +60,11 @@
 									<div class="input-group">
 										<input class="form-control" 
 										type="email"
+										id="email" 
 										name="email" 
-										ng-model="estabelecimento.usuario.email" 
-										ng-change="checkEmail()" 
-										ng-model-options="{ debounce: 500 }"
-										placeholder="E-mail" 
-										required>
+										placeholder="E-mail" >
 										<div class="input-group-addon">
-											<i ng-class="{
-												'fa fa-check text-success' : email.notfound && formCadastroEstabelecimento.email.$valid,
-												'fa fa-times text-danger' : email.found || (formCadastroEstabelecimento.email.$touched && formCadastroEstabelecimento.email.$invalid),
-												'fa fa-spinner fa-spin' : email.loading,
-												'fa fa-envelope-o' : email
-											}"></i>
+											<i class="fa fa-envelope-o"></i>
 										</div>
 									</div>
 								</div>
@@ -81,27 +74,25 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="senha" ng-model="estabelecimento.usuario.senha" id="senha" placeholder="Senha" 
-										type="password"
-										ng-minlength="5"
-										ng-maxlength="20"
-										required>
+										<input class="form-control" 
+										id="senha"
+										name="senha" 
+										placeholder="Senha" 
+										type="password">
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
 									</div>
-									<p ng-if="formCadastroEstabelecimento.senha.$error.minlength || formCadastroEstabelecimento.senha.$error.maxlength"
-									class="text-left nopadding">
-										Sua senha deve conter de 5 a 20 carateres
-									</p>
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="confirmaSenha" ng-model="estabelecimento.usuario.confirmasenha" id="confirmar-senha" placeholder="Confirmar senha"
-										type="password"
-										required>
+										<input class="form-control" 
+										id="confirmasenha" 
+										name="confirmasenha" 
+										placeholder="Confirmar senha"
+										type="password">
 										<div class="input-group-addon">
 											<i class="fa fa-key"></i>
 										</div>
@@ -111,20 +102,22 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<button ng-click="step = 2" ng-disabled="formCadastroEstabelecimento.$invalid || estabelecimento.usuario.senha != estabelecimento.usuario.confirmasenha || email.found" class="btn-success btn btn-avalia-lg">CONTINUAR</button>
+								<button id="continuar"
+									class="btn-success btn btn-avalia-lg">CONTINUAR</button>
 							</div>
 						</div>
 					</form>
 				</div>
 
-				<div ng-show="step == 2" class="register-company register2">
-					<h2>Experimente Grátis por 30 dias</h2>
+				<div id="step-2" class="register-company register2 hidden">
+					<h2>Experimente de forma gratuito por 15 dias</h2>
 					<p>Parte 2 - Dados do Estabelecimento</p>
-					<form name="formCadastroEstabelecimentoAdmin" role="form" class="form-signin" novalidate>
-						<div class="row" ng-if="error">
+					<form id="formCadastroEstabelecimento" 
+						name="formCadastroEstabelecimento" class="form-signin">
+						<div id="errorCadastro" class="row hidden">
 							<div class="col-md-12">
-								<div class="alert alert-error">
-									<p ng-bind="error"></p>
+								<div class="alert alert-warning">
+									<p></p>
 								</div>
 							</div>
 						</div>
@@ -132,8 +125,11 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" name="nomefantasia" ng-model="estabelecimento.nomefantasia" id="nome-estabelecimento" placeholder="Nome do estabelecimento"
-											type="text" required>
+										<input class="form-control" 
+										id="nomefantasia"
+										name="nomefantasia"
+										placeholder="Nome do estabelecimento"
+										type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-building-o"></i>
 										</div>
@@ -146,19 +142,11 @@
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
+										id="cpfcnpj"
 										name="cpfcnpj"
-										ng-model="estabelecimento.cpfcnpj" 
-										placeholder="CPF/CNPJ"
-										ng-change="checkCpfCnpj()" 
-										ng-model-options="{ debounce: 500 }" 
-										ui-br-cpfcnpj-mask required>
+										placeholder="CPF/CNPJ">
 										<div class="input-group-addon">
-											<i ng-class="{
-												'fa fa-building-o' : !formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
-												'fa fa-check text-success' : cpfcnpj.notfound && formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
-												'fa fa-times text-danger' : cpfcnpj.found && formCadastroEstabelecimentoAdmin.cpfcnpj.$touched,
-												'fa fa-spinner fa-spin' : cpfcnpj.loading
-											}"></i>
+											<i class="fa fa-building-o"></i>
 										</div>
 									</div>
 								</div>
@@ -169,12 +157,10 @@
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
-										ng-model="estabelecimento.telefone" 
 										id="telefone" 
+										name="telefone" 
 										placeholder="Telefone" 
-										type="tel"
-										ui-br-phone-number 
-										required>
+										type="tel">
 										<div class="input-group-addon">
 											<i class="fa fa-mobile"></i>
 										</div>
@@ -187,20 +173,12 @@
 								<div class="form-group">
 									<div class="input-group">
 										<input class="form-control" 
-										ng-model="estabelecimento.cep" 
+										id="cep" 
 										name="cep" 
 										placeholder="CEP" 
-										ng-change="searchCep()" 
-										ng-model-options="{ debounce: 500 }" 
-										type="text"
-										ui-br-cep-mask >
+										type="text">
 										<div class="input-group-addon">
-											<i ng-class="{
-												'fa fa-map-marker' : !formCadastroEstabelecimentoAdmin.cep.$touched,
-												'fa fa-check text-success' : endereco.loaded,
-												'fa fa-times text-danger' : endereco.error,
-												'fa fa-spinner fa-spin' : endereco.loading
-											}"></i>
+											<i class="fa fa-map-marker"></i>
 										</div>
 									</div>
 								</div>
@@ -208,8 +186,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="select-style">
-										<select ng-model="estabelecimento.idestado" ng-init="loadEstados()" ng-change="loadCidades()" ng-options="estado.id as estado.nome for estado in estados"
-											class="form-control" >
+										<select id="estado" name="estado" class="form-control">
 												<option value="" disabled selected>Estado</option>
 											</select>
 									</div>
@@ -221,8 +198,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="select-style">
-										<select ng-model="estabelecimento.idcidade" ng-options="cidade.id as cidade.nome for cidade in cidades"
-											class="form-control">
+										<select id="cidade" name="cidade" class="form-control">
 											<option value="" disabled selected>Cidade</option>
 											</select>
 									</div>
@@ -231,7 +207,10 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.endereco" name="endereco" placeholder="Av. Brasil, 1000" type="text" >
+										<input class="form-control" 
+										id="endereco"
+										name="endereco" 
+										placeholder="Av. Brasil, 1000" type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -243,7 +222,8 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.bairro" id="bairro" placeholder="Bairro" type="text">
+										<input class="form-control"
+										id="bairro" name="bairro" placeholder="Bairro" type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -255,7 +235,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.numero" id="numero" placeholder="Número" type="number">
+										<input class="form-control" id="numero" name="numero" placeholder="Número" type="number">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -265,8 +245,9 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="input-group">
-										<input class="form-control" ng-model="estabelecimento.complemento" id="complemento" placeholder="Complemento (opcional)"
-											type="text">
+										<input class="form-control"  
+										id="complemento" name="complemento" placeholder="Complemento (opcional)"
+										type="text">
 										<div class="input-group-addon">
 											<i class="fa fa-map-marker"></i>
 										</div>
@@ -276,9 +257,9 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<button ng-click="step = 1" 
-								class="btn btn-avalia-middle-left">VOLTAR</button>
-								<button ng-click="save()" ng-disabled="formCadastroEstabelecimentoAdmin.$invalid || status.loading || cpfcnpj.found" 
+								<button id="voltar"
+									class="btn btn-avalia-middle-left">VOLTAR</button>
+								<button id="salvar"
 								class="btn-success btn btn-avalia-middle-right">CADASTRAR</button>
 							</div>
 						</div>
@@ -288,3 +269,13 @@
 		</div>
 	</div>
 </div>
+
+<!-- javascripts -->
+<script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/javascript/jquery.cpfcnpj.min.js"></script>
+<script type="text/javascript" src="assets/javascript/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="assets/javascript/jquery.mask.js"></script>
+<script type="text/javascript" src="assets/javascript/validate/checkcpfcnpj.js"></script>
+<script type="text/javascript" src="assets/javascript/validate/checkemail.js"></script>
+<script type="text/javascript" src="javascripts/vendor/functions.js"></script>
+<script type="text/javascript" src="javascripts/vendor/estabelecimento.js"></script>

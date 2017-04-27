@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('input#cpf, input#cpfportador').on('keydown',function(e) {
+	$('input#cpf').on('keydown',function(e) {
 		/* Allow backspace, delete, tab, esc e enter */
 		if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
 		/* Allow CTRL+A */

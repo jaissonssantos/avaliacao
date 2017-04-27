@@ -39,7 +39,6 @@ require_once 'vendor/functions.php';
 <body>
 
 <?php
-
 $path = Url::getURL(0);
 $subpath = Url::getURL(1);
 $file = Url::getURL(2);
@@ -47,22 +46,17 @@ $params = Url::getURL(3);
 
 //route url
 if(empty($path)){
-	include "views/home.php";
-}else if(file_exists('views/'.$path.".php")){
-	include 'views/'.$path.".php";
+	include 'views/home.php';
+}else if(file_exists('views/'.$path.'.php')){
+	include 'views/'.$path.'.php';
+}else if(file_exists('views/'.$path.'/'.$subpath.'.php')){
+	include 'views/'.$path.'/'.$subpath.'.php';
 }
-// if(file_exists($path.$subpath.$file)){
-// 	include $path.$subpath.$file;
-//     exit();
-// }
 ?>
 
 <!-- Javascript -->
-<script type="text/javascript" src="assets/javascript/plugins.js"></script>
-<script type="text/javascript" src="assets/javascript/custom.js"></script>
-<script type="text/javascript" src="assets/javascript/validator.js"></script>
-<script type="text/javascript" src="assets/javascript/contact.js"></script>
 <script type="text/javascript" src="assets/javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/javascript/app.js"></script>
 
 
 </body>
