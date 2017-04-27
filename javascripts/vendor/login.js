@@ -68,8 +68,13 @@ $(document).ready(function(){
                 contentType : "application/json",
                 data: params,
                 success: function(response){
-                    if(response.success)
-                        window.location.href = "/dashboard";
+                    if(response.results.id){
+                        if(response.results.gestor == 1){
+                            window.location.href = "/administrador/dashboard";
+                        }else{
+                            window.location.href = "/office/dashboard";
+                        }
+                    }
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);

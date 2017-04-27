@@ -19,7 +19,7 @@
                     <b>
                         <img src="assets/template/plugins/images/eliteadmin-logo.png" alt="home" />
                     </b>
-                    <span class="hidden-xs"><strong>elite</strong>hospital</span>
+                    <span class="hidden-xs"><strong>Avalia</strong>.me</span>
                 </a>
             </div>
         </div>

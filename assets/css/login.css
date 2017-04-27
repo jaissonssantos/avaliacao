@@ -1,7 +1,7 @@
 @import url(checkbox.css);
 .login {
     position: absolute;
-    background: url(/assets/images/bg1.jpg) no-repeat center center;
+    background: url(/assets/template/plugins/images/heading-bg/slide3.jpg) no-repeat center center;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -36,6 +36,9 @@
 }
 .form-signin p{
     color: #fff;
+}
+.alert p{
+    color: #555;
 }
 .voltar {
     position: absolute;

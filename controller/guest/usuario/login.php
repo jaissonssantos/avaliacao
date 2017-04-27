@@ -18,7 +18,7 @@ try {
 
     $stmt = $oConexao->prepare(
         'SELECT id,nome,sobrenome,email,perfil,gestor,idestabelecimento
-		FROM cliente
+		FROM usuario
 		WHERE 
             email=upper(?) 
 		AND 
@@ -35,17 +35,11 @@ try {
     if($results){
         $_SESSION['avaliacao_uid'] = $results->id;
         $_SESSION['avaliacao_nome'] = $results->nome;
-        $_SESSION['avaliacao_sobrenome'] = $results->nome;
+        $_SESSION['avaliacao_sobrenome'] = $results->sobrenome;
         $_SESSION['avaliacao_email'] = $results->email;
         $_SESSION['avaliacao_perfil'] = $results->perfil;
-        $_SESSION['avaliacao_gestor'] = ($results->gestor == 0) ? false : true;
+        $_SESSION['avaliacao_gestor'] = $results->gestor;
         $_SESSION['avaliacao_estabelecimento'] = $results->idestabelecimento;
-        $stmt = $oConexao->prepare(
-            'UPDATE cliente 
-				SET datalogin=now()
-			WHERE id=:id'
-        );
-        $stmt->execute(array('id' => $results->id));
     } 
     http_response_code(200);
     if (!$results) {
