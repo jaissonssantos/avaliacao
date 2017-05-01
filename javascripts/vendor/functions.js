@@ -30,9 +30,82 @@ $(document).ready(function(){
 });
 
 /*   
+  @brief Cria uma paginação
+  @param limit(int) - item por página
+  @param page(int) - página atual
+  @param total(int) - total de itens
+  @return pagination(text) - html da paginação
+*/
+function paginator(limit,page,total){
+  //pagination
+  var pagination = '';
+  var total_pages = Math.ceil(parseInt(total)/limit);
+  var right_link = page+3;
+
+  if(page > 1){
+      pagination +=   '<li>'+
+                          '<a href="#" data-page="1">'+
+                              '<span>Primeiro</span>'+
+                          '</a>'+
+                      '</li>'+
+                      '<li>'+
+                          '<a href="#" data-page="'+(page-1)+'">'+
+                              '<span>Anterior</span>'+
+                          '</a>'+
+                      '</li>';
+      for(var i=(page-2);i<page;i++){
+          if(i>0)
+              pagination +=   '<li>'+
+                                  '<a href="#" data-page="'+i+'">'+
+                                      '<span>'+i+'</span>'+
+                                  '</a>'+
+                              '</li>';
+      }   
+  }
+
+  if(page == total_pages){
+      pagination +=   '<li class="active">'+
+                          '<a href="#" data-page="'+page+'">'+
+                              '<span>'+page+'</span>'+
+                          '</a>'+
+                      '</li>';
+  }else{
+      pagination +=   '<li class="active">'+
+                          '<a href="#" data-page="'+page+'">'+
+                              '<span>'+page+'</span>'+
+                          '</a>'+
+                      '</li>';
+  }
+
+  for(var i=(page+1);i<=right_link;i++){
+      if(i <= total_pages){
+          pagination +=   '<li>'+
+                              '<a href="#" data-page="'+i+'">'+
+                                  '<span>'+i+'</span>'+
+                              '</a>'+
+                          '</li>';
+      }
+  }
+
+  if(page < total_pages){
+      pagination +=   '<li>'+
+                          '<a href="#" data-page="'+(page+1)+'">'+
+                              '<span>Próximo</span>'+
+                          '</a>'+
+                      '</li>'+
+                      '<li>'+
+                          '<a href="#" data-page="'+total_pages+'">'+
+                              '<span>Último</span>'+
+                          '</a>'+
+                      '</li>';
+  }
+  return pagination;
+}
+
+/*   
 	@brief Converte uma string em formato moeda para float
-    @param valor(string) - o valor em moeda
-    @return valor(float) - o valor em float
+  @param valor(string) - o valor em moeda
+  @return valor(float) - o valor em float
 */
 function moneyToFloat(valor){
 	if(valor === ""){
@@ -47,8 +120,8 @@ function moneyToFloat(valor){
 
 /*   
 	@brief Converte um valor em formato float para uma string em formato moeda
-    @param valor(float) - o valor float
-    @return valor(string) - o valor em moeda
+  @param valor(float) - o valor float
+  @return valor(string) - o valor em moeda
 */
 function floatToMoney(valor,mascara){
   var inteiro = null, decimal = null, c = null, j = null;
@@ -89,3 +162,4 @@ function floatToMoney(valor,mascara){
   valor = mascara+' '+inteiro+","+decimal;  
   return valor;
 }
+

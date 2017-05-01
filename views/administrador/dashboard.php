@@ -21,7 +21,7 @@
 <!-- Custom CSS -->
 <link href="assets/template/css/style.min.css" rel="stylesheet">
 <!-- color CSS -->
-<link href="assets/template/css/colors/blue.css" id="theme" rel="stylesheet">
+<link href="assets/template/css/colors/red.css" id="theme" rel="stylesheet">
 
 <?php require_once 'views/template/header.php'; ?>
 <?php require_once 'views/template/left.php'; ?>

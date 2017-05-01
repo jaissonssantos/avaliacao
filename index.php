@@ -30,7 +30,7 @@ require_once 'vendor/functions.php';
 <!-- Mobile Specific Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="main.css">
-<link href="assets/images/favicon.png" rel="shortcut icon" type="image/png" sizes="16x16">
+<link href="assets/icons/av.svg" rel="shortcut icon" type="image/svg" sizes="16x16">
 <!-- Javascript -->
 <script type="text/javascript" src="assets/javascript/jquery.min.js"></script>
 <script type="text/javascript" src="assets/javascript/jquery.livequery.min.js"></script>
@@ -39,18 +39,33 @@ require_once 'vendor/functions.php';
 <body>
 
 <?php
-$path = Url::getURL(0);
-$subpath = Url::getURL(1);
-$file = Url::getURL(2);
-$params = Url::getURL(3);
+
+$url_path = Url::getURL(0);
+$url_subpath = Url::getURL(1);
+$url_file = Url::getURL(2);
+$url_params = Url::getURL(3);
+
+// echo $url_path.'<br/>';
+// echo $url_subpath.'<br/>';
+// echo $url_file.'<br/>';
+// echo $url_params.'<br/>';
+
 
 //route url
-if(empty($path)){
+if(empty($url_path)){
 	include 'views/home.php';
-}else if(file_exists('views/'.$path.'.php')){
-	include 'views/'.$path.'.php';
-}else if(file_exists('views/'.$path.'/'.$subpath.'.php')){
-	include 'views/'.$path.'/'.$subpath.'.php';
+}else if(file_exists('views/'.$url_path.'.php')){
+	include 'views/'.$url_path.'.php';
+}else if(file_exists('views/'.$url_path.'/'.$url_subpath.'.php')){
+	include 'views/'.$url_path.'/'.$url_subpath.'.php';
+}else if(file_exists('views/'.$url_path.'/'.$url_subpath.'/')){
+	if(file_exists('views/'.$url_path.'/'.$url_subpath.'/index.php')){
+		include 'views/'.$url_path.'/'.$url_subpath.'/index.php';
+	}else{
+		include 'views/'.$url_path.'/'.$url_subpath.'/list.php';
+	}
+}elseif(file_exists('views/'.$url_path.'/'.$url_subpath.'/'.$url_file.'.php')){
+	include 'views/'.$url_path.'/'.$url_subpath.'/'.$url_file.'.php';
 }
 ?>
 

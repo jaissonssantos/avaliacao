@@ -27,7 +27,7 @@
 <!-- Custom CSS -->
 <link href="assets/template/css/style.min.css" rel="stylesheet">
 <!-- color CSS -->
-<link href="assets/template/css/colors/blue.css" id="theme" rel="stylesheet">
+<link href="assets/template/css/colors/red.css" id="theme" rel="stylesheet">
 
 <?php require_once 'views/template/header.php'; ?>
 <?php require_once 'views/template/left.php'; ?>
@@ -342,4 +342,4 @@
 <script src="assets/template/js/widget.js"></script>
 
 <!--Style Switcher -->
-    <script src="assets/template/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="assets/template/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>

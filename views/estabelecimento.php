@@ -1,4 +1,5 @@
 <!-- css -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="assets/css/estabelecimento.css">
 
 <div class="transparencia"></div>

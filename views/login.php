@@ -1,4 +1,5 @@
 <!-- css -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="assets/css/login.css">
 
 <a href="/" class="voltar">Voltar</a>
@@ -43,7 +44,7 @@
                             </div>
 
                             <button id="acessar" 
-                                class="btn btn-lg btn-login btn-block">
+                                class="btn btn-lg btn-login btn-acessar btn-block">
                                     <span>ACESSAR</span>
                             </button>
                         </section>
@@ -60,7 +61,7 @@
                             <div class="col-md-12">
                                 <a href="/estabelecimento" 
                                     target="_self" 
-                                    class="btn btn-lg btn-block btn-facebook">
+                                    class="btn btn-lg btn-block btn-nova-conta">
                                     Nova conta
                                 </a>
                             </div>

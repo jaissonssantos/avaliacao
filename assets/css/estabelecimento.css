@@ -1,16 +1,3 @@
-.voltar {
-    position: absolute;
-    display: block;
-    width: 40px;
-    height: 40px;
-    z-index: 200;
-    background: url(/assets/icons/voltar.svg) no-repeat center center;
-    background-size: contain;
-    margin: 10px;
-    text-indent: -999px;
-    overflow: hidden;
-    outline: none
-}
 .fundo-estabelecimento{
     position: absolute;
     display: block;
@@ -26,6 +13,19 @@
     height: 100%;
     background-color: rgba(0,0,0,0.5);
     z-index: 9;
+}
+.voltar {
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 40px;
+    z-index: 200;
+    background: url(/assets/icons/voltar.svg) no-repeat center center;
+    background-size: contain;
+    margin: 10px;
+    text-indent: -999px;
+    overflow: hidden;
+    outline: none
 }
 .btn-avalia-middle-left{
     float: left;

@@ -19,7 +19,7 @@
                     <li><a id="sair" href="javascript:void(0)"><i class="fa fa-power-off"></i> Sair</a></li>
                 </ul>
             </li>
-            <li class="nav-small-cap m-t-10">Ações</li>
+            <li class="nav-small-cap m-t-10">Funções</li>
 
             <li> <a href="<?=($_SESSION['avaliacao_gestor'] == 1 ? '/administrador/dashboard' : '/office/dashboard')?>" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a></li>
 
@@ -45,7 +45,7 @@
                 </li>
 
                 <li> 
-                    <a href="/office/usuario" class="waves-effect"><i class="icon-chart p-r-10" data-icon="v"></i> <span class="hide-menu"> Usuários </span>
+                    <a href="/office/usuario" class="waves-effect"><i class="icon-user p-r-10" data-icon="v"></i> <span class="hide-menu"> Usuários </span>
                     </a>
                 </li>
             <?php } ?>

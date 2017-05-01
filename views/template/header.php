@@ -17,9 +17,9 @@
             <div class="top-left-part">
                 <a class="logo" href="index.html">
                     <b>
-                        <img src="assets/template/plugins/images/eliteadmin-logo.png" alt="home" />
+                        <img src="assets/icons/av.svg" alt="home" />
                     </b>
-                    <span class="hidden-xs"><strong>Avalia</strong>.me</span>
+                    <span class="hidden-xs">Avalia.me</span>
                 </a>
             </div>
         </div>

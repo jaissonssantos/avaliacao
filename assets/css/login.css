@@ -20,11 +20,12 @@
     margin: auto
 }
 .btn-acessar {
-    background-color: rgb(118, 187, 44);
-    color: rgb(255, 255, 255)
+    background-color: rgb(217, 68, 50);
+    color: rgb(255, 255, 255);
+    border-radius: 0;
 }
 .btn-acessar:hover {
-    background-color: rgba(118, 187, 44, 0.7);
+    background-color: rgba(217, 68, 50, 0.7);
     color: rgb(255, 255, 255)
 }
 .nova-conta input {
@@ -181,7 +182,7 @@
     font-size: 12px;
     margin-top: 10px;
     text-align: center;
-    color: rgb(243, 128, 115);
+    color: rgb(217,68,50);
 }
 .btn-facebook{
     background-color: #4862A3;
@@ -189,6 +190,16 @@
 }
 .btn-facebook:hover{
     background-color: #28468C;
+    color: #fff;
+}
+.btn-nova-conta{
+    background-color: #0090e9;
+    color: #fff;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+.btn-nova-conta:hover{
+    background-color: rgba(0, 144, 233, 0.7);
     color: #fff;
 }
 .check-errado.checkbox{
