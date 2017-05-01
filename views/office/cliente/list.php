@@ -98,31 +98,11 @@
                         <div class="col-md-6">
                           <nav aria-label="Page navigation">
                               <ul id="pagination" class="pagination pagination-sm">
-                                <li>
-                                  <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">Primeiro</span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">Voltar</span>
-                                  </a>
-                                </li>
                                 <li><a href="#">1</a></li>
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
                                 <li><a href="#">5</a></li>
-                                <li>
-                                  <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">Próximo</span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">Último</span>
-                                  </a>
-                                </li>
                               </ul>
                             </nav>
                         </div>

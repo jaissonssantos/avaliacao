@@ -1,35 +1,55 @@
 //variable global
-var clientes = {};
 var search = undefined;
 var page = 1;
 var offset = 0;
 var limit = 10;
+var status = 1;
 
 $(document).ready(function(){
 
-    function list(reload = false, search = undefined){
+    function list(reload = false, search = undefined, status = 1){
         var params = (search == undefined) ? 
-                        {offset: offset, limit: limit} : 
-                        {offset: offset, limit: limit, search: search};
+                        {offset: offset, limit: limit, status: status} : 
+                        {offset: offset, limit: limit, status: status, search: search};
         params = JSON.stringify(params);
 
         if(reload)
             $('#col-reload').removeClass('hidden');
 
+        //remove all itens active
+        $('.nav .nav-item a').removeClass('active');
+        switch(parseInt(status)){
+            case 1: 
+                $('#ativo').addClass('active');
+            break;
+            case 2: 
+                $('#inativo').addClass('active');
+            break;
+        }
+
         //list
         app.util.getjson({
-            url : "/controller/office/cliente/list",
+            url : "/controller/office/usuario/list",
             method : 'POST',
             contentType : "application/json",
             data: params,
             success: function(response){
                 var html = '';
                 for (var i=0;i<response.results.length;i++) {
+                    role = (response.results[i].perfil == 1) ? 'Acesso comum' : 'Gestor';
+                    labelRole = (response.results[i].perfil == 1) ? 'label-info' : 'label-success'; 
+                    status = (response.results[i].status == 1) ? 'Ativo' : 'Inativo'; 
+                    labelStatus = (response.results[i].status == 1) ? 'label-success' : 'label-danger'; 
                     html += '<tr>'+
                                 '<td>'+ response.results[i].id + '</td>'+
                                 '<td>'+ response.results[i].nome + '</td>'+
+                                '<td>'+ response.results[i].sobrenome + '</td>'+
                                 '<td>'+ response.results[i].email + '</td>'+
-                                '<td>'+ response.results[i].telefone + '</td>'+
+                                '<td class="text-center"><span class="label '+labelRole+'">'+role+'</span></td>'+
+                                '<td class="text-center"><span class="label '+labelStatus+'">'+status+'</span></td>'+
+                                '<td class="text-center">'+
+                                    '<a href="/office/usuario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
+                                '</td>'+
                             '</tr>';
                 }
                 if(parseInt(response.count.results) >= 1){
@@ -45,10 +65,13 @@ $(document).ready(function(){
                 }
                 if(parseInt(response.count.results) == 0){
                     html += '<tr>'+
-                                '<td colspan="4">Nenhum registro encontrado</td>'+
+                                '<td colspan="6">Nenhum registro encontrado</td>'+
                             '</tr>';
                 }
                 $('#table-loading').addClass('hidden');
+                $('ul.customtab').removeClass('hidden');
+                $('#count-ativo').html(response.count.ativos);
+                $('#count-inativo').html(response.count.inativos);
                 $('#table-results').removeClass('hidden');
                 $("#table-results > tbody").html(html);
                 if(reload)
@@ -78,8 +101,13 @@ $(document).ready(function(){
         if(search == undefined){
           return;
         }else{
-            list(true, search);
+            list(true, search, status);
         }
+    });
+
+    $('a#ativo,a#inativo').livequery('click',function(event){
+        status = $(this).data('status');
+        list(true, search, status);
     });
 
 	function onError(response) {
