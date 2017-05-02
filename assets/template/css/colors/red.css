@@ -168,6 +168,9 @@ body {
 .btn-danger.btn-outline:hover{
   background-color: #00c292;
 }
+.btn-add{
+  margin-top: -80px;
+}
 .fa-absolute{
   position: absolute;
   top: 32px !important;

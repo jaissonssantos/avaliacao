@@ -45,7 +45,7 @@
                 <ol class="breadcrumb">
                     <li><a href="/office/dashboard">Dashboard</a></li>
                     <li><a href="/office/usuario">Usuários</a></li>
-                    <li class="active">Adicionar</li>
+                    <li class="active">Redefinir senha</li>
                 </ol>
             </div><!-- /.col-lg-12 -->
         </div><!-- /.row -->
@@ -54,51 +54,35 @@
             <div class="col-md-12">                
                 <div class="white-box">
 
-                    <h3 class="box-title m-b-0">Novo usuário</h3>
-                    <p class="text-muted m-b-30 font-13"> Preecha o formulário abaixo </p>
+                    <div id="form-loading" class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <img src="assets/images/loading.gif">
+                                <p>Aguarde um pouco, estamos processando...</p>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="row">
+                    <div id="form" class="row hidden">
+
+                        <div class="col-sm-12 col-xs-12">
+                            <h3 class="box-title m-b-0">Redefinir senha do usuário: <span id="editName"></span></h3>
+                            <p class="text-muted m-b-30 font-13"> Redefinição da senha atual </p>
+                        </div>
 
                         <div class="col-sm-12 col-xs-12">
                             <form id="formUsuario" name="formUsuario">
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="nome">Nome</label>
-                                            <input type="text" class="form-control" id="nome" name="nome"> 
-                                        </div>                                
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="sobrenome">Sobrenome</label>
-                                            <input type="text" class="form-control" id="sobrenome" name="sobrenome"> 
-                                        </div>                                
-                                    </div>
-                                </div>
-
-                                <div class="row">
+                                
+                                <div id="error" class="row hidden">
                                     <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="email">E-mail</label>
-                                            <input type="text" class="form-control" id="email" name="email"> 
-                                        </div>                                
+                                        <div class="alert alert-warning">
+                                            <p></p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="perfil">Perfil</label>
-                                            <select class="form-control" id="perfil" name="perfil">
-                                                <option value="" disabled selected>Perfil</option>
-                                                <option value="1">Acesso comum</option>
-                                                <option value="2">Gestor</option>
-                                            </select>
-                                        </div>                                
-                                    </div>
-                                </div>
+                                <!-- hidden input -->
+                                <input type="hidden" id="id" name="id" value="<?=$url_params?>">
 
                                 <div class="row">
                                     <div class="col-md-4">
@@ -145,4 +129,4 @@
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
 <script type="text/javascript" src="javascripts/functions.js"></script>
-<script type="text/javascript" src="javascripts/office/usuario/add.js"></script>
+<script type="text/javascript" src="javascripts/office/usuario/password.js"></script>

@@ -45,7 +45,6 @@ try {
     // Perfil de Acesso comum
     if ($params->perfil == 1) {
 
-        // Permissões do profissional
         $stmt = $oConexao->prepare(
         'INSERT INTO usuario_permissao(
 				idusuario,regra
@@ -62,7 +61,7 @@ try {
         }
 
     // Perfil de gestor
-    } elseif ($params->perfil == 2) {
+    } else if ($params->perfil == 2) {
 
         // Permissões do Atendente
         $stmt = $oConexao->prepare(
@@ -81,10 +80,10 @@ try {
         }
     }
 
+    $oConexao->commit();
+
     http_response_code(200);
     $response->success = 'Atualizado com sucesso';
-
-    $oConexao->commit();
 } catch (PDOException $e) {
     //echo $e->getMessage();
     http_response_code(500);

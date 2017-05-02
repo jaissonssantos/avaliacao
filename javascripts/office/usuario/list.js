@@ -59,6 +59,7 @@ $(document).ready(function(){
                                 '<td class="text-center"><span class="label '+labelStatus+'">'+status+'</span></td>'+
                                 '<td class="text-center">'+
                                     '<a href="/office/usuario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/office/usuario/password/'+ response.results[i].id +'" title="Modificar senha"> <i class="fa fa-lock text-inverse m-r-10"></i> </a>'+
                                 '</td>'+
                             '</tr>';
                 }
@@ -118,6 +119,10 @@ $(document).ready(function(){
     $('a#ativo,a#inativo').livequery('click',function(event){
         status = $(this).data('status');
         list(true, search, status);
+    });
+
+    $('button.btn-add').livequery('click',function(event){
+        window.location.href = "/office/usuario/add";
     });
 
 	function onError(response) {

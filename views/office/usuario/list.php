@@ -85,6 +85,12 @@
                         </li>
                     </ul><!-- /.nav nav-tabs -->
 
+                    <div class="pull-right">
+                        <button class="btn btn-info btn-sm btn-add waves-effect waves-light" type="button">
+                            <span class="btn-label"><i class="fa fa-plus"></i></span>Adicionar
+                        </button>
+                    </div>
+
                     <div class="tab-content">
                         <div class="tab-pane active" id="status" aria-expanded="true">
                             
