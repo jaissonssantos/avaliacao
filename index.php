@@ -50,7 +50,6 @@ $url_params = Url::getURL(3);
 // echo $url_file.'<br/>';
 // echo $url_params.'<br/>';
 
-
 //route url
 if(empty($url_path)){
 	include 'views/home.php';
@@ -58,6 +57,8 @@ if(empty($url_path)){
 	include 'views/'.$url_path.'.php';
 }else if(file_exists('views/'.$url_path.'/'.$url_subpath.'.php')){
 	include 'views/'.$url_path.'/'.$url_subpath.'.php';
+}else if(file_exists('views/'.$url_path.'/'.$url_subpath.'/'.$url_file.'.php')){
+	include 'views/'.$url_path.'/'.$url_subpath.'/'.$url_file.'.php';
 }else if(file_exists('views/'.$url_path.'/'.$url_subpath.'/')){
 	if(file_exists('views/'.$url_path.'/'.$url_subpath.'/index.php')){
 		include 'views/'.$url_path.'/'.$url_subpath.'/index.php';

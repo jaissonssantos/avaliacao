@@ -133,5 +133,5 @@
 <?php require_once 'views/template/footer.php'; ?>
 
 <!-- javascripts -->
-<script type="text/javascript" src="javascripts/vendor/functions.js"></script>
-<script type="text/javascript" src="javascripts/vendor/office/cliente/list.js"></script>
+<script type="text/javascript" src="javascripts/functions.js"></script>
+<script type="text/javascript" src="javascripts/office/cliente/list.js"></script>

@@ -54,6 +54,12 @@
             <div class="col-md-12">                
                 <div class="white-box">
 
+                    <div id="success" class="alert alert-success hidden">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <p></p>
+                    </div>
+
                     <ul class="nav nav customtab nav-tabs hidden" role="tablist">
                         <li class="nav-item">
                             <a href="#status" id="ativo" data-status="1"
@@ -151,5 +157,5 @@
 <?php require_once 'views/template/footer.php'; ?>
 
 <!-- javascripts -->
-<script type="text/javascript" src="javascripts/vendor/functions.js"></script>
-<script type="text/javascript" src="javascripts/vendor/office/usuario/list.js"></script>
+<script type="text/javascript" src="javascripts/functions.js"></script>
+<script type="text/javascript" src="javascripts/office/usuario/list.js"></script>

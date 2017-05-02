@@ -278,5 +278,5 @@
 <script type="text/javascript" src="assets/javascript/jquery.mask.js"></script>
 <script type="text/javascript" src="assets/javascript/validate/checkcpfcnpj.js"></script>
 <script type="text/javascript" src="assets/javascript/validate/checkemail.js"></script>
-<script type="text/javascript" src="javascripts/vendor/functions.js"></script>
-<script type="text/javascript" src="javascripts/vendor/estabelecimento.js"></script>
+<script type="text/javascript" src="javascripts/functions.js"></script>
+<script type="text/javascript" src="javascripts/estabelecimento.js"></script>

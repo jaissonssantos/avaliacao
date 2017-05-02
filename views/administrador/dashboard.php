@@ -186,4 +186,4 @@
 <?php require_once 'views/template/footer.php'; ?>
 
 <!-- javascripts -->
-<!-- <script type="text/javascript" src="javascripts/vendor/login.js"></script> -->
+<!-- <script type="text/javascript" src="javascripts/login.js"></script> -->
