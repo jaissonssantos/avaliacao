@@ -91,4 +91,4 @@
 
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
-<script type="text/javascript" src="javascripts/vendor/login.js"></script>
+<script type="text/javascript" src="javascripts/login.js"></script>
