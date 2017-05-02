@@ -99,13 +99,32 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input id="search" type="text" 
-                                            class="form-control" placeholder="Busca">
+                                            class="form-control input-sm" placeholder="Busca">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-search"></i>
                                             </span>
                                         </div>
                                     </div>
                                   </form>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" 
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-cog btn-label"></i>Ações&nbsp;&nbsp;
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                        <a href="javascript:void(0);">
+                                          <i class="fa fa-unlock drop-down-icon"></i> Ativar</a>
+                                      </li>
+                                      <li>
+                                        <a href="javascript:void(0);">
+                                          <i class="fa fa-lock drop-down-icon"></i> Inativar</a>
+                                      </li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <div class="table-responsive">
