@@ -41,24 +41,20 @@ $(document).ready(function(){
 
         //list
         app.util.getjson({
-            url : "/controller/office/usuario/list",
+            url : "/controller/office/questionario/list",
             method : 'POST',
             contentType : "application/json",
             data: params,
             success: function(response){
                 var html = '';
                 for (var i=0;i<response.results.length;i++) {
-                    role = (response.results[i].perfil == 1) ? 'Acesso comum' : 'Gestor';
-                    labelRole = (response.results[i].perfil == 1) ? 'label-info' : 'label-success'; 
                     status = (response.results[i].status == 1) ? 'Ativo' : 'Inativo'; 
                     labelStatus = (response.results[i].status == 1) ? 'label-success' : 'label-danger'; 
                     html += '<tr>'+
                                 '<td><input type="checkbox" class="checkItem" value="'+ response.results[i].id + '"></td>'+
                                 '<td>'+ response.results[i].id + '</td>'+
-                                '<td>'+ response.results[i].nome + '</td>'+
-                                '<td>'+ response.results[i].sobrenome + '</td>'+
-                                '<td>'+ response.results[i].email + '</td>'+
-                                '<td class="text-center"><span class="label '+labelRole+'">'+role+'</span></td>'+
+                                '<td>'+ response.results[i].titulo + '</td>'+
+                                '<td>'+ response.results[i].prazo + '</td>'+
                                 '<td class="text-center"><span class="label '+labelStatus+'">'+status+'</span></td>'+
                                 '<td class="text-center">'+
                                     '<a href="/office/usuario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
@@ -133,7 +129,7 @@ $(document).ready(function(){
 
     //add form
     $('button.btn-add').livequery('click',function(event){
-        window.location.href = "/office/usuario/add";
+        window.location.href = "/office/questionario/add";
     });
 
     //check all list
@@ -183,7 +179,7 @@ $(document).ready(function(){
 
         //status
         app.util.getjson({
-            url : "/controller/office/usuario/setstatus",
+            url : "/controller/office/questionario/setstatus",
             method : 'POST',
             contentType : "application/json",
             data: params,

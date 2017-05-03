@@ -38,13 +38,13 @@
         
         <div class="row bg-title">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Usuários</h4>
+                <h4 class="page-title">Questionários</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <a href="javascript:void(0)" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Atualize seu plano</a>
                 <ol class="breadcrumb">
                     <li><a href="/office/dashboard">Dashboard</a></li>
-                    <li><a href="/office/usuario">Usuários</a></li>
+                    <li><a href="/office/questionario">Questionários</a></li>
                     <li class="active">Lista</li>
                 </ol>
             </div><!-- /.col-lg-12 -->
@@ -137,10 +137,8 @@
                                       <tr>
                                         <th><input type="checkbox" id="checkAll"></th>
                                         <th>#</th>
-                                        <th>Nome</th>
-                                        <th>Sobrenome</th>
-                                        <th>E-mail</th>
-                                        <th class="text-center">Perfil</th>
+                                        <th>Titulo</th>
+                                        <th>Prazo</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Ação</th>
                                       </tr>
@@ -185,4 +183,4 @@
 
 <!-- javascripts -->
 <script type="text/javascript" src="javascripts/functions.js"></script>
-<script type="text/javascript" src="javascripts/office/usuario/list.js"></script>
+<script type="text/javascript" src="javascripts/office/questionario/list.js"></script>
