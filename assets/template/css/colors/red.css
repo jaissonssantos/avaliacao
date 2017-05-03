@@ -177,3 +177,6 @@ body {
   right: 20px;
   font-size: 18px;
 }
+i.btn-label{
+  margin-left: -11px;
+}

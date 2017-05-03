@@ -44,13 +44,13 @@ $(document).ready(function(){
 
                 }
                 if(parseInt(response.count.results) == 0){
-                    html += '<tr>'+
-                                '<td colspan="4">Nenhum registro encontrado</td>'+
-                            '</tr>';
+                    $('#notfound').removeClass('hidden');
+                    $('#notfound').html('Nenhum registro encontrado');
+                }else{
+                    $('#table-results').removeClass('hidden');
+                    $("#table-results > tbody").html(html);
                 }
                 $('#table-loading').addClass('hidden');
-                $('#table-results').removeClass('hidden');
-                $("#table-results > tbody").html(html);
                 if(reload)
                     $('#col-reload').addClass('hidden');
             },

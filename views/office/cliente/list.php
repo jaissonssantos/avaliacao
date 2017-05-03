@@ -91,7 +91,8 @@
                             </thead>
                             <tbody>
                             </tbody>
-                          </table>
+                        </table>
+                        <p id="notfound" class="hidden"></p>
                     </div>
 
                     <div id="col-total" class="row hidden">

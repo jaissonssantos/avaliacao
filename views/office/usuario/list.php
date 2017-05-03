@@ -108,7 +108,7 @@
                                   </form>
                             </div>
 
-                            <div class="col-md-8">
+                            <div id="col-action" class="col-md-8 hidden">
                                 <div class="btn-group pull-right">
                                     <button type="button" class="btn btn-sm btn-default dropdown-toggle" 
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,11 +116,11 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                       <li>
-                                        <a href="javascript:void(0);">
+                                        <a id="setStatus" href="javascript:void(0);" data-status="1">
                                           <i class="fa fa-unlock drop-down-icon"></i> Ativar</a>
                                       </li>
                                       <li>
-                                        <a href="javascript:void(0);">
+                                        <a id="setStatus" href="javascript:void(0);" data-status="2">
                                           <i class="fa fa-lock drop-down-icon"></i> Inativar</a>
                                       </li>
                                     </ul>
@@ -135,6 +135,7 @@
                                 <table id="table-results" class="table hidden">
                                     <thead>
                                       <tr>
+                                        <th><input type="checkbox" id="checkAll"></th>
                                         <th>#</th>
                                         <th>Nome</th>
                                         <th>Sobrenome</th>
@@ -147,6 +148,7 @@
                                     <tbody>
                                     </tbody>
                                   </table>
+                                  <p id="notfound" class="hidden"></p>
                             </div>
 
                             <div id="col-total" class="row hidden">
