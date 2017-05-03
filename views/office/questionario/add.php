@@ -24,6 +24,10 @@
 <!--Owl carousel CSS -->
 <link href="assets/template/plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
 <link href="assets/template/plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
+<!-- Bootstrap Select -->
+<link href="assets/template/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+<!-- Switchery -->
+<link href="assets/template/plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
 <!-- Custom CSS -->
 <link href="assets/template/css/style.min.css" rel="stylesheet">
 <!-- color CSS -->
@@ -55,7 +59,7 @@
                 <div class="white-box">
 
                     <h3 class="box-title m-b-0">Formulário</h3>
-                    <p class="text-muted m-b-30 font-13"> Preecha o formulário abaixo </p>
+                    <p class="text-muted m-b-30 font-13"> Preencha o formulário abaixo </p>
 
                     <div class="row">
 
@@ -82,12 +86,151 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <div id="add" class="">
+                                            <button class="btn btn-info btn-sm m-b-20 waves-effect waves-light" type="button">
+                                                <span class="btn-label"><i class="fa fa-plus"></i></span>Adicionar pergunta
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="well">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="pergunta" 
+                                                            name="pergunta" placeholder="Pergunta"> 
+                                                    </div>                                
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="selectpicker" data-style="form-control">
+                                                        <option data-icon="ti-align-left"> Resposta curta</option>
+                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
+                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="resposta" 
+                                                            name="resposta" placeholder="Texto da resposta curta"> 
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span>Obrigatória</span>
+                                                    <input type="checkbox" checked class="js-switch" 
+                                                        data-color="#f96262" data-size="small" />
+                                                </div>
+                                            </div>
+                                        </div><!--/.well-->
+                                        
+                                        <div class="well">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="pergunta" 
+                                                            name="pergunta" placeholder="Pergunta"> 
+                                                    </div>                                
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="selectpicker" data-style="form-control">
+                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
+                                                        <option data-icon="ti-align-left"> Resposta curta</option>
+                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-check-circle"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 01"> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-check-circle"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 02"> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span>Obrigatória</span>
+                                                    <input type="checkbox" checked class="js-switch" 
+                                                        data-color="#f96262" data-size="small" />
+                                                </div>
+                                            </div>
+                                        </div><!--/.well-->
+
+                                        <div class="well">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="pergunta" 
+                                                            name="pergunta" placeholder="Pergunta"> 
+                                                    </div>                                
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="selectpicker" data-style="form-control">
+                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
+                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
+                                                        <option data-icon="ti-align-left"> Resposta curta</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-check-square"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 01"> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-check-square"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 02"> 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span>Obrigatória</span>
+                                                    <input type="checkbox" checked class="js-switch" 
+                                                        data-color="#f96262" data-size="small" />
+                                                </div>
+                                            </div>
+                                        </div><!--/.well-->
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="rodape">Rodapé do formulário</label>
+                                            <input type="text" class="form-control" id="rodape" name="rodape"> 
+                                        </div>                                
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <button type="submit" id="salvar" 
                                             class="btn btn-success waves-effect waves-light m-r-10">Salvar</button>
                                         <button type="button" id="cancelar" 
                                             class="btn btn-inverse waves-effect waves-light">Voltar</button>
                                     </div>
                                 </div>
+
 
                             </form><!--/form-->
                         </div><!-- /.col-sm-12 -->
@@ -103,6 +246,11 @@
 </div><!-- /.row -->
 
 <?php require_once 'views/template/footer.php'; ?>
+
+<!--Bootstrap Select -->
+<script src="assets/template/plugins/bower_components/bootstrap-select/bootstrap-select.min.js"></script>
+<!--Switchery-->
+<script src="assets/template/plugins/bower_components/switchery/dist/switchery.min.js"></script>
 
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>

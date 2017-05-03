@@ -3,6 +3,13 @@ var usuarios = {};
 
 $(document).ready(function(){
 
+    //select
+     $('.selectpicker').selectpicker();
+
+     $('.js-switch').each(function () {
+        new Switchery($(this)[0], $(this).data());
+    });
+
     //validate
     $('form#formQuestionario').validate({
         rules: {
@@ -126,7 +133,7 @@ $(document).ready(function(){
 
     //cancel
     $('button#cancelar').livequery('click',function(event){
-        window.location.href = "/office/usuario/";
+        window.location.href = "/office/questionario/";
         return false;
     });
 
