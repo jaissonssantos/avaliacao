@@ -86,22 +86,20 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div id="add" class="">
-                                            <button class="btn btn-info btn-sm m-b-20 waves-effect waves-light" type="button">
-                                                <span class="btn-label"><i class="fa fa-plus"></i></span>Adicionar pergunta
-                                            </button>
-                                        </div>
+                                        <button id="add" class="btn btn-info btn-sm m-b-20 waves-effect waves-light" type="button">
+                                            <span class="btn-label"><i class="fa fa-plus"></i></span>Adicionar pergunta
+                                        </button>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="well">
+                                    <div id="perguntas" class="col-md-12">
+                                        <div id="pergunta" class="well" data-id="1">
                                             <div class="row">
                                                 <div class="col-md-9">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" id="pergunta" 
-                                                            name="pergunta" placeholder="Pergunta"> 
+                                                            name="pergunta[]" placeholder="Pergunta"> 
                                                     </div>                                
                                                 </div>
                                                 <div class="col-md-3">
@@ -114,111 +112,28 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" id="resposta" 
-                                                            name="resposta" placeholder="Texto da resposta curta"> 
+                                                            name="resposta[]" placeholder="Texto da resposta curta"> 
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span>Obrigatória</span>
-                                                    <input type="checkbox" checked class="js-switch" 
+                                                    <input type="checkbox" class="js-switch" data-id="1"
                                                         data-color="#f96262" data-size="small" />
-                                                </div>
-                                            </div>
-                                        </div><!--/.well-->
-                                        
-                                        <div class="well">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="pergunta" 
-                                                            name="pergunta" placeholder="Pergunta"> 
-                                                    </div>                                
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <select class="selectpicker" data-style="form-control">
-                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
-                                                        <option data-icon="ti-align-left"> Resposta curta</option>
-                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-check-circle"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 01"> 
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-check-circle"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 02"> 
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <span>Obrigatória</span>
-                                                    <input type="checkbox" checked class="js-switch" 
-                                                        data-color="#f96262" data-size="small" />
-                                                </div>
-                                            </div>
-                                        </div><!--/.well-->
 
-                                        <div class="well">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="pergunta" 
-                                                            name="pergunta" placeholder="Pergunta"> 
-                                                    </div>                                
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <select class="selectpicker" data-style="form-control">
-                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
-                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
-                                                        <option data-icon="ti-align-left"> Resposta curta</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-check-square"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 01"> 
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-check-square"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="opcao" placeholder="Opção 02"> 
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <span>Obrigatória</span>
-                                                    <input type="checkbox" checked class="js-switch" 
-                                                        data-color="#f96262" data-size="small" />
+                                                    <button id="pergunta-excluir" 
+                                                        class="btn btn-danger btn-sm m-b-0 waves-effect waves-light pull-right hidden" 
+                                                        type="button">
+                                                        <span class="btn-label"><i class="ti-trash"></i></span>Excluir
+                                                    </button>
+                                                    
+                                                    <button id="pergunta-duplicar" 
+                                                        class="btn btn-inverse btn-sm m-b-0 waves-effect waves-light pull-right m-r-10 hidden" 
+                                                        type="button">
+                                                        <span class="btn-label"><i class="ti-files"></i></span>Duplicar
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div><!--/.well-->
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="rodape">Rodapé do formulário</label>
-                                            <input type="text" class="form-control" id="rodape" name="rodape"> 
-                                        </div>                                
                                     </div>
                                 </div>
 

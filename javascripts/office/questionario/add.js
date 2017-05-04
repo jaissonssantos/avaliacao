@@ -4,11 +4,14 @@ var usuarios = {};
 $(document).ready(function(){
 
     //select
-     $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker();
 
-     $('.js-switch').each(function () {
-        new Switchery($(this)[0], $(this).data());
-    });
+    //check-switch
+    var check = $('div#pergunta input[type="checkbox"][class="js-switch"][data-id="1"]');
+    var s = new Switchery(check[0], check.data());
+    // $('.js-switch').each(function () {
+        // new Switchery($(this)[0], $(this).data());
+    // });
 
     //validate
     $('form#formQuestionario').validate({
@@ -84,6 +87,43 @@ $(document).ready(function(){
                 error.insertAfter(element);
             }
         }
+    });
+
+    //add
+    $('button#add').livequery('click',function(event){
+        var pergunta = $('div#pergunta:first').clone();
+        $('#perguntas').append(pergunta)
+
+        var count = $('div#pergunta').length;
+        console.log('qtd: ' + count);
+
+        var item = $('div#pergunta:last')
+        item.attr('data-id',count);
+        item.find('input.js-switch').attr('data-id',count);
+        item.find('button#pergunta-excluir').removeClass('hidden');
+        item.find('button#pergunta-duplicar').removeClass('hidden');
+        var check = item.find('input.js-switch');
+        var switchery = new Switchery(check[0],check.data());
+
+        //delete 
+        check.parent().find('span.switchery:last').remove();
+        
+
+        // console.log(pergunta);
+        // pergunta.data('id', count);
+
+        // var elems = document.querySelectorAll('.js-switch');
+        // for (var i = 0; i < elems.length; i++) {
+        //     var switchery = new Switchery(elems[i]);
+        // }
+
+        // console.log(elem);
+        return false;
+    });
+
+    //duplicate
+    $('button#pergunta-duplicar').livequery('click',function(event){
+        $(this).parents('#pergunta').remove();
     });
 
     //save
