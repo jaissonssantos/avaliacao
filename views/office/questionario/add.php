@@ -109,7 +109,7 @@
                                                         <option data-icon="fa fa-check-square"> Caixas de seleção</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div id="respostas" class="col-md-12">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" id="resposta" 
                                                             name="resposta[]" placeholder="Texto da resposta curta"> 

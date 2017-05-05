@@ -100,6 +100,7 @@ $(document).ready(function(){
         var item = $('div#pergunta:last')
         item.attr('data-id',count);
         item.find('input.js-switch').attr('data-id',count);
+        item.find('select.selectpicker').selectpicker('refresh');
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
         var check = item.find('input.js-switch');
@@ -121,8 +122,14 @@ $(document).ready(function(){
         return false;
     });
 
+    //selectpicker change
+    $('.selectpicker').on('changed.bs.select', function (e) {
+        var selected = e.target.value;
+        console.log(selected);
+    });
+
     //duplicate
-    $('button#pergunta-duplicar').livequery('click',function(event){
+    $('button#pergunta-excluir').livequery('click',function(event){
         $(this).parents('#pergunta').remove();
     });
 
