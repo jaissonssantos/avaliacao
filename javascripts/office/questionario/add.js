@@ -98,9 +98,11 @@ $(document).ready(function(){
         console.log('qtd: ' + count);
 
         var item = $('div#pergunta:last')
+        var seletepicker = item.find('div.bootstrap-select');
         item.attr('data-id',count);
         item.find('input.js-switch').attr('data-id',count);
         item.find('select.selectpicker').selectpicker('refresh');
+        seletepicker.find('.bootstrap-select');
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
         var check = item.find('input.js-switch');
