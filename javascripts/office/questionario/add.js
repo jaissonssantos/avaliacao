@@ -102,7 +102,11 @@ $(document).ready(function(){
         item.attr('data-id',count);
         item.find('input.js-switch').attr('data-id',count);
         item.find('select.selectpicker').selectpicker('refresh');
-        seletepicker.find('.bootstrap-select');
+        seletepicker.find('.bootstrap-select').remove();
+        sl = seletepicker.find('.bootstrap-select').html();
+        console.log(sl);
+        seletepicker.html(sl);
+
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
         var check = item.find('input.js-switch');

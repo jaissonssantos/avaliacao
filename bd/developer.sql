@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Versão 4541
+# Version 4541
 #
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
-# Base de Dados: avaliacao
-# Tempo de Geração: 2017-04-27 07:52:13 +0000
+# Database: avaliame
+# Generation Time: 2017-05-08 19:59:28 +0000
 # ************************************************************
 
 
@@ -20,7 +20,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump da tabela cidade
+# Dump of table cidade
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `cidade`;
@@ -9758,7 +9758,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump da tabela cliente
+# Dump of table cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `cliente`;
@@ -9774,9 +9774,117 @@ CREATE TABLE `cliente` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `created_at`, `updated_at`)
+VALUES
+	(1,'Eaton','laoreet@sagittisDuis.co.uk','(98) 1316-9306','2017-05-23 17:32:36','2016-09-04 11:27:45'),
+	(2,'Samuel','dolor.Nulla.semper@aliquameuaccumsan.com','(04) 0114-8397','2017-03-24 10:02:32','2018-04-05 04:39:57'),
+	(3,'Nero','sodales@ipsumDonecsollicitudin.org','(02) 3965-1271','2016-08-08 00:20:07','2016-05-22 11:30:08'),
+	(4,'Tiger','non.lorem@placerat.com','(65) 0041-5713','2016-12-12 09:24:40','2017-10-13 02:15:56'),
+	(5,'Griffin','rhoncus@Nuncuterat.com','(05) 2294-2335','2016-12-13 15:36:08','2016-08-11 13:30:14'),
+	(6,'Zahir','pellentesque@molestie.org','(32) 9435-6909','2017-08-21 02:02:16','2017-02-26 15:39:30'),
+	(7,'Slade','gravida.non.sollicitudin@eueleifendnec.net','(21) 9991-3287','2017-01-12 14:18:42','2016-12-12 17:57:21'),
+	(8,'Erich','Curabitur.vel@etipsumcursus.co.uk','(61) 9309-7178','2017-08-14 15:16:26','2017-09-07 04:08:08'),
+	(9,'Zachery','ridiculus.mus@eutellus.org','(18) 0598-4151','2017-01-21 09:57:09','2017-04-01 05:03:36'),
+	(10,'Hilel','ac.turpis@euodio.net','(28) 5350-8239','2017-07-10 16:08:12','2018-03-24 07:16:46'),
+	(11,'Abbot','Morbi.non@malesuadaiderat.co.uk','(81) 8197-5283','2016-08-30 15:43:37','2016-11-22 05:54:52'),
+	(12,'Owen','eu@musAeneaneget.org','(76) 5792-7762','2016-06-20 08:22:41','2016-08-20 09:26:07'),
+	(13,'Ezra','Vestibulum.ut@interdum.edu','(36) 4010-3589','2017-05-16 05:30:34','2017-12-06 19:37:48'),
+	(14,'Silas','Cras.vehicula.aliquet@tellus.edu','(83) 3451-3618','2017-09-06 10:19:36','2017-09-22 04:26:32'),
+	(15,'Fletcher','at@accumsanconvallis.edu','(81) 5320-1571','2017-02-21 12:28:15','2017-08-18 09:19:12'),
+	(16,'Wayne','eu.eros.Nam@necdiamDuis.co.uk','(10) 7816-9069','2017-04-12 10:28:46','2017-08-13 14:50:40'),
+	(17,'Fitzgerald','consequat.dolor@dictumcursus.co.uk','(49) 9277-3191','2016-05-14 00:50:39','2017-03-29 03:14:14'),
+	(18,'Jin','auctor.nunc.nulla@pellentesqueSed.net','(71) 6246-0582','2016-09-07 22:44:21','2018-04-05 04:34:37'),
+	(19,'Lucius','lobortis.ultrices@tempusnon.net','(36) 7270-7868','2017-08-22 09:45:25','2017-08-05 08:47:10'),
+	(20,'Phillip','erat.volutpat@penatibuset.edu','(63) 3567-7440','2017-07-20 19:45:56','2018-02-19 14:15:10'),
+	(21,'Cooper','risus.Nunc@libero.net','(46) 4542-0106','2016-07-22 10:28:14','2017-12-23 06:04:02'),
+	(22,'Kato','quam@sitamet.edu','(77) 0166-7051','2016-11-29 09:40:16','2016-07-15 14:09:39'),
+	(23,'Trevor','Integer@ullamcorperviverraMaecenas.net','(28) 6542-4442','2016-11-26 11:44:29','2017-10-05 09:51:25'),
+	(24,'Clayton','Phasellus.dolor@Curabiturvellectus.net','(44) 5215-2248','2016-10-10 13:35:18','2017-06-20 14:47:02'),
+	(25,'Hamish','consequat@augueeu.ca','(49) 4235-4238','2017-03-17 13:31:25','2018-01-23 01:21:22'),
+	(26,'Chandler','in@erat.org','(07) 4060-0376','2017-07-01 02:58:28','2017-01-30 12:45:41'),
+	(27,'Jack','id@euodio.com','(36) 1405-7201','2017-01-23 06:39:48','2017-04-12 05:55:28'),
+	(28,'Vance','ante.lectus.convallis@faucibusidlibero.com','(61) 1834-9704','2016-06-01 10:01:48','2017-08-11 14:12:10'),
+	(29,'Michael','Mauris.magna@Maecenas.ca','(58) 1283-8864','2016-12-07 18:32:19','2017-12-31 17:25:04'),
+	(30,'Brenden','varius@pharetraNam.edu','(37) 2048-1716','2017-03-17 00:23:54','2017-08-08 21:54:48'),
+	(31,'Harrison','mi.eleifend@augue.ca','(74) 4848-0289','2016-11-14 10:07:52','2017-10-05 17:24:52'),
+	(32,'Stephen','Cras@tincidunt.ca','(10) 3022-8580','2018-03-13 08:36:12','2017-01-14 05:01:22'),
+	(33,'Axel','magna@Fuscediamnunc.edu','(99) 3974-1212','2016-12-06 01:49:44','2016-05-29 22:33:48'),
+	(34,'Chancellor','a.facilisis.non@mattis.co.uk','(84) 4854-4025','2016-06-18 12:02:38','2017-07-26 07:52:39'),
+	(35,'Scott','volutpat.Nulla@elitfermentumrisus.ca','(16) 6987-1469','2017-12-17 19:19:52','2017-12-23 13:37:31'),
+	(36,'Zeus','quam.elementum@quamvel.edu','(82) 5367-6897','2017-07-31 02:48:45','2018-04-18 09:21:03'),
+	(37,'Dominic','Morbi.sit.amet@aliquetnec.com','(99) 3978-7104','2017-11-25 19:07:10','2017-08-13 02:29:48'),
+	(38,'Maxwell','faucibus@consequat.net','(22) 9550-4822','2018-01-23 18:24:01','2017-09-02 07:33:22'),
+	(39,'Preston','Donec.felis.orci@risus.com','(79) 5408-2353','2017-04-12 11:17:41','2016-07-03 18:18:22'),
+	(40,'Ferris','metus.In.nec@eu.net','(26) 3412-2476','2018-01-09 09:45:49','2017-10-27 18:57:15'),
+	(41,'Jelani','erat@Loremipsumdolor.edu','(93) 7594-5784','2016-08-10 12:10:35','2017-12-04 22:01:53'),
+	(42,'Giacomo','eget.ipsum@fringillaDonecfeugiat.org','(46) 2535-3305','2017-09-28 10:33:41','2016-05-26 14:31:42'),
+	(43,'Prescott','euismod@Craslorem.ca','(79) 8081-6883','2016-10-08 23:03:09','2017-05-10 15:41:48'),
+	(44,'Kieran','mauris.Suspendisse@inhendreritconsectetuer.net','(78) 5717-0566','2018-04-23 19:09:39','2018-03-27 05:56:28'),
+	(45,'Fuller','Nunc.pulvinar.arcu@vitae.edu','(69) 8166-1761','2017-06-20 16:39:36','2017-01-28 04:20:37'),
+	(46,'Thor','faucibus.lectus.a@nisi.org','(81) 2795-3696','2017-12-20 14:55:50','2018-04-30 05:20:09'),
+	(47,'Ezra','tortor.Integer@Integer.ca','(06) 7478-7552','2017-05-07 18:59:44','2016-05-24 08:30:56'),
+	(48,'Hop','bibendum.sed.est@malesuadautsem.org','(07) 9595-5813','2017-04-26 00:19:58','2017-04-27 18:30:27'),
+	(49,'Cyrus','facilisis@eratSed.edu','(38) 1087-3088','2016-09-03 08:02:34','2017-04-10 00:10:49'),
+	(50,'Jonah','consectetuer@id.org','(96) 1930-0969','2017-07-13 14:07:30','2017-07-15 11:05:43'),
+	(51,'Upton','Integer@ullamcorperDuis.edu','(36) 4807-3581','2016-12-13 22:08:22','2018-01-18 03:48:55'),
+	(52,'Thomas','sed.orci@id.com','(50) 6017-1753','2017-02-05 20:41:42','2017-10-10 20:09:32'),
+	(53,'Noble','lobortis@ultriciesdignissim.co.uk','(28) 2951-0111','2017-05-12 11:31:25','2016-12-28 16:32:29'),
+	(54,'Hiram','mollis@Pellentesquehabitantmorbi.org','(88) 2602-5679','2017-01-16 23:32:44','2018-04-04 04:13:06'),
+	(55,'Gabriel','Proin.dolor.Nulla@Quisquetinciduntpede.ca','(51) 7162-1486','2018-04-18 21:27:54','2018-02-14 23:37:31'),
+	(56,'Rafael','sit@egetmagna.com','(67) 1357-3806','2017-10-28 22:51:47','2018-01-21 13:08:06'),
+	(57,'David','iaculis.nec.eleifend@estac.edu','(73) 4058-5835','2018-02-26 18:54:46','2016-05-16 01:30:18'),
+	(58,'Lars','Cum@telluslorem.net','(82) 7428-1584','2016-09-13 14:21:47','2017-02-25 13:34:31'),
+	(59,'Steven','sit.amet.risus@vel.net','(93) 5469-9520','2017-09-20 05:56:38','2016-12-18 23:25:00'),
+	(60,'Cullen','Vivamus.sit.amet@enimnisl.edu','(11) 6197-8455','2017-01-18 08:28:49','2018-03-02 11:12:24'),
+	(61,'Quinn','nibh.Donec@Aliquamornarelibero.net','(81) 0234-8131','2018-01-12 22:54:56','2016-07-02 10:54:50'),
+	(62,'Brett','risus@erategetipsum.org','(28) 9252-4355','2017-08-25 13:30:07','2016-12-03 16:03:24'),
+	(63,'Ralph','a@fringillami.net','(86) 5246-7314','2018-01-08 04:51:44','2017-06-23 16:17:38'),
+	(64,'Aquila','ligula.Aenean@vitae.net','(28) 4684-9448','2016-07-09 07:07:26','2016-08-13 15:57:45'),
+	(65,'Kelly','augue@risusDonec.co.uk','(75) 6581-6241','2017-04-14 20:11:02','2017-05-28 00:36:35'),
+	(66,'Cyrus','vitae@Phaselluselit.ca','(01) 9020-7226','2016-11-07 08:12:14','2016-06-18 23:58:41'),
+	(67,'Perry','fringilla.purus.mauris@velitjusto.com','(35) 9841-5834','2016-05-15 12:16:30','2017-03-22 01:14:46'),
+	(68,'Galvin','massa.lobortis@metussit.net','(70) 5929-5340','2017-04-22 20:41:51','2016-08-08 08:01:19'),
+	(69,'Louis','Aenean.eget@dui.ca','(27) 5176-5903','2016-10-17 07:04:18','2018-01-19 00:41:08'),
+	(70,'Davis','tempor.erat.neque@acmattisornare.com','(56) 9888-2567','2017-03-05 14:56:20','2017-04-05 16:21:48'),
+	(71,'Emerson','mi.eleifend@tristiquealiquet.org','(85) 2823-2903','2017-05-11 10:31:46','2016-10-17 18:13:17'),
+	(72,'Aristotle','ultrices.posuere@purusaccumsan.net','(78) 6336-9543','2017-11-07 19:39:16','2016-09-23 11:18:23'),
+	(73,'Abdul','leo.in@rutrumFuscedolor.co.uk','(69) 5822-3444','2016-09-15 17:02:28','2017-08-06 06:32:50'),
+	(74,'Raymond','posuere.at@iaculisaliquetdiam.ca','(03) 0473-2628','2017-10-24 03:39:10','2017-05-02 03:17:49'),
+	(75,'Raja','dui.Cum.sociis@turpisIn.net','(35) 2520-8880','2017-12-24 16:23:04','2017-11-02 11:00:56'),
+	(76,'Harlan','elementum.lorem.ut@ipsumSuspendisse.com','(44) 8880-4629','2018-01-28 02:19:40','2016-08-30 18:28:50'),
+	(77,'Joseph','convallis.in@viverra.org','(06) 8403-0085','2016-07-13 21:35:32','2017-02-28 15:21:06'),
+	(78,'Kirk','in.faucibus@interdum.net','(98) 4779-1643','2017-11-24 21:32:47','2016-06-11 03:33:23'),
+	(79,'Howard','magna@lobortistellus.ca','(35) 0126-4960','2016-09-17 04:14:48','2016-08-05 09:24:54'),
+	(80,'Caldwell','cursus.non@mollis.edu','(23) 9881-1339','2016-08-26 22:05:39','2016-12-05 02:18:58'),
+	(81,'Nehru','hymenaeos@magnaDuis.com','(00) 2939-3295','2017-05-26 06:55:43','2016-06-10 00:52:56'),
+	(82,'Brandon','orci@metusInlorem.net','(51) 8887-1420','2017-06-03 04:56:55','2017-05-11 13:29:56'),
+	(83,'Andrew','conubia.nostra@Donecdignissim.org','(33) 7711-9708','2018-03-04 18:58:06','2017-12-11 23:41:37'),
+	(84,'Tiger','vitae.odio.sagittis@Maurisnondui.edu','(85) 7602-6016','2016-08-01 19:00:30','2017-06-01 19:29:24'),
+	(85,'Nicholas','tempor.diam.dictum@facilisisnon.org','(08) 9920-2759','2017-06-13 19:57:59','2016-06-04 12:48:26'),
+	(86,'Maxwell','Donec@montesnascetur.ca','(75) 9301-0643','2016-05-11 17:49:13','2016-08-28 02:29:44'),
+	(87,'Ezekiel','dictum.eleifend@vehiculaaliquetlibero.co.uk','(52) 1984-7239','2017-03-23 12:00:43','2016-09-12 06:21:00'),
+	(88,'Geoffrey','sed.pede@vehicularisusNulla.net','(33) 6778-1318','2017-03-03 16:35:11','2016-09-25 03:54:18'),
+	(89,'Declan','nibh.Donec@magnaPhasellus.com','(24) 8027-3477','2016-06-12 20:50:07','2017-03-27 21:44:45'),
+	(90,'Mannix','metus@tempordiamdictum.com','(04) 4996-4515','2017-12-31 06:25:03','2016-11-19 06:17:16'),
+	(91,'Ethan','aliquet.odio.Etiam@tinciduntnunc.org','(59) 6989-6664','2017-01-28 08:09:52','2017-01-30 00:29:54'),
+	(92,'Roth','Aenean.euismod@Vivamuseuismodurna.com','(50) 9481-9213','2017-12-27 23:49:35','2018-04-06 06:32:40'),
+	(93,'Raymond','ut.molestie@temporeratneque.com','(04) 2028-4975','2017-01-07 07:19:42','2017-06-05 17:39:58'),
+	(94,'Adrian','aliquam@enimEtiam.org','(43) 2137-6382','2017-02-01 03:21:48','2018-03-04 20:55:30'),
+	(95,'Dexter','vehicula.Pellentesque@lorem.co.uk','(31) 2415-0680','2017-01-16 10:16:29','2017-05-02 03:10:27'),
+	(96,'Dominic','mi.lacinia.mattis@eleifendCrassed.ca','(78) 9079-5188','2016-08-20 15:29:21','2017-05-25 05:34:26'),
+	(97,'Tyrone','malesuada.id@pellentesque.net','(29) 7757-5892','2016-07-07 10:48:52','2016-07-29 21:55:52'),
+	(98,'Lucian','nec@Nuncsollicitudincommodo.edu','(56) 8801-0705','2017-08-10 18:15:30','2017-04-07 01:32:40'),
+	(99,'Gage','hendrerit.id@sodalesMaurisblandit.ca','(81) 2579-5215','2016-08-19 22:14:18','2018-03-03 21:05:30'),
+	(100,'Wing','lobortis.tellus.justo@famesacturpis.net','(82) 6605-2473','2018-01-04 11:36:21','2017-02-09 12:54:26');
+
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
-# Dump da tabela estabelecimento
+# Dump of table estabelecimento
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estabelecimento`;
@@ -9815,7 +9923,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump da tabela estabelecimento_cliente
+# Dump of table estabelecimento_cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estabelecimento_cliente`;
@@ -9831,9 +9939,113 @@ CREATE TABLE `estabelecimento_cliente` (
   CONSTRAINT `estabelecimento_cliente_ibfk_1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `estabelecimento_cliente` WRITE;
+/*!40000 ALTER TABLE `estabelecimento_cliente` DISABLE KEYS */;
+
+INSERT INTO `estabelecimento_cliente` (`id`, `idcliente`, `idestabelecimento`)
+VALUES
+	(1,24,1),
+	(2,77,2),
+	(3,51,3),
+	(4,92,2),
+	(5,97,2),
+	(6,89,1),
+	(7,43,3),
+	(8,49,1),
+	(9,96,1),
+	(10,15,2),
+	(11,11,1),
+	(12,39,1),
+	(13,34,4),
+	(14,30,3),
+	(15,96,4),
+	(16,34,4),
+	(17,93,2),
+	(18,41,4),
+	(19,81,1),
+	(20,52,1),
+	(21,62,4),
+	(23,78,2),
+	(24,35,4),
+	(25,60,2),
+	(26,60,4),
+	(27,8,3),
+	(28,6,2),
+	(29,89,2),
+	(30,71,3),
+	(31,77,2),
+	(32,40,4),
+	(33,78,2),
+	(34,26,4),
+	(35,97,4),
+	(36,42,2),
+	(37,75,3),
+	(38,88,1),
+	(39,4,4),
+	(40,23,3),
+	(41,86,1),
+	(42,81,2),
+	(43,12,3),
+	(44,95,4),
+	(45,53,3),
+	(46,57,1),
+	(47,96,4),
+	(48,16,3),
+	(49,30,1),
+	(50,93,1),
+	(51,8,1),
+	(52,48,4),
+	(53,20,3),
+	(54,24,3),
+	(55,48,4),
+	(56,93,2),
+	(57,82,3),
+	(58,67,3),
+	(59,22,2),
+	(60,2,3),
+	(61,56,1),
+	(62,30,2),
+	(63,26,4),
+	(64,86,4),
+	(65,100,1),
+	(66,69,1),
+	(67,38,1),
+	(68,62,3),
+	(69,54,3),
+	(70,87,3),
+	(71,45,1),
+	(72,97,1),
+	(73,58,4),
+	(74,56,1),
+	(75,94,2),
+	(76,94,2),
+	(77,82,2),
+	(78,59,4),
+	(79,44,2),
+	(80,4,1),
+	(81,44,3),
+	(82,52,2),
+	(83,99,4),
+	(84,45,2),
+	(85,96,3),
+	(86,6,1),
+	(87,35,2),
+	(88,68,4),
+	(91,62,2),
+	(92,94,4),
+	(93,35,2),
+	(94,49,2),
+	(95,77,1),
+	(96,46,4),
+	(97,55,3),
+	(98,91,4),
+	(100,97,1);
+
+/*!40000 ALTER TABLE `estabelecimento_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
-# Dump da tabela estado
+# Dump of table estado
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estado`;
@@ -9882,7 +10094,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump da tabela pergunta
+# Dump of table pergunta
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `pergunta`;
@@ -9900,7 +10112,7 @@ CREATE TABLE `pergunta` (
 
 
 
-# Dump da tabela questionario
+# Dump of table questionario
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `questionario`;
@@ -9922,7 +10134,7 @@ CREATE TABLE `questionario` (
 
 
 
-# Dump da tabela resposta
+# Dump of table resposta
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `resposta`;
@@ -9938,7 +10150,7 @@ CREATE TABLE `resposta` (
 
 
 
-# Dump da tabela resposta_cliente
+# Dump of table resposta_cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `resposta_cliente`;
@@ -9955,7 +10167,7 @@ CREATE TABLE `resposta_cliente` (
 
 
 
-# Dump da tabela usuario
+# Dump of table usuario
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `usuario`;
@@ -9983,16 +10195,17 @@ LOCK TABLES `usuario` WRITE;
 
 INSERT INTO `usuario` (`id`, `idestabelecimento`, `nome`, `sobrenome`, `email`, `senha`, `perfil`, `gestor`, `status`, `created_at`, `updated_at`)
 VALUES
-	(1,1,'Jaisson','Santos','jaissonssantos@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,NULL,NULL),
-	(2,2,'Jaisson','Santos','jaisson@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
-	(3,3,'Davi','Luiz','daviluiznsantos@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
-	(4,4,'Fabiana','Silva','fabiana@gmail.com','51f89e21b7283add3e0ae52655e60a85edfb16d0',1,0,1,'2017-04-27 01:30:57','2017-04-27 01:30:57');
+	(1,1,'Mark','Doe','markdoe@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',2,0,1,NULL,NULL),
+	(2,2,'Joe','Doe','joe@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',0,0,1,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
+	(3,3,'David','Doe','david@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
+	(4,4,'Fury','Doe','fury@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-04-27 01:30:57','2017-04-27 01:30:57'),
+	(6,1,'John','Doe','john@gmail.com','56e14e74b05f487d6e287a95396e85bd9dfb821b',1,0,1,'2017-05-02 14:18:26','2017-05-02 14:18:26');
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump da tabela usuario_permissao
+# Dump of table usuario_permissao
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `usuario_permissao`;
@@ -10011,13 +10224,6 @@ LOCK TABLES `usuario_permissao` WRITE;
 
 INSERT INTO `usuario_permissao` (`id`, `idusuario`, `regra`)
 VALUES
-	(1,1,'/dashboard'),
-	(2,1,'/questionarios'),
-	(3,1,'/estabelecimento'),
-	(4,1,'/usuarios'),
-	(5,1,'/relatorio'),
-	(6,1,'/plano'),
-	(7,1,'/404'),
 	(8,2,'/dashboard'),
 	(9,2,'/questionarios'),
 	(10,2,'/estabelecimento'),
@@ -10038,7 +10244,14 @@ VALUES
 	(25,4,'/usuarios'),
 	(26,4,'/relatorio'),
 	(27,4,'/plano'),
-	(28,4,'/404');
+	(28,4,'/404'),
+	(105,6,'/dashboard'),
+	(106,6,'/questionarios'),
+	(107,6,'/relatorios'),
+	(108,1,'/dashboard'),
+	(109,1,'/questionarios'),
+	(110,1,'/usuarios'),
+	(111,1,'/relatorios');
 
 /*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
 UNLOCK TABLES;

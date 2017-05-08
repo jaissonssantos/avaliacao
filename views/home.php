@@ -326,7 +326,7 @@
                 <img src="assets/icons/pi-logo.svg" width="100" alt="Logo">
               </div>
               <p>O sucesso nasce do querer, da determinação e persistência em se chegar a um objetivo. Mesmo não atingindo o alvo, quem busca e vence obstáculos, no mínimo fará coisas admiráveis.</p>
-              <p>&copy; 2017 Todos direitos reservados Avalia.me</p>
+              <p>&copy; 2017 Todos direitos reservados SuperCRM</p>
             </div>
           </div>
           <div class="col-sm-4 col-sm-offset-4">
