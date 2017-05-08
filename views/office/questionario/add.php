@@ -102,8 +102,8 @@
                                                             name="pergunta[]" placeholder="Pergunta"> 
                                                     </div>                                
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <select class="selectpicker" data-style="form-control">
+                                                <div id="tipos" class="col-md-3">
+                                                    <select id="selectpicker" class="selectpicker" data-style="form-control">
                                                         <option data-icon="ti-align-left"> Resposta curta</option>
                                                         <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
                                                         <option data-icon="fa fa-check-square"> Caixas de seleção</option>

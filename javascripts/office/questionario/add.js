@@ -98,14 +98,32 @@ $(document).ready(function(){
         console.log('qtd: ' + count);
 
         var item = $('div#pergunta:last')
-        var seletepicker = item.find('div.bootstrap-select');
+        // var seletepicker = item.find('div.bootstrap-select');
+
         item.attr('data-id',count);
         item.find('input.js-switch').attr('data-id',count);
-        item.find('select.selectpicker').selectpicker('refresh');
-        seletepicker.find('.bootstrap-select').remove();
-        sl = seletepicker.find('.bootstrap-select').html();
-        console.log(sl);
-        seletepicker.html(sl);
+        item.find('div#tipos').html('');
+
+        var tipo = '<select id="selectpicker" class="selectpicker'+count+'" data-style="form-control">'+
+                        '<option data-icon="ti-align-left"> Resposta curta</option>'+
+                        '<option data-icon="fa fa-check-circle"> Múltipla escolha</option>'+
+                        '<option data-icon="fa fa-check-square"> Caixas de seleção</option>'+
+                    '</select>';
+        item.find('div#tipos').html(tipo);
+        item.find('div#tipos select.selectpicker'+count).selectpicker();
+        item.find('div#tipos select.selectpicker'+count).selectpicker('refresh');
+
+        // item.find('select.selectpicker').selectpicker('destroy');
+        // item.find('select.selectpicker').selectpicker();
+        // item.find('select.selectpicker').selectpicker('refresh');
+        // item.find('select.selectpicker').selectpicker('render');
+
+        // item.find('select.selectpicker').selectpicker('refresh');
+        // sl = seletepicker.find('.btn-group:last').html();
+        // seletepicker.find('.btn-group:first').html(sl);
+        // console.log(sl);
+        // seletepicker.find('button:first').remove();
+        // seletepicker.find('div.dropdown-menu:first').remove();
 
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
@@ -114,25 +132,29 @@ $(document).ready(function(){
 
         //delete 
         check.parent().find('span.switchery:last').remove();
-        
 
-        // console.log(pergunta);
-        // pergunta.data('id', count);
-
-        // var elems = document.querySelectorAll('.js-switch');
-        // for (var i = 0; i < elems.length; i++) {
-        //     var switchery = new Switchery(elems[i]);
-        // }
-
-        // console.log(elem);
         return false;
     });
 
+    // $('#selectpicker').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
+    //     var selected = $(e.currentTarget).val();
+    //     console.log(selected);
+    // });
+
     //selectpicker change
-    $('.selectpicker').on('changed.bs.select', function (e) {
-        var selected = e.target.value;
+    $('select#selectpicker').on('change', function(){
+        var selected = $('#selectpicker option:selected').val();
         console.log(selected);
     });
+
+    // $('.myDropDown.bootstrap-select').on('changed.bs.select', function(){
+
+    // });
+    // $(".selectpicker option").on("click", function(){
+    //     console.log('passou aqui!');
+    //     var selected = $(this).val();
+    //     console.log(selected);
+    // });
 
     //duplicate
     $('button#pergunta-excluir').livequery('click',function(event){
