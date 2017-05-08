@@ -15,11 +15,11 @@
                 <i class="ti-menu"></i>
             </a>
             <div class="top-left-part">
-                <a class="logo" href="index.html">
+                <a class="logo" href="<?=($_SESSION['avaliacao_gestor'] == 1 ? '/administrador/dashboard' : '/office/dashboard')?>">
                     <b>
                         <img src="assets/icons/av.svg" alt="home" />
                     </b>
-                    <span class="hidden-xs">Avalia.me</span>
+                    <span class="hidden-xs">SuperCRM</span>
                 </a>
             </div>
         </div>
