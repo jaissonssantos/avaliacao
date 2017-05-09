@@ -32,7 +32,6 @@ try {
 
     // Gerar url (hash) do estabelecimento
     $params->hash = friendlyURL($params->nomefantasia);
-    $loops = 0;
     $findHash = true;
 
     $oConexao->beginTransaction();

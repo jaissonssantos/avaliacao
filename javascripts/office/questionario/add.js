@@ -1,60 +1,26 @@
 //variable global
-var usuarios = {};
+var questionarios = {};
 
 $(document).ready(function(){
-
-    //select
-    $('.selectpicker').selectpicker();
-
-    //check-switch
-    var check = $('div#pergunta input[type="checkbox"][class="js-switch"][data-id="1"]');
-    var s = new Switchery(check[0], check.data());
-    // $('.js-switch').each(function () {
-        // new Switchery($(this)[0], $(this).data());
-    // });
 
     //validate
     $('form#formQuestionario').validate({
         rules: {
-            nome: {
+            titulo: {
                 required: true,
                 minlength: 5
             },
-            email: {
-                required: true, 
-                email: true
-            },
-            perfil: { 
+            pergunta: {
                 required: true
-            },
-            senha: {
-                required: true,
-                minlength: 5
-            },
-            confirmasenha: {
-                required: true,
-                equalTo: "#senha"
             }
         },
         messages: {
-            nome: { 
-                required: 'Preencha o nome de usuário',
-                minlength: 'Vamos lá o nome de usuário deve ter cinco caracteres'
+            titulo: { 
+                required: 'Preencha o título do seu questionário',
+                minlength: 'Vamos lá o título deve ter cinco caracteres'
             },
-            email: { 
-                required: 'Preencha seu email', 
-                email: 'Ops, tem certeza que é um email válido?'
-            },
-            perfil: { 
-                required: 'Escolha o nível de acesso do usuário'
-            },
-            senha: { 
-                required: 'Preencha o campo senha',
-                minlength: 'Para a segurança do usuário a senha deve ter no mínimo cinco caracteres'
-            },
-            confirmasenha: { 
-                required: 'Vamos lá, confirme a senha',
-                equalTo: 'Pelo que estou vendo as senhas não coincidem, tente novamente'
+            pergunta: { 
+                required: 'Preencha sua pergunta'
             }
         },
         highlight: function (element, errorClass, validClass) {
@@ -95,113 +61,106 @@ $(document).ready(function(){
         $('#perguntas').append(pergunta)
 
         var count = $('div#pergunta').length;
-        console.log('qtd: ' + count);
-
         var item = $('div#pergunta:last')
-        // var seletepicker = item.find('div.bootstrap-select');
-
         item.attr('data-id',count);
-        item.find('input.js-switch').attr('data-id',count);
-        item.find('div#tipos').html('');
-
-        var tipo = '<select id="selectpicker" class="selectpicker'+count+'" data-style="form-control">'+
-                        '<option data-icon="ti-align-left"> Resposta curta</option>'+
-                        '<option data-icon="fa fa-check-circle"> Múltipla escolha</option>'+
-                        '<option data-icon="fa fa-check-square"> Caixas de seleção</option>'+
-                    '</select>';
-        item.find('div#tipos').html(tipo);
-        item.find('div#tipos select.selectpicker'+count).selectpicker();
-        item.find('div#tipos select.selectpicker'+count).selectpicker('refresh');
-
-        // item.find('select.selectpicker').selectpicker('destroy');
-        // item.find('select.selectpicker').selectpicker();
-        // item.find('select.selectpicker').selectpicker('refresh');
-        // item.find('select.selectpicker').selectpicker('render');
-
-        // item.find('select.selectpicker').selectpicker('refresh');
-        // sl = seletepicker.find('.btn-group:last').html();
-        // seletepicker.find('.btn-group:first').html(sl);
-        // console.log(sl);
-        // seletepicker.find('button:first').remove();
-        // seletepicker.find('div.dropdown-menu:first').remove();
-
+        item.find('#pergunta').attr('name', 'pergunta'+count);
+        item.find('#pergunta').val('');
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
-        var check = item.find('input.js-switch');
-        var switchery = new Switchery(check[0],check.data());
-
-        //delete 
-        check.parent().find('span.switchery:last').remove();
-
         return false;
     });
 
-    // $('#selectpicker').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
-    //     var selected = $(e.currentTarget).val();
-    //     console.log(selected);
-    // });
-
-    //selectpicker change
-    $('select#selectpicker').on('change', function(){
-        var selected = $('#selectpicker option:selected').val();
-        console.log(selected);
+    //tipo de pergunta change
+    $('select#tipo').livequery('change',function(event){
+        var id = $(this).parents('#pergunta').data('id');
+        var tipo = parseInt($(this).val());
+        var resposta = $(this).parents('#pergunta');
+        var html = '';
+        resposta.find('#respostas').html('');
+        console.log(tipo);
+        switch(tipo){
+            case 1:
+                html = '<div id="campo" class="form-group">'+
+                            '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Texto da resposta curta" disabled="true">'+
+                        '</div>';
+            break;
+            case 2:
+                html = '<div id="campo" class="m-b-15">'+
+                            '<div class="input-group m-b-15">'+
+                                '<div class="input-group-addon">'+
+                                    '<i class="fa fa-dot-circle-o"></i>'+
+                                '</div>'+
+                                '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Opção 1">'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="m-b-15">'+
+                            '<a id="adicionar-radio" href="javascript:void(0);">Adicionar opção</a>'+
+                        '</div>';
+            break;
+        }
+        resposta.find('#respostas').html(html);
     });
 
-    // $('.myDropDown.bootstrap-select').on('changed.bs.select', function(){
+    //add radio
+    $('#adicionar-radio').livequery('click',function(event){
+        var id = $(this).parents('#pergunta').data('id');
+        var resposta = $(this).parents('#pergunta');
+        var count = resposta.find('#respostas input[type="text"]').length;
+        var item = '<div class="input-group m-b-15">'+
+                        '<div class="input-group-addon">'+
+                            '<i class="fa fa-dot-circle-o"></i>'+
+                        '</div>'+
+                        '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Opção '+(count+1)+'">'+
+                        '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
+                            '<i class="fa fa-times-circle-o"></i>'+
+                        '</a>'+
+                    '</div>';
+        resposta.find('#respostas #campo').append(item);
+        return false;
+    });
 
-    // });
-    // $(".selectpicker option").on("click", function(){
-    //     console.log('passou aqui!');
-    //     var selected = $(this).val();
-    //     console.log(selected);
-    // });
+    //remove radio
+    $('a#btn-op').livequery('click',function(event){
+        $(this).parent('.input-group').remove();
+        return false;
+    });
 
-    //duplicate
+    //remove pergunta
     $('button#pergunta-excluir').livequery('click',function(event){
         $(this).parents('#pergunta').remove();
     });
 
     //save
     $('button#salvar').livequery('click',function(event){
-        if($("form#formUsuario").valid()){
-            usuarios = {
-                nome: $('#nome').val(),
-                sobrenome: $('#sobrenome').val(),
-                email: $('#email').val(),
-                perfil: $('#perfil').val(),
-                senha: $('#senha').val()
-            };
+        if($("form#formQuestionario").valid()){
 
-            //params
-            var params = {};
-            params = JSON.stringify(usuarios);
-
-            $('button#salvar').html('Processando...');
-            $('button#salvar').prop("disabled",true);
-            $('button#cancelar').prop("disabled",true);
+        //     $('button#salvar').html('Processando...');
+        //     $('button#salvar').prop("disabled",true);
+        //     $('button#cancelar').prop("disabled",true);
 
             app.util.getjson({
-                url : "/controller/office/usuario/create",
+                url : "/controller/office/questionario/create",
                 method : 'POST',
-                contentType : "application/json",
-                data: params,
+                data: $("form#formQuestionario").serialize(),
                 success: function(response){
-                    if(response.success){
-                        setSession('success', response.success);
-                        window.location.href = "/office/usuario";
-                    }
+                    // if(response.success){
+                    //     setSession('success', response.success);
+                    //     window.location.href = "/office/usuario";
+                    // }
+                    console.log(response);
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);
-                    $('#error').removeClass('hidden');
-                    $('#error').find('.alert p').html(response.error);
-                    $('button#salvar').html('Salvar');
-                    $('button#salvar').prop("disabled",false);
-                    $('button#cancelar').prop("disabled",false);
+                    console.log(response);
+                    // $('#error').removeClass('hidden');
+                    // $('#error').find('.alert p').html(response.error);
+                    // $('button#salvar').html('Salvar');
+                    // $('button#salvar').prop("disabled",false);
+                    // $('button#cancelar').prop("disabled",false);
                 }
             });
         }else{
-            $("form#formUsuario").valid();
+            $("form#formQuestionario").valid();
         }
         return false;
     });

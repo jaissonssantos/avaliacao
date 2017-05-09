@@ -70,7 +70,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="titulo">Título do formulário</label>
-                                            <input type="text" class="form-control input-lg" id="titulo" name="titulo"> 
+                                            <input type="text" class="form-control" id="titulo" name="titulo"> 
                                         </div>                                
                                     </div>
                                 </div>
@@ -98,27 +98,41 @@
                                             <div class="row">
                                                 <div class="col-md-9">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="pergunta" 
-                                                            name="pergunta[]" placeholder="Pergunta"> 
+                                                        <input type="text" class="form-control" 
+                                                        id="pergunta" name="pergunta1" placeholder="Pergunta"> 
                                                     </div>                                
                                                 </div>
                                                 <div id="tipos" class="col-md-3">
-                                                    <select id="selectpicker" class="selectpicker" data-style="form-control">
-                                                        <option data-icon="ti-align-left"> Resposta curta</option>
-                                                        <option data-icon="fa fa-check-circle"> Múltipla escolha</option>
-                                                        <option data-icon="fa fa-check-square"> Caixas de seleção</option>
+                                                    <select id="tipo" name="tipo[]" class="form-control">
+                                                        <option value="1"> Resposta curta</option>
+                                                        <option value="2"> Múltipla escolha</option>
+                                                        <option value="3"> Caixas de seleção</option>
                                                     </select>
                                                 </div>
                                                 <div id="respostas" class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="resposta" 
-                                                            name="resposta[]" placeholder="Texto da resposta curta"> 
-                                                    </div> 
+                                                    <div id="campo" class="form-group">
+                                                        <input type="text" class="form-control" 
+                                                        id="resposta1" name="resposta1[]" placeholder="Texto da resposta curta" disabled="true"> 
+                                                    </div>
+                                                    <!-- 
+                                                    <div class="m-b-15">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-check-square-o"></i>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="resposta" name="resposta" placeholder="Opção 01"> 
+                                                            <a href="javascript:void(0);" class="btn-op">
+                                                                <i class="fa fa-times-circle-o"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="m-b-15">
+                                                        <a href="javascript:void(0);">Adicionar opção</a>
+                                                    </div> -->
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span>Obrigatória</span>
-                                                    <input type="checkbox" class="js-switch" data-id="1"
-                                                        data-color="#f96262" data-size="small" />
+                                                    <input type="checkbox" id="obrigatoria" name="obrigatoria1" />
 
                                                     <button id="pergunta-excluir" 
                                                         class="btn btn-danger btn-sm m-b-0 waves-effect waves-light pull-right hidden" 

@@ -171,6 +171,12 @@ body {
 .btn-add{
   margin-top: -80px;
 }
+.well .fa-absolute{
+  position: absolute;
+  top: 7px !important;
+  right: 20px;
+  font-size: 18px;
+}
 .fa-absolute{
   position: absolute;
   top: 32px !important;
@@ -179,4 +185,15 @@ body {
 }
 i.btn-label{
   margin-left: -11px;
+}
+.btn-op{
+  padding: 8px 12px;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  z-index: 99;
+}
+.btn-op i{
+  font-size: 20px;
+  color: #D94432;
 }
