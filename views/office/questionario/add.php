@@ -114,34 +114,19 @@
                                                         <input type="text" class="form-control" 
                                                         id="resposta1" name="resposta1[]" placeholder="Texto da resposta curta" disabled="true"> 
                                                     </div>
-                                                    <!-- 
-                                                    <div class="m-b-15">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-check-square-o"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" id="resposta" name="resposta" placeholder="Opção 01"> 
-                                                            <a href="javascript:void(0);" class="btn-op">
-                                                                <i class="fa fa-times-circle-o"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="m-b-15">
-                                                        <a href="javascript:void(0);">Adicionar opção</a>
-                                                    </div> -->
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span>Obrigatória</span>
                                                     <input type="checkbox" id="obrigatoria" name="obrigatoria1" />
 
                                                     <button id="pergunta-excluir" 
-                                                        class="btn btn-danger btn-sm m-b-0 waves-effect waves-light pull-right hidden" 
+                                                        class="btn btn-danger btn-sm m-b-0 pull-right hidden" 
                                                         type="button">
                                                         <span class="btn-label"><i class="ti-trash"></i></span>Excluir
                                                     </button>
                                                     
                                                     <button id="pergunta-duplicar" 
-                                                        class="btn btn-inverse btn-sm m-b-0 waves-effect waves-light pull-right m-r-10 hidden" 
+                                                        class="btn btn-inverse btn-sm m-b-0 pull-right m-r-10 hidden" 
                                                         type="button">
                                                         <span class="btn-label"><i class="ti-files"></i></span>Duplicar
                                                     </button>

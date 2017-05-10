@@ -20,87 +20,80 @@ try {
     $count_tipo = sizeof($_POST['tipo']);
 
     // Gerar url (hash) do questionário
-  //   $hash = friendlyURL($_POST['titulo']);
-  //   $findHash = true;
+    $hash = friendlyURL($_POST['titulo']);
+    $findHash = true;
 
-  //   $oConexao->beginTransaction();
-  //   $count = $oConexao->prepare(
-  //       'SELECT 
-  //           COUNT(*) 
-  //       FROM questionario 
-  //       WHERE hash = ?'
-  //   );
-  //   $count->execute(array($hash));
-  //   $count_results = $count->fetchColumn();
+    $oConexao->beginTransaction();
+    $count = $oConexao->prepare(
+        'SELECT 
+            COUNT(*) 
+        FROM questionario 
+        WHERE hash = ?'
+    );
+    $count->execute(array($hash));
+    $count_results = $count->fetchColumn();
 
-  //   if($count_results)
-  //       throw new Exception('Tente usar um outro título de questionário', 500);
+    if($count_results)
+        throw new Exception('Tente usar um outro título de questionário', 500);
 
-  //   $stmt = $oConexao->prepare(
-  //   'INSERT INTO
-		// questionario(
-		// 	hash,idusuario,titulo,introducao,status,created_at,updated_at
-		// ) VALUES (
-		// 	?,?,?,?,1,now(),now()
-		// )');
+    $stmt = $oConexao->prepare(
+    'INSERT INTO
+		questionario(
+			hash,idusuario,titulo,introducao,status,created_at,updated_at
+		) VALUES (
+			?,?,?,?,1,now(),now()
+		)');
 
-  //   $stmt->execute(array(
-  //       $hash,
-  //       $idusuario,
-  //       $_POST['titulo'],
-  //       $_POST['introducao']
-  //   ));
-  //   $idquestionario = $oConexao->lastInsertId();
+    $stmt->execute(array(
+        $hash,
+        $idusuario,
+        $_POST['titulo'],
+        $_POST['introducao']
+    ));
+    $idquestionario = $oConexao->lastInsertId();
 
-  //   $stmt = $oConexao->prepare(
-  //       'INSERT INTO pergunta(
-  //               idquestionario,titulo,tipo,status
-  //           ) VALUES (
-  //               :idusuario,:regra
-  //           )');
 
     for($i=1; $i<=$count_tipo; $i++){
-        echo $_POST['pergunta'.$i];
-        
+
+        $stmt = $oConexao->prepare(
+        'INSERT INTO pergunta(
+                idquestionario,titulo,tipo
+            ) VALUES (
+                ?,?,?
+            )');
+        $stmt->execute(array(
+            $idquestionario,
+            $_POST['pergunta'.$i],
+            $_POST['tipo'][$i-1]
+        ));
+        $idpergunta = $oConexao->lastInsertId();
+
+        if(!empty($_POST['resposta'.$i])){
+            $count_resposta = sizeof($_POST['resposta'.$i]);
+            for($x=0; $x<$count_resposta; $x++){ 
+                $stmt = $oConexao->prepare(
+                'INSERT INTO resposta(
+                        idpergunta,titulo
+                    ) VALUES (
+                        ?,?
+                    )');
+                $stmt->execute(array(
+                    $idpergunta,
+                    $_POST['resposta'.$i][$x]
+                ));
+            }
+        }
     }
-    // foreach ($_POST['pergunta1'] as $p) {
-    //     $pergunta['regra'] = $p;
-    //     $stmt->execute($usuario_permissao);
-    // }
 
-  //   // Perfil de Acesso comum
-  //   if ($params->perfil == 1) {
-        
-  //       $stmt = $oConexao->prepare(
-  //       'INSERT INTO usuario_permissao(
-  //               idusuario,regra
-  //           ) VALUES (
-  //               :idusuario,:regra
-  //           )');
-
-  //       $usuario_permissao = array('idusuario' => $idusuario);
-  //       $regras = array('/dashboard', '/questionarios', '/relatorios');
-
-  //       foreach ($regras as $regra) {
-  //           $usuario_permissao['regra'] = $regra;
-  //           $stmt->execute($usuario_permissao);
-  //       }
-
-  //   // Perfil de gestor
-  //   } else if ($params->perfil == 2) {
-        
-        
-  //   } 
-
-    // $oConexao->commit();
+    $oConexao->commit();
 
     http_response_code(200);
-    $response->success = 'Cadastrado com sucesso'. $count_tipo;
+    $response->success = 'Cadastrado com sucesso';
 } catch (PDOException $e) {
     //echo $e->getMessage();
     $oConexao->rollBack();
     http_response_code(500);
-    $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde';
+    $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde: '. $e->getMessage();
 } catch (Exception $e) {
     http_response_code($e->getCode());
     $response->error = $e->getMessage();

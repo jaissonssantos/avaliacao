@@ -9,18 +9,12 @@ $(document).ready(function(){
             titulo: {
                 required: true,
                 minlength: 5
-            },
-            pergunta: {
-                required: true
             }
         },
         messages: {
             titulo: { 
                 required: 'Preencha o título do seu questionário',
                 minlength: 'Vamos lá o título deve ter cinco caracteres'
-            },
-            pergunta: { 
-                required: 'Preencha sua pergunta'
             }
         },
         highlight: function (element, errorClass, validClass) {
@@ -63,6 +57,8 @@ $(document).ready(function(){
         var count = $('div#pergunta').length;
         var item = $('div#pergunta:last')
         item.attr('data-id',count);
+        item.find('.form-group').removeClass('has-success has-feedback');
+        item.find('.form-group i').remove();
         item.find('#pergunta').attr('name', 'pergunta'+count);
         item.find('#pergunta').val('');
         item.find('button#pergunta-excluir').removeClass('hidden');
@@ -77,7 +73,6 @@ $(document).ready(function(){
         var resposta = $(this).parents('#pergunta');
         var html = '';
         resposta.find('#respostas').html('');
-        console.log(tipo);
         switch(tipo){
             case 1:
                 html = '<div id="campo" class="form-group">'+
@@ -97,18 +92,62 @@ $(document).ready(function(){
                             '<a id="adicionar-radio" href="javascript:void(0);">Adicionar opção</a>'+
                         '</div>';
             break;
+            case 3:
+                html = '<div id="campo" class="m-b-15">'+
+                            '<div class="input-group m-b-15">'+
+                                '<div class="input-group-addon">'+
+                                    '<i class="fa fa-check-square-o"></i>'+
+                                '</div>'+
+                                '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Opção 1">'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="m-b-15">'+
+                            '<a id="adicionar-check" href="javascript:void(0);">Adicionar opção</a>'+
+                        '</div>';
+            break;
         }
         resposta.find('#respostas').html(html);
     });
 
+    //duplicate
+    $('button#pergunta-duplicar').livequery('click',function(event){
+        var pergunta = $(this).parents('div#pergunta').clone();
+        $('#perguntas').append(pergunta);
+
+        var count = $('div#pergunta').length;
+        var item = $('div#pergunta:last')
+        item.attr('data-id',count);
+        item.find('.form-group').removeClass('has-success has-feedback');
+        item.find('.form-group i').remove();
+        item.find('#pergunta').attr('name', 'pergunta'+count);
+    });
+
     //add radio
-    $('#adicionar-radio').livequery('click',function(event){
+    $('a#adicionar-radio').livequery('click',function(event){
         var id = $(this).parents('#pergunta').data('id');
         var resposta = $(this).parents('#pergunta');
         var count = resposta.find('#respostas input[type="text"]').length;
         var item = '<div class="input-group m-b-15">'+
                         '<div class="input-group-addon">'+
                             '<i class="fa fa-dot-circle-o"></i>'+
+                        '</div>'+
+                        '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Opção '+(count+1)+'">'+
+                        '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
+                            '<i class="fa fa-times-circle-o"></i>'+
+                        '</a>'+
+                    '</div>';
+        resposta.find('#respostas #campo').append(item);
+        return false;
+    });
+
+    //add check
+    $('a#adicionar-check').livequery('click',function(event){
+        var id = $(this).parents('#pergunta').data('id');
+        var resposta = $(this).parents('#pergunta');
+        var count = resposta.find('#respostas input[type="text"]').length;
+        var item = '<div class="input-group m-b-15">'+
+                        '<div class="input-group-addon">'+
+                            '<i class="fa fa-check-square-o"></i>'+
                         '</div>'+
                         '<input type="text" class="form-control" id="resposta'+id+'" name="resposta'+id+'[]" placeholder="Opção '+(count+1)+'">'+
                         '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
@@ -134,9 +173,9 @@ $(document).ready(function(){
     $('button#salvar').livequery('click',function(event){
         if($("form#formQuestionario").valid()){
 
-        //     $('button#salvar').html('Processando...');
-        //     $('button#salvar').prop("disabled",true);
-        //     $('button#cancelar').prop("disabled",true);
+            $('button#salvar').html('Processando...');
+            $('button#salvar').prop("disabled",true);
+            $('button#cancelar').prop("disabled",true);
 
             app.util.getjson({
                 url : "/controller/office/questionario/create",
@@ -144,19 +183,18 @@ $(document).ready(function(){
                 data: $("form#formQuestionario").serialize(),
                 success: function(response){
                     // if(response.success){
-                    //     setSession('success', response.success);
-                    //     window.location.href = "/office/usuario";
+                        // setSession('success', response.success);
+                        // window.location.href = "/office/questionario";
                     // }
-                    console.log(response);
+                    console.log(response.success);
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);
-                    console.log(response);
-                    // $('#error').removeClass('hidden');
-                    // $('#error').find('.alert p').html(response.error);
-                    // $('button#salvar').html('Salvar');
-                    // $('button#salvar').prop("disabled",false);
-                    // $('button#cancelar').prop("disabled",false);
+                    $('#error').removeClass('hidden');
+                    $('#error').find('.alert p').html(response.error);
+                    $('button#salvar').html('Salvar');
+                    $('button#salvar').prop("disabled",false);
+                    $('button#cancelar').prop("disabled",false);
                 }
             });
         }else{
