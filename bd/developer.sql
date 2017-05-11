@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: avaliame
-# Generation Time: 2017-05-11 19:34:50 +0000
+# Generation Time: 2017-05-11 22:16:13 +0000
 # ************************************************************
 
 
@@ -10102,7 +10102,7 @@ DROP TABLE IF EXISTS `pergunta`;
 CREATE TABLE `pergunta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idquestionario` int(11) NOT NULL,
-  `titulo` varchar(60) NOT NULL,
+  `titulo` varchar(120) NOT NULL DEFAULT '',
   `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT '1 - Resposta curta\\n2 - Multipla escolha\\n3 - Caixas de seleção',
   `obrigatoria` int(11) DEFAULT '0' COMMENT '1 - Sim\\n2 - Não',
   PRIMARY KEY (`id`),
@@ -10124,7 +10124,10 @@ VALUES
 	(15,9,'O gosta de jogar futebol?','3',0),
 	(16,9,'O gosta de jogar vôlei?','2',0),
 	(17,10,'O que vc tem?','1',0),
-	(18,10,'teretete','3',0);
+	(18,10,'teretete','3',0),
+	(19,31,'Na escala de 1 a 5, que nota você avalia o professor Thiago ','2',1),
+	(20,31,'O professor Thiago chaves já se evadiu da sala de aula pra b','1',0),
+	(21,31,'Qual(is) conteúdo(s) o professor Thiago chaves passa mais tr','3',1);
 
 /*!40000 ALTER TABLE `pergunta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10155,10 +10158,11 @@ LOCK TABLES `questionario` WRITE;
 
 INSERT INTO `questionario` (`id`, `idestabelecimento`, `idusuario`, `hash`, `titulo`, `introducao`, `prazo`, `status`, `created_at`, `updated_at`)
 VALUES
-	(7,NULL,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
-	(8,NULL,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
-	(9,NULL,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
-	(10,NULL,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12');
+	(7,0,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
+	(8,0,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
+	(9,0,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
+	(10,0,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12'),
+	(31,1,1,'pesquisa-professor','Pesquisa - Professor','','2017-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
 
 /*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10172,7 +10176,7 @@ DROP TABLE IF EXISTS `resposta`;
 CREATE TABLE `resposta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idpergunta` int(11) NOT NULL,
-  `titulo` varchar(60) NOT NULL,
+  `titulo` varchar(120) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta2_idx` (`idpergunta`),
   CONSTRAINT `resposta_ibfk_1` FOREIGN KEY (`idpergunta`) REFERENCES `pergunta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -10198,7 +10202,16 @@ VALUES
 	(13,16,'Não'),
 	(14,18,'op1'),
 	(15,18,'op2'),
-	(16,18,'op3');
+	(16,18,'op3'),
+	(17,19,'1'),
+	(18,19,'2'),
+	(19,19,'3'),
+	(20,19,'4'),
+	(21,19,'5'),
+	(22,21,'PHP'),
+	(23,21,'Java pra Web'),
+	(24,21,'Banco de dados'),
+	(25,21,'POO');
 
 /*!40000 ALTER TABLE `resposta` ENABLE KEYS */;
 UNLOCK TABLES;

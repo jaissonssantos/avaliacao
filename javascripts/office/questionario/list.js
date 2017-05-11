@@ -57,8 +57,9 @@ $(document).ready(function(){
                                 '<td>'+ response.results[i].prazo + '</td>'+
                                 '<td class="text-center"><span class="label '+labelStatus+'">'+status+'</span></td>'+
                                 '<td class="text-center">'+
-                                    '<a href="/office/usuario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
-                                    '<a href="/office/usuario/password/'+ response.results[i].id +'" title="Modificar senha"> <i class="fa fa-lock text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/office/questionario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/forms/'+ response.results[i].hash +'" title="Pré visualização"> <i class="icon-eye text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/office/questionario/relatorio/'+ response.results[i].id +'" title="Relatório em tempo real"> <i class="icon-graph text-inverse m-r-10"></i> </a>'+
                                 '</td>'+
                             '</tr>';
                 }
@@ -74,11 +75,13 @@ $(document).ready(function(){
 
                 }
                 if(parseInt(response.count.results) == 0){
+
                     $('#notfound').removeClass('hidden');
                     $('#notfound').html('Nenhum registro encontrado');
                     $('#table-results').addClass('hidden');
                     $('#col-total').addClass('hidden');
-                    $('#col-search').addClass('hidden');
+                    if($('input#search').val() == undefined && search.length <= 3)
+                        $('#col-search').addClass('hidden');
                     $('#col-action').addClass('hidden');
                 }else{
                     $('#notfound').addClass('hidden');
