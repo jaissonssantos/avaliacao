@@ -103,8 +103,8 @@
                                     <div class="col-md-2">
                                         <label for="introducao">Prazo</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="prazo-data" name="prazo-data" 
-                                                placeholder="DD/MM/AAAA">
+                                            <input type="text" class="form-control" id="prazodata" name="prazodata" 
+                                                placeholder="DD/MM/AAAA" value="<?=date('Y-m-d', strtotime("+30 days"))?>">
                                                 <span class="input-group-addon">
                                                     <i class="icon-calender"></i>
                                                 </span> 
@@ -113,7 +113,7 @@
                                     <div class="col-md-2">
                                         <div class="input-group clockpicker m-t-25 m-b-20" 
                                             data-placement="bottom" data-align="top" data-autoclose="true">
-                                            <input type="text" class="form-control" id="prazo-hora" name="prazo-hora" value="00:00"> 
+                                            <input type="text" class="form-control" id="prazohora" name="prazohora" value="00:00"> 
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-time"></span> 
                                                 </span>

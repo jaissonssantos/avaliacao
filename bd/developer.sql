@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: avaliame
-# Generation Time: 2017-05-08 19:59:28 +0000
+# Generation Time: 2017-05-11 19:30:01 +0000
 # ************************************************************
 
 
@@ -10103,13 +10103,31 @@ CREATE TABLE `pergunta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idquestionario` int(11) NOT NULL,
   `titulo` varchar(60) NOT NULL,
-  `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT '1 - Escolha única\n2 - Multipla escolha',
-  `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 - não exibir\n1 - exibir',
+  `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT '1 - Resposta curta\\n2 - Multipla escolha\\n3 - Caixas de seleção',
+  `obrigatoria` int(11) DEFAULT '0' COMMENT '1 - Sim\\n2 - Não',
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta1_idx` (`idquestionario`),
   CONSTRAINT `pergunta_ibfk_1` FOREIGN KEY (`idquestionario`) REFERENCES `questionario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `pergunta` WRITE;
+/*!40000 ALTER TABLE `pergunta` DISABLE KEYS */;
+
+INSERT INTO `pergunta` (`id`, `idquestionario`, `titulo`, `tipo`, `obrigatoria`)
+VALUES
+	(9,7,'O que você mais gosta de fazer?','1',0),
+	(10,7,'Quantos filhos você tem?','2',0),
+	(11,8,'Qual a sua fruta preferida','1',0),
+	(12,8,'Você o que você gosta de fazer nas horas vagas?','3',0),
+	(13,9,'Vamos lá?','1',0),
+	(14,9,'O gosta de jogar futebol?','2',0),
+	(15,9,'O gosta de jogar futebol?','3',0),
+	(16,9,'O gosta de jogar vôlei?','2',0),
+	(17,10,'O que vc tem?','1',0),
+	(18,10,'teretete','3',0);
+
+/*!40000 ALTER TABLE `pergunta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table questionario
@@ -10119,9 +10137,10 @@ DROP TABLE IF EXISTS `questionario`;
 
 CREATE TABLE `questionario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idestabelecimento` int(11) DEFAULT NULL,
   `idusuario` int(11) NOT NULL,
   `hash` varchar(255) NOT NULL,
-  `titulo` varchar(120) NOT NULL,
+  `titulo` varchar(120) DEFAULT '',
   `introducao` varchar(120) DEFAULT NULL,
   `rodape` varchar(120) DEFAULT NULL,
   `prazo` datetime DEFAULT NULL,
@@ -10132,6 +10151,18 @@ CREATE TABLE `questionario` (
   KEY `fk_questionario_usuario1_idx` (`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `questionario` WRITE;
+/*!40000 ALTER TABLE `questionario` DISABLE KEYS */;
+
+INSERT INTO `questionario` (`id`, `idestabelecimento`, `idusuario`, `hash`, `titulo`, `introducao`, `rodape`, `prazo`, `status`, `created_at`, `updated_at`)
+VALUES
+	(7,NULL,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
+	(8,NULL,1,'pesquisa','Pesquisa','',NULL,NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
+	(9,NULL,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
+	(10,NULL,1,'triplo-x','Triplo x','',NULL,NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12');
+
+/*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table resposta
@@ -10148,6 +10179,30 @@ CREATE TABLE `resposta` (
   CONSTRAINT `resposta_ibfk_1` FOREIGN KEY (`idpergunta`) REFERENCES `pergunta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `resposta` WRITE;
+/*!40000 ALTER TABLE `resposta` DISABLE KEYS */;
+
+INSERT INTO `resposta` (`id`, `idpergunta`, `titulo`)
+VALUES
+	(1,10,'Nenhum'),
+	(2,10,'Apenas 1'),
+	(3,10,'Apenas 2'),
+	(4,10,'Mais de 3'),
+	(5,12,'Andar de bike'),
+	(6,12,'Correr'),
+	(7,12,'Praticar cooper'),
+	(8,14,'Sim'),
+	(9,14,'Não'),
+	(10,15,'Um pouco, sim'),
+	(11,15,'Não'),
+	(12,16,'Sim'),
+	(13,16,'Não'),
+	(14,18,'op1'),
+	(15,18,'op2'),
+	(16,18,'op3');
+
+/*!40000 ALTER TABLE `resposta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table resposta_cliente
@@ -10159,12 +10214,22 @@ CREATE TABLE `resposta_cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) NOT NULL,
   `idresposta` int(11) NOT NULL,
+  `respostacurta` varchar(240) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_cliente_cliente1_idx` (`idcliente`),
   KEY `fk_resposta_cliente_resposta1_idx` (`idresposta`),
   CONSTRAINT `resposta_cliente_ibfk_1` FOREIGN KEY (`idresposta`) REFERENCES `resposta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `resposta_cliente` WRITE;
+/*!40000 ALTER TABLE `resposta_cliente` DISABLE KEYS */;
+
+INSERT INTO `resposta_cliente` (`id`, `idcliente`, `idresposta`, `respostacurta`)
+VALUES
+	(4,1,8,NULL);
+
+/*!40000 ALTER TABLE `resposta_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table usuario

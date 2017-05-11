@@ -4,7 +4,7 @@ var questionarios = {};
 $(document).ready(function(){
 
     //clockpicker
-    $('#prazo-hora').clockpicker({
+    $('#prazohora').clockpicker({
         placement: 'bottom', 
         align: 'left',
         autoclose: true, 
@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
     //datepicker
-    $('#prazo-data').datepicker({
+    $('#prazodata').datepicker({
         startDate: 'today',
         autoclose: true, 
         todayHighlight: true,
@@ -26,12 +26,18 @@ $(document).ready(function(){
             titulo: {
                 required: true,
                 minlength: 5
+            },
+            prazodata: {
+                required: true
             }
         },
         messages: {
             titulo: { 
                 required: 'Preencha o título do seu questionário',
                 minlength: 'Vamos lá o título deve ter cinco caracteres'
+            },
+            prazodata: { 
+                required: 'Preencha a data'
             }
         },
         highlight: function (element, errorClass, validClass) {
