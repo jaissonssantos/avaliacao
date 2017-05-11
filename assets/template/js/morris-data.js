@@ -7,7 +7,7 @@ File: js
 "use strict";
 // Dashboard 1 Morris-chart
 
-Morris.Area({
+/*Morris.Area({
         element: 'morris-area-chart',
         data: [{
             period: '2010',
@@ -59,7 +59,7 @@ Morris.Area({
         lineColors: ['#00bfc7', '#fdc006', '#9675ce'],
         resize: true
         
-    });
+    });*/
 
 Morris.Area({
         element: 'morris-area-chart2',

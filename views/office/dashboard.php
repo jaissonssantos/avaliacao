@@ -58,7 +58,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="icon-layers"></i>
                                     <h5 class="text-muted vb">QUESTIONÁRIOS</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger">23</h3> </div>
+                                    <span id="count-questionarios" >0</span> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
@@ -71,7 +71,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="ti-comments"></i>
                                     <h5 class="text-muted vb">PERGUNTAS</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-info">169</h3> </div>
+                                    <span id="count-perguntas">0</span> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
@@ -84,7 +84,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="icon-people"></i>
                                     <h5 class="text-muted vb">CLIENTES</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-success">431</h3> </div>
+                                    <span id="count-clientes">0</span> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
@@ -97,7 +97,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="icon-user"></i>
                                     <h5 class="text-muted vb">USUÁRIOS</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-warning">157</h3> </div>
+                                    <div id="count-usuarios">0</div> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
@@ -116,11 +116,11 @@
                     <h3 class="box-title">Yearly Sales </h3>
                     <ul class="list-inline text-right">
                         <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>iPhone</h5> </li>
-                        <li>
+                            <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Questionários respondidos</h5> </li>
+                        <!--<li>
                             <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>iPad</h5> </li>
                         <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>iPod</h5> </li>
+                            <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>iPod</h5> </li>-->
                     </ul>
                     <div id="morris-area-chart" style="height: 340px;"></div>
                 </div>
@@ -137,7 +137,7 @@
                             <h3 class="box-title">NOVOS QUESTIONÁRIOS</h3>
                             <ul class="list-inline two-part">
                                 <li><i class="icon-folder-alt text-danger"></i></li>
-                                <li class="text-right"><span class="counter">7</span></li>
+                                <li class="text-right"><span id="count-s-questionarios" class="counter">0</span></li>
                             </ul>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                             <h3 class="box-title">NOVOS CLIENTES</h3>
                             <ul class="list-inline two-part">
                                 <li><i class="icon-people text-success"></i></li>
-                                <li class="text-right"><span class="counter">23</span></li>
+                                <li class="text-right"><span id="count-s-clientes" class="counter">0</span></li>
                             </ul>
                         </div>
                     </div>
@@ -154,64 +154,7 @@
             </div>
         </div><!-- /.row -->
 
-        <div class="row">
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <div class="white-box m-b-0 bg-danger">
-                    <h3 class="text-white box-title">Analysis <span class="pull-right"><i class="fa fa-caret-up"></i> 260</span></h3>
-                    <div id="sparkline1dash"><canvas style="display: inline-block; width: 298px; height: 70px; vertical-align: top;" width="298" height="70"></canvas></div>
-                </div>
-                <div class="white-box">
-                    <div class="row">
-                        <div class="pull-left">
-                            <div class="text-muted m-t-20">Site Analysis</div>
-                            <h2>21000</h2> </div>
-                        <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0 css-bar-danger pull-right"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <div class="white-box m-b-0 bg-info">
-                    <h3 class="text-white box-title">Sales <span class="pull-right"><i class="fa fa-caret-down"></i> 160</span></h3>
-                    <div id="sparkline2dash" class="text-center"><canvas width="215" height="70" style="display: inline-block; width: 215px; height: 70px; vertical-align: top;"></canvas></div>
-                </div>
-                <div class="white-box">
-                    <div class="row">
-                        <div class="pull-left">
-                            <div class="text-muted m-t-20">Total Sales</div>
-                            <h2>21000</h2> </div>
-                        <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0  css-bar-info pull-right"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <div class="white-box m-b-0 bg-purple">
-                    <h3 class="text-white box-title">Site visits <span class="pull-right"><i class="fa fa-caret-up"></i> 260</span></h3>
-                    <div id="sparkline3dash"><canvas style="display: inline-block; width: 298px; height: 70px; vertical-align: top;" width="298" height="70"></canvas></div>
-                </div>
-                <div class="white-box">
-                    <div class="row">
-                        <div class="pull-left">
-                            <div class="text-muted m-t-20">Total Visits</div>
-                            <h2>26000</h2> </div>
-                        <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0 css-bar-purple pull-right"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <div class="white-box m-b-0 bg-inverse">
-                    <h3 class="text-white box-title">Power consumption <span class="pull-right"><i class="fa fa-caret-up"></i> 260</span></h3>
-                    <div id="sparkline4dash" class="text-center"><canvas width="215" height="70" style="display: inline-block; width: 215px; height: 70px; vertical-align: top;"></canvas></div>
-                </div>
-                <div class="white-box">
-                    <div class="row">
-                        <div class="pull-left">
-                            <div class="text-muted m-t-20">Total Usage</div>
-                            <h2>61000</h2> </div>
-                        <div data-label="60%" class="css-bar css-bar-60 css-bar-lg m-b-0 css-bar-inverse pull-right"></div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.row -->
+        
 
         <div class="row">
             <div class="col-md-8 col-lg-9 col-sm-6 col-xs-12">

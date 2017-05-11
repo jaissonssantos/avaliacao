@@ -48,6 +48,12 @@
                     <a href="/office/usuario" class="waves-effect"><i class="icon-user p-r-10" data-icon="v"></i> <span class="hide-menu"> Usuários </span>
                     </a>
                 </li>
+
+                <li> 
+                    <a href="/office/relatorios" class="waves-effect">
+                        <i class="icon-chart p-r-10" data-icon="v"></i> <span class="hide-menu"> Relatórios </span>
+                    </a>
+                </li>
             <?php } ?>
 
         </ul>
