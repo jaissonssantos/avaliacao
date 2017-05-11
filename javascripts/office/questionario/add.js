@@ -3,6 +3,23 @@ var questionarios = {};
 
 $(document).ready(function(){
 
+    //clockpicker
+    $('#prazo-hora').clockpicker({
+        placement: 'bottom', 
+        align: 'left',
+        autoclose: true, 
+        'default': 'now'
+    });
+
+    //datepicker
+    $('#prazo-data').datepicker({
+        startDate: 'today',
+        autoclose: true, 
+        todayHighlight: true,
+        format: "dd/mm/yyyy",
+        language: 'pt-BR'
+    });
+
     //validate
     $('form#formQuestionario').validate({
         rules: {
@@ -61,6 +78,7 @@ $(document).ready(function(){
         item.find('.form-group i').remove();
         item.find('#pergunta').attr('name', 'pergunta'+count);
         item.find('#pergunta').val('');
+        item.find('#obrigatoria').attr('name', 'obrigatoria'+count);
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
         return false;
@@ -182,11 +200,10 @@ $(document).ready(function(){
                 method : 'POST',
                 data: $("form#formQuestionario").serialize(),
                 success: function(response){
-                    // if(response.success){
-                        // setSession('success', response.success);
-                        // window.location.href = "/office/questionario";
-                    // }
-                    console.log(response.success);
+                    if(response.success){
+                        setSession('success', response.success);
+                        window.location.href = "/office/questionario";
+                    }
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);

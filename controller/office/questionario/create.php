@@ -16,6 +16,7 @@ try {
     } 
 
     //Default params
+    $idestabelecimento = $_SESSION['avaliacao_estabelecimento'];
     $idusuario = $_SESSION['avaliacao_uid'];
     $count_tipo = sizeof($_POST['tipo']);
 
@@ -39,13 +40,14 @@ try {
     $stmt = $oConexao->prepare(
     'INSERT INTO
 		questionario(
-			hash,idusuario,titulo,introducao,status,created_at,updated_at
+			hash,idestabelecimento,idusuario,titulo,introducao,status,created_at,updated_at
 		) VALUES (
 			?,?,?,?,1,now(),now()
 		)');
 
     $stmt->execute(array(
         $hash,
+        $idestabelecimento,
         $idusuario,
         $_POST['titulo'],
         $_POST['introducao']
@@ -55,16 +57,23 @@ try {
 
     for($i=1; $i<=$count_tipo; $i++){
 
+        if(!empty($_POST['obrigatoria'.$i-1])){
+            $obrigatoria = $_POST['obrigatoria'.$i];
+        }else{
+            $obrigatoria = null;
+        }
+
         $stmt = $oConexao->prepare(
         'INSERT INTO pergunta(
-                idquestionario,titulo,tipo
+                idquestionario,titulo,tipo,obrigatoria
             ) VALUES (
                 ?,?,?
             )');
         $stmt->execute(array(
             $idquestionario,
             $_POST['pergunta'.$i],
-            $_POST['tipo'][$i-1]
+            $_POST['tipo'][$i-1],
+            $obrigatoria
         ));
         $idpergunta = $oConexao->lastInsertId();
 
@@ -93,7 +102,7 @@ try {
     //echo $e->getMessage();
     $oConexao->rollBack();
     http_response_code(500);
-    $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde: '. $e->getMessage();
+    $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde';
 } catch (Exception $e) {
     http_response_code($e->getCode());
     $response->error = $e->getMessage();

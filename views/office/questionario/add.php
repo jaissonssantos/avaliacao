@@ -28,6 +28,13 @@
 <link href="assets/template/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
 <!-- Switchery -->
 <link href="assets/template/plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
+<!-- Page plugins css -->
+<link href="assets/template/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<!-- Date picker plugins css -->
+<link href="assets/template/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<!-- Daterange picker plugins css -->
+<link href="assets/template/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="assets/template/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="assets/template/css/style.min.css" rel="stylesheet">
 <!-- color CSS -->
@@ -66,6 +73,14 @@
                         <div class="col-sm-12 col-xs-12">
                             <form id="formQuestionario" name="formQuestionario">
 
+                                <div id="error" class="row hidden">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-warning">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -81,6 +96,28 @@
                                             <label for="introducao">Descrição do formulário</label>
                                             <input type="text" class="form-control" id="introducao" name="introducao"> 
                                         </div>                                
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="introducao">Prazo</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="prazo-data" name="prazo-data" 
+                                                placeholder="DD/MM/AAAA">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-calender"></i>
+                                                </span> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group clockpicker m-t-25 m-b-20" 
+                                            data-placement="bottom" data-align="top" data-autoclose="true">
+                                            <input type="text" class="form-control" id="prazo-hora" name="prazo-hora" value="00:00"> 
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span> 
+                                                </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -112,12 +149,13 @@
                                                 <div id="respostas" class="col-md-12">
                                                     <div id="campo" class="form-group">
                                                         <input type="text" class="form-control" 
-                                                        id="resposta1" name="resposta1[]" placeholder="Texto da resposta curta" disabled="true"> 
+                                                        id="resposta1" name="resposta1[]" placeholder="Texto da resposta curta" 
+                                                        disabled="true"> 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span>Obrigatória</span>
-                                                    <input type="checkbox" id="obrigatoria" name="obrigatoria1" />
+                                                    <input type="checkbox" id="obrigatoria" name="obrigatoria1" value="1" />
 
                                                     <button id="pergunta-excluir" 
                                                         class="btn btn-danger btn-sm m-b-0 pull-right hidden" 
@@ -165,6 +203,15 @@
 <script src="assets/template/plugins/bower_components/bootstrap-select/bootstrap-select.min.js"></script>
 <!--Switchery-->
 <script src="assets/template/plugins/bower_components/switchery/dist/switchery.min.js"></script>
+<!-- Clock Plugin JavaScript -->
+<script src="assets/template/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<!-- Color Picker Plugin JavaScript -->
+<script src="assets/template/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+<script src="assets/template/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+<script src="assets/template/plugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+<!-- Date Picker Plugin JavaScript -->
+<script src="assets/template/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="assets/template/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.pt-BR.js"></script>
 
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>

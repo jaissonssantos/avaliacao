@@ -55,7 +55,7 @@
                 <div class="white-box">
 
                     <h3 class="box-title m-b-0">Novo usuário</h3>
-                    <p class="text-muted m-b-30 font-13"> Preecha o formulário abaixo </p>
+                    <p class="text-muted m-b-30 font-13"> Preencha o formulário abaixo </p>
 
                     <div class="row">
 
