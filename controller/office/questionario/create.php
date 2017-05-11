@@ -19,6 +19,7 @@ try {
     $idestabelecimento = $_SESSION['avaliacao_estabelecimento'];
     $idusuario = $_SESSION['avaliacao_uid'];
     $count_tipo = sizeof($_POST['tipo']);
+    $prazo = formata_data($_POST['prazodata']).' '.$_POST['prazohora'].':00';
 
     // Gerar url (hash) do questionário
     $hash = friendlyURL($_POST['titulo']);
@@ -40,9 +41,9 @@ try {
     $stmt = $oConexao->prepare(
     'INSERT INTO
 		questionario(
-			hash,idestabelecimento,idusuario,titulo,introducao,status,created_at,updated_at
+			hash,idestabelecimento,idusuario,titulo,introducao,prazo,status,created_at,updated_at
 		) VALUES (
-			?,?,?,?,1,now(),now()
+			?,?,?,?,?,?,1,now(),now()
 		)');
 
     $stmt->execute(array(
@@ -50,24 +51,22 @@ try {
         $idestabelecimento,
         $idusuario,
         $_POST['titulo'],
-        $_POST['introducao']
+        $_POST['introducao'],
+        $prazo
     ));
     $idquestionario = $oConexao->lastInsertId();
 
-
     for($i=1; $i<=$count_tipo; $i++){
 
-        if(!empty($_POST['obrigatoria'.$i-1])){
+        $obrigatoria = 0;
+        if(!empty($_POST['obrigatoria'.$i]))
             $obrigatoria = $_POST['obrigatoria'.$i];
-        }else{
-            $obrigatoria = null;
-        }
 
         $stmt = $oConexao->prepare(
         'INSERT INTO pergunta(
                 idquestionario,titulo,tipo,obrigatoria
             ) VALUES (
-                ?,?,?
+                ?,?,?,?
             )');
         $stmt->execute(array(
             $idquestionario,

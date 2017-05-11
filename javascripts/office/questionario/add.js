@@ -84,15 +84,21 @@ $(document).ready(function(){
         $('#perguntas').append(pergunta)
 
         var count = $('div#pergunta').length;
-        var item = $('div#pergunta:last')
+        var item = $('div#pergunta:last');
         item.attr('data-id',count);
         item.find('.form-group').removeClass('has-success has-feedback');
         item.find('.form-group i').remove();
         item.find('#pergunta').attr('name', 'pergunta'+count);
         item.find('#pergunta').val('');
         item.find('#obrigatoria').attr('name', 'obrigatoria'+count);
+        item.find('#obrigatoria').prop('checked', false);
         item.find('button#pergunta-excluir').removeClass('hidden');
         item.find('button#pergunta-duplicar').removeClass('hidden');
+        item.find('#respostas').html('');
+        var html = '<div id="campo" class="form-group">'+
+                        '<input type="text" class="form-control" id="resposta'+count+'" name="resposta'+count+'[]" placeholder="Texto da resposta curta" disabled="true">'+
+                    '</div>';
+        item.find('#respostas').html(html);
         return false;
     });
 
