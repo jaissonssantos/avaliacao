@@ -29,6 +29,9 @@ $(document).ready(function(){
             },
             prazodata: {
                 required: true
+            },
+            prazohora: {
+                required: true
             }
         },
         messages: {
@@ -37,7 +40,10 @@ $(document).ready(function(){
                 minlength: 'Vamos lá o título deve ter cinco caracteres'
             },
             prazodata: { 
-                required: 'Preencha a data'
+                required: 'Preencha a data do prazo'
+            },
+            prazohora: { 
+                required: 'Preencha o horário do prazo'
             }
         },
         highlight: function (element, errorClass, validClass) {

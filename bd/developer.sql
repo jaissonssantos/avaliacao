@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: avaliame
-# Generation Time: 2017-05-11 19:30:01 +0000
+# Generation Time: 2017-05-11 19:34:50 +0000
 # ************************************************************
 
 
@@ -10142,7 +10142,6 @@ CREATE TABLE `questionario` (
   `hash` varchar(255) NOT NULL,
   `titulo` varchar(120) DEFAULT '',
   `introducao` varchar(120) DEFAULT NULL,
-  `rodape` varchar(120) DEFAULT NULL,
   `prazo` datetime DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1 - Ativo\n2 - Inativo\n3- Arquivado\n4 - Finalizado',
   `created_at` datetime DEFAULT NULL,
@@ -10154,12 +10153,12 @@ CREATE TABLE `questionario` (
 LOCK TABLES `questionario` WRITE;
 /*!40000 ALTER TABLE `questionario` DISABLE KEYS */;
 
-INSERT INTO `questionario` (`id`, `idestabelecimento`, `idusuario`, `hash`, `titulo`, `introducao`, `rodape`, `prazo`, `status`, `created_at`, `updated_at`)
+INSERT INTO `questionario` (`id`, `idestabelecimento`, `idusuario`, `hash`, `titulo`, `introducao`, `prazo`, `status`, `created_at`, `updated_at`)
 VALUES
-	(7,NULL,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
-	(8,NULL,1,'pesquisa','Pesquisa','',NULL,NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
-	(9,NULL,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
-	(10,NULL,1,'triplo-x','Triplo x','',NULL,NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12');
+	(7,NULL,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
+	(8,NULL,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
+	(9,NULL,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
+	(10,NULL,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12');
 
 /*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
 UNLOCK TABLES;

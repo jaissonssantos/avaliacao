@@ -104,7 +104,7 @@
                                         <label for="introducao">Prazo</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="prazodata" name="prazodata" 
-                                                placeholder="DD/MM/AAAA" value="<?=date('Y-m-d', strtotime("+30 days"))?>">
+                                                placeholder="DD/MM/AAAA" value="<?=date('d/m/Y', strtotime("+90 days"))?>">
                                                 <span class="input-group-addon">
                                                     <i class="icon-calender"></i>
                                                 </span> 
