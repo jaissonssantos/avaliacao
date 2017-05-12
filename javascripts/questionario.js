@@ -46,9 +46,39 @@ $(document).ready(function(){
         }
     });
 
-    //login
-    $('button#acessar').livequery('click',function(event){
-        if($("form#formLogin").valid()){
+    function get(){
+        var params = {hash: $('#hash').val()};
+        params = JSON.stringify(params);
+
+        //list
+        app.util.getjson({
+            url : "/controller/guest/questionario/get",
+            method : 'POST',
+            contentType : "application/json",
+            data: params,
+            success: function(response){
+                if(response.id){
+                    $('#editName').html(response.nome + ' ' + response.sobrenome);
+                    $('#nome').val(response.nome);
+                    $('#sobrenome').val(response.sobrenome);
+                    $('#email').val(response.email);
+                    $( "#perfil option" ).each(function(){
+                        if($(this).val() == response.perfil)
+                            $(this).attr('selected', true);
+                    });
+                    $('#form-loading').addClass('hidden');
+                    $('#form').removeClass('hidden');
+                }else{
+                    window.location.href = "/office/404";
+                }
+            },
+            error : onError
+        });
+    }
+
+    //enviar
+    $('button#enviar').livequery('click',function(event){
+        if($("form#forms").valid()){
             usuarios = {
                 email: $('#email').val(),
                 senha: $('#senha').val(),
@@ -86,7 +116,7 @@ $(document).ready(function(){
             });
 
         }else{
-            $("form#formLogin").valid();
+            $("form#forms").valid();
         }
         return false;
 	});
@@ -94,5 +124,8 @@ $(document).ready(function(){
 	function onError(response) {
       console.log(response);
     }
+
+    //init
+    get();
 
 });

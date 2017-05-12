@@ -1,0 +1,96 @@
+@import url(checkbox.css);
+.site-logo {
+    background: url(/assets/icons/avaliame-logo.svg) no-repeat center center;
+    background-size: contain;
+    width: 180px;
+    height: 70px;
+}
+
+.site-logo a{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.hero-1{
+    background: #EEEEEE;
+    background-size: cover;
+    padding: 30px 0 60px 0;
+}
+
+.main{
+    margin: auto;
+    width: 640px;
+}
+
+.forms{
+    background-color: #fff;
+    margin-top: -40px;
+    margin-bottom: 48px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    word-wrap: break-word;
+}
+
+.forms .view{
+    color: rgba(0,0,0,.77);
+    border-top: 5px solid #D94432;
+    padding: 34px 17px;
+    display: table;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.forms .divisor{
+    border-top: 1px solid #efefef;
+    display: table;
+    width: 100%;
+    height: 1px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.forms h5{
+    font-size: 16px;
+    letter-spacing: -0.0179em;
+}
+
+.forms .input-lg{
+    font-size: 13px;
+}
+
+.forms .success{
+    text-align: center;
+}
+
+.forms .success .icon img{
+    height: 84px;
+    margin-bottom: 10px;
+}
+
+.forms .obs{
+    color: rgba(0,0,0,.57);
+    font-size: 11px;
+}
+
+.checkbox-styled:not(ie8) input ~ span::before, .radio-styled:not(ie8) input ~ span::before{
+    border: 2px solid #ddd;
+}
+.checkbox-styled:not(ie8) input:checked ~ span::before{
+    border-color: #00BFA5;
+}
+.checkbox-styled label, .checkbox-styled label:hover, .checkbox-styled:not(ie8) label, .radio-styled:not(ie8) label, .radio-styled:not(ie8) label:hover{
+    color: rgba(0,0,0,.77);  
+    width: 100%;  
+}
+
+.btn-enviar{
+    text-transform: uppercase;
+    letter-spacing: 0.0199em;
+}
+
+.footer{
+    color: rgba(0,0,0,.57);
+    font-size: 12px;
+}

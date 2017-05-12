@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: avaliame
-# Generation Time: 2017-05-11 22:16:13 +0000
+# Generation Time: 2017-05-12 21:38:41 +0000
 # ************************************************************
 
 
@@ -10126,7 +10126,7 @@ VALUES
 	(17,10,'O que vc tem?','1',0),
 	(18,10,'teretete','3',0),
 	(19,31,'Na escala de 1 a 5, que nota você avalia o professor Thiago ','2',1),
-	(20,31,'O professor Thiago chaves já se evadiu da sala de aula pra b','1',0),
+	(20,31,'O professor Thiago chaves já se evadiu da sala de aula pra beber?','1',0),
 	(21,31,'Qual(is) conteúdo(s) o professor Thiago chaves passa mais tr','3',1);
 
 /*!40000 ALTER TABLE `pergunta` ENABLE KEYS */;
@@ -10177,6 +10177,7 @@ CREATE TABLE `resposta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idpergunta` int(11) NOT NULL,
   `titulo` varchar(120) NOT NULL DEFAULT '',
+  `respostacurta` varchar(240) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta2_idx` (`idpergunta`),
   CONSTRAINT `resposta_ibfk_1` FOREIGN KEY (`idpergunta`) REFERENCES `pergunta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -10185,33 +10186,33 @@ CREATE TABLE `resposta` (
 LOCK TABLES `resposta` WRITE;
 /*!40000 ALTER TABLE `resposta` DISABLE KEYS */;
 
-INSERT INTO `resposta` (`id`, `idpergunta`, `titulo`)
+INSERT INTO `resposta` (`id`, `idpergunta`, `titulo`, `respostacurta`)
 VALUES
-	(1,10,'Nenhum'),
-	(2,10,'Apenas 1'),
-	(3,10,'Apenas 2'),
-	(4,10,'Mais de 3'),
-	(5,12,'Andar de bike'),
-	(6,12,'Correr'),
-	(7,12,'Praticar cooper'),
-	(8,14,'Sim'),
-	(9,14,'Não'),
-	(10,15,'Um pouco, sim'),
-	(11,15,'Não'),
-	(12,16,'Sim'),
-	(13,16,'Não'),
-	(14,18,'op1'),
-	(15,18,'op2'),
-	(16,18,'op3'),
-	(17,19,'1'),
-	(18,19,'2'),
-	(19,19,'3'),
-	(20,19,'4'),
-	(21,19,'5'),
-	(22,21,'PHP'),
-	(23,21,'Java pra Web'),
-	(24,21,'Banco de dados'),
-	(25,21,'POO');
+	(1,10,'Nenhum',NULL),
+	(2,10,'Apenas 1',NULL),
+	(3,10,'Apenas 2',NULL),
+	(4,10,'Mais de 3',NULL),
+	(5,12,'Andar de bike',NULL),
+	(6,12,'Correr',NULL),
+	(7,12,'Praticar cooper',NULL),
+	(8,14,'Sim',NULL),
+	(9,14,'Não',NULL),
+	(10,15,'Um pouco, sim',NULL),
+	(11,15,'Não',NULL),
+	(12,16,'Sim',NULL),
+	(13,16,'Não',NULL),
+	(14,18,'op1',NULL),
+	(15,18,'op2',NULL),
+	(16,18,'op3',NULL),
+	(17,19,'1',NULL),
+	(18,19,'2',NULL),
+	(19,19,'3',NULL),
+	(20,19,'4',NULL),
+	(21,19,'5',NULL),
+	(22,21,'PHP',NULL),
+	(23,21,'Java pra Web',NULL),
+	(24,21,'Banco de dados',NULL),
+	(25,21,'POO',NULL);
 
 /*!40000 ALTER TABLE `resposta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10226,7 +10227,6 @@ CREATE TABLE `resposta_cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) NOT NULL,
   `idresposta` int(11) NOT NULL,
-  `respostacurta` varchar(240) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_cliente_cliente1_idx` (`idcliente`),
   KEY `fk_resposta_cliente_resposta1_idx` (`idresposta`),
@@ -10236,9 +10236,11 @@ CREATE TABLE `resposta_cliente` (
 LOCK TABLES `resposta_cliente` WRITE;
 /*!40000 ALTER TABLE `resposta_cliente` DISABLE KEYS */;
 
-INSERT INTO `resposta_cliente` (`id`, `idcliente`, `idresposta`, `respostacurta`)
+INSERT INTO `resposta_cliente` (`id`, `idcliente`, `idresposta`)
 VALUES
-	(4,1,8,NULL);
+	(4,1,8),
+	(5,1,22),
+	(6,2,22);
 
 /*!40000 ALTER TABLE `resposta_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
