@@ -58,8 +58,9 @@ $(document).ready(function(){
                                 '<td class="text-center"><span class="label '+labelStatus+'">'+status+'</span></td>'+
                                 '<td class="text-center">'+
                                     '<a href="/office/questionario/edit/'+ response.results[i].id +'" title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>'+
-                                    '<a href="/forms/'+ response.results[i].hash +'" title="Pré visualização"> <i class="icon-eye text-inverse m-r-10"></i> </a>'+
-                                    '<a href="/office/questionario/relatorio/'+ response.results[i].id +'" title="Relatório em tempo real"> <i class="icon-graph text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/previews/'+ response.results[i].hash +'" title="Visualizar" target="_blank"> <i class="icon-eye text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/forms/'+ response.results[i].hash +'" title="Link" target="_blank"> <i class="icon-link text-inverse m-r-10"></i> </a>'+
+                                    '<a href="/office/relatorio/'+ response.results[i].id +'" title="Relatório em tempo real"> <i class="icon-graph text-inverse m-r-10"></i> </a>'+
                                 '</td>'+
                             '</tr>';
                 }
