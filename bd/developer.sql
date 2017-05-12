@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: avaliame
-# Generation Time: 2017-05-12 21:38:41 +0000
+# Generation Time: 2017-05-12 22:25:01 +0000
 # ************************************************************
 
 
@@ -10103,7 +10103,7 @@ CREATE TABLE `pergunta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idquestionario` int(11) NOT NULL,
   `titulo` varchar(120) NOT NULL DEFAULT '',
-  `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT '1 - Resposta curta\\n2 - Multipla escolha\\n3 - Caixas de seleção',
+  `tipo` varchar(10) NOT NULL DEFAULT '1' COMMENT ' ',
   `obrigatoria` int(11) DEFAULT '0' COMMENT '1 - Sim\\n2 - Não',
   PRIMARY KEY (`id`),
   KEY `fk_resposta_pergunta1_idx` (`idquestionario`),
@@ -10120,14 +10120,14 @@ VALUES
 	(11,8,'Qual a sua fruta preferida','1',0),
 	(12,8,'Você o que você gosta de fazer nas horas vagas?','3',0),
 	(13,9,'Vamos lá?','1',0),
-	(14,9,'O gosta de jogar futebol?','2',0),
-	(15,9,'O gosta de jogar futebol?','3',0),
-	(16,9,'O gosta de jogar vôlei?','2',0),
+	(14,9,'Você gosta de jogar futebol?','2',0),
+	(15,9,'Você  gosta de jogar futebol?','3',0),
+	(16,9,'Você gosta de jogar vôlei?','2',0),
 	(17,10,'O que vc tem?','1',0),
 	(18,10,'teretete','3',0),
 	(19,31,'Na escala de 1 a 5, que nota você avalia o professor Thiago ','2',1),
 	(20,31,'O professor Thiago chaves já se evadiu da sala de aula pra beber?','1',0),
-	(21,31,'Qual(is) conteúdo(s) o professor Thiago chaves passa mais tr','3',1);
+	(21,31,'Qual(is) conteúdo(s) o professor Thiago chaves passa mais transparência?','3',1);
 
 /*!40000 ALTER TABLE `pergunta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10162,7 +10162,7 @@ VALUES
 	(8,0,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
 	(9,0,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
 	(10,0,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12'),
-	(31,1,1,'pesquisa-professor','Pesquisa - Professor','','2017-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
+	(31,1,1,'pesquisa-professor','Pesquisa - Professor','Preencha o maior número de informações no formulário abaixo','2017-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
 
 /*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10240,7 +10240,11 @@ INSERT INTO `resposta_cliente` (`id`, `idcliente`, `idresposta`)
 VALUES
 	(4,1,8),
 	(5,1,22),
-	(6,2,22);
+	(6,2,22),
+	(7,3,19),
+	(8,10,20),
+	(9,11,19),
+	(10,12,19);
 
 /*!40000 ALTER TABLE `resposta_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
