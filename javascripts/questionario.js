@@ -58,18 +58,68 @@ $(document).ready(function(){
             data: params,
             success: function(response){
                 if(response.id){
-                    $('#editName').html(response.nome + ' ' + response.sobrenome);
-                    $('#nome').val(response.nome);
-                    $('#sobrenome').val(response.sobrenome);
-                    $('#email').val(response.email);
-                    $( "#perfil option" ).each(function(){
-                        if($(this).val() == response.perfil)
-                            $(this).attr('selected', true);
-                    });
-                    $('#form-loading').addClass('hidden');
-                    $('#form').removeClass('hidden');
+                    $('#loading').addClass('hidden');
+                    $('#title').removeClass('hidden');
+                    $('#items').removeClass('hidden');
+                    $('#send').removeClass('hidden');
+
+                    //title
+                    $('#title h3').html(response.titulo);
+                    $('#title p').html(response.introducao);
+
+                    //items
+                    var html = '';
+                    for (var i=0;i<response.pergunta.length;i++) {
+                        var pergunta = response.pergunta[i];
+                        switch(parseInt(pergunta.tipo)){
+                            case 1:
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                                '<h5>'+pergunta.titulo+'</h5>'+
+                                                '<input type="text" class="form-control input-lg" id="pergunta'+pergunta.id+'" name="pergunta'+pergunta.id+'">'+
+                                            '</div>'+
+                                        '</div>';
+                            break;
+                            case 2:
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                            '<h5>'+pergunta.titulo+'</h5>';
+                                for (var x=0;x<pergunta.resposta.length;x++) {
+                                    var resposta = pergunta.resposta[x];
+                                    html += '<div class="radio-styled radio-danger">'+
+                                                '<label>'+
+                                                    '<input id="resposta'+resposta.id+'" name="resposta'+pergunta.id+'" type="radio">'+
+                                                    '<span>'+resposta.titulo+'</span>'+
+                                                '</label>'+
+                                            '</div>';
+                                }
+                                html +=     '</div>'+
+                                        '</div>';
+                            break;
+                            case 3:
+                                console.log(pergunta.resposta.length);
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                            '<h5>'+pergunta.titulo+'</h5>';
+                                for (var x=0;x<pergunta.resposta.length;x++) {
+                                    var resposta = pergunta.resposta[x];
+                                    html += '<div class="checkbox-styled checkbox-danger">'+
+                                                '<label>'+
+                                                    '<input id="resposta'+resposta.id+'" name="resposta'+pergunta.id+'" type="checkbox">'+
+                                                    '<span>'+resposta.titulo+'</span>'+
+                                                '</label>'+
+                                            '</div>';
+                                }
+                                html +=     '</div>'+
+                                        '</div>';
+                            break;
+                        }
+                    }
+
+                    $('#items').html(html);
+
                 }else{
-                    window.location.href = "/office/404";
+                    window.location.href = "/404";
                 }
             },
             error : onError

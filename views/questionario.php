@@ -55,7 +55,7 @@
                     <!-- hidden input -->
                     <input type="hidden" id="hash" name="hash" value="<?=$url_subpath?>">
 
-                    <div class="items hidden">
+                    <div id="items" class="items hidden">
                     </div><!--/.items-->
 
                     <div id="send" class="col-md-12 hidden">
