@@ -1,28 +1,52 @@
 //variable global
+var questionarios = {};
 var usuarios = {};
 
 $(document).ready(function(){
 
+    //mask
+    $('#telefone').mask('(00) 0000-00009');
+
     //validate
-    $('form#formLogin').validate({
+    $('form#formConta').validate({
         rules: {
+            nome: {
+                required: true
+            },
             email: {
                 required: true, 
                 email: true
             },
+            telefone: {
+                required: true
+            },
             senha: { 
                 required: true,
                 minlength: 5
-            } 
+            },
+            confirmasenha: { 
+                required: true,
+                equalTo: "form#formConta #senha"
+            }
         },
         messages: {
+            nome: {
+                required: 'Qual seu nome?'
+            },
             email: { 
                 required: 'Preencha seu email', 
                 email: 'Ops, tem certeza que é um email válido?'
             },
+            telefone: {
+                required: 'Qual seu número de telefone?'
+            },
             senha: { 
                 required: 'Preencha sua senha',
-                minlength: 'Para sua segurança, sua senha foi cadastrada com cinco caracteres'
+                minlength: 'Para sua segurança a senha deve ter no mínimo cinco caracteres'
+            },
+            confirmasenha: { 
+                required: 'Vamos lá, confirme sua senha',
+                equalTo: 'Pelo que estou vendo as senhas não coincidem, tente novamente'
             }
         },
         highlight: function (element, errorClass, validClass) {
@@ -46,6 +70,26 @@ $(document).ready(function(){
         }
     });
 
+    function check(){
+        //modal
+        $("#login").modal({
+            cache:false,
+            show: true,
+            keyboard: false,
+            backdrop: 'static'
+        });
+        app.util.getjson({
+            url : "/controller/guest/cliente/check",
+            method : 'POST',
+            contentType : "application/json",
+            success: function(response){
+                if(response.results.id)
+                    $('#login').modal('hide');
+            },
+            error : onError
+        });
+    }
+
     function get(){
         var params = {hash: $('#hash').val()};
         params = JSON.stringify(params);
@@ -58,60 +102,136 @@ $(document).ready(function(){
             data: params,
             success: function(response){
                 if(response.id){
-                    $('#editName').html(response.nome + ' ' + response.sobrenome);
-                    $('#nome').val(response.nome);
-                    $('#sobrenome').val(response.sobrenome);
-                    $('#email').val(response.email);
-                    $( "#perfil option" ).each(function(){
-                        if($(this).val() == response.perfil)
-                            $(this).attr('selected', true);
-                    });
-                    $('#form-loading').addClass('hidden');
-                    $('#form').removeClass('hidden');
+                    $('#loading').addClass('hidden');
+                    $('#title').removeClass('hidden');
+                    $('#items').removeClass('hidden');
+                    $('#send').removeClass('hidden');
+
+                    //title
+                    $('#title h3').html(response.titulo);
+                    $('#title p').html(response.introducao);
+
+                    //items
+                    var html = '';
+                    for (var i=0;i<response.pergunta.length;i++) {
+                        var pergunta = response.pergunta[i];
+                        switch(parseInt(pergunta.tipo)){
+                            case 1:
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                                '<h5>'+pergunta.titulo+'</h5>'+
+                                                '<input type="text" class="form-control input-lg" id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'">'+
+                                            '</div>'+
+                                        '</div>';
+                            break;
+                            case 2:
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                            '<h5>'+pergunta.titulo+'</h5>';
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
+                                for (var x=0;x<pergunta.resposta.length;x++) {
+                                    var resposta = pergunta.resposta[x];
+                                    html += '<div class="radio-styled radio-danger">'+
+                                                '<label>'+
+                                                    '<input id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'" type="radio" value="'+resposta.id+'">'+
+                                                    '<span>'+resposta.titulo+'</span>'+
+                                                '</label>'+
+                                            '</div>';
+                                }
+                                html +=     '</div>'+
+                                        '</div>';
+                            break;
+                            case 3:
+                                html += '<div class="col-md-12">'+
+                                            '<div class="form-group">'+
+                                            '<h5>'+pergunta.titulo+'</h5>';
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
+                                for (var x=0;x<pergunta.resposta.length;x++) {
+                                    var resposta = pergunta.resposta[x];
+                                    html += '<div class="checkbox-styled checkbox-danger">'+
+                                                '<label>'+
+                                                    '<input id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'[]" type="checkbox" value="'+resposta.id+'">'+
+                                                    '<span>'+resposta.titulo+'</span>'+
+                                                '</label>'+
+                                            '</div>';
+                                }
+                                html +=     '</div>'+
+                                        '</div>';
+                            break;
+                        }
+                    }
+
+                    $('#items').html(html);
+
                 }else{
-                    window.location.href = "/office/404";
+                    window.location.href = "/404";
                 }
             },
             error : onError
         });
     }
 
-    //enviar
-    $('button#enviar').livequery('click',function(event){
-        if($("form#forms").valid()){
+    $('button#criarconta').livequery('click',function(event){
+        if($("form#formConta").valid()){
             usuarios = {
-                email: $('#email').val(),
-                senha: $('#senha').val(),
-                lembrarme: $('#lembrarme').val()
+                nome: $('form#formConta #nome').val(),
+                email: $('form#formConta #email').val(),
+                telefone: $('form#formConta #telefone').val(),
+                senha: $('form#formConta #senha').val()
             };
 
-            $('button#acessar').html('PROCESSANDO...');
-            $('button#acessar').prop("disabled",true);
+            $('button#criarconta').html('PROCESSANDO...');
+            $('button#criarconta').prop("disabled",true);
 
             //params
             var params = {};
             params = JSON.stringify(usuarios);
 
+        }else{
+            $("form#formConta").valid()
+        }
+        return false;
+    });
+    
+    $('a#entrar').livequery('click',function(event){
+        $('form#formConta').addClass('hidden');
+        $('form#formLogin').removeClass('hidden');
+        return false;
+    });
+
+    $('a#recuperar').livequery('click',function(event){
+        return false;
+    });
+
+    //enviar
+    $('button#enviar').livequery('click',function(event){
+        if($("form#forms").valid()){
+
+            $('button#enviar').html('PROCESSANDO...');
+            $('button#enviar').prop("disabled",true);
+
             app.util.getjson({
-                url : "/controller/guest/usuario/login",
+                url : "/controller/guest/questionario/save",
                 method : 'POST',
-                contentType : "application/json",
-                data: params,
+                data: $("form#forms").serialize(),
                 success: function(response){
-                    if(response.results.id){
-                        if(response.results.gestor == 1){
-                            window.location.href = "/administrador/dashboard";
-                        }else{
-                            window.location.href = "/office/dashboard";
-                        }
+                    if(response.success){
+                        $('#success').removeClass('hidden');
+                        $('#title').addClass('hidden');
+                        $('#items').addClass('hidden');
+                        $('#send').addClass('hidden');
                     }
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);
-                    $('#errorLogin').removeClass('hidden');
-                    $('#errorLogin').find('.alert p').html(response.error);
-                    $('button#acessar').html('ACESSAR');
-                    $('button#acessar').prop("disabled",false);
+                    $('#error').removeClass('hidden');
+                    $('#error').find('.alert p').html(response.error);
+                    $('button#enviar').html('ACESSAR');
+                    $('button#enviar').prop("disabled",false);
                 }
             });
 
@@ -126,6 +246,7 @@ $(document).ready(function(){
     }
 
     //init
+    check();
     get();
 
 });

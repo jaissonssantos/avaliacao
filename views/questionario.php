@@ -42,20 +42,20 @@
                         </div>
                     </div>
 
-                    <div class="success hidden">
+                    <div id="success" class="success hidden">
                         <div class="col-md-12">
                             <div class="icon">
                                 <img src="assets/icons/icon_success.svg">
                             </div>
                             <p>Sua resposta foi registrada.</p>
-                            <a href="forms/<?=$url_subpath?>">Enviar outra resposta</a>
+                            <a href="questionario/<?=$url_subpath?>">Enviar outra resposta</a>
                         </div>
                     </div>
 
                     <!-- hidden input -->
                     <input type="hidden" id="hash" name="hash" value="<?=$url_subpath?>">
 
-                    <div class="items hidden">
+                    <div id="items" class="items hidden">
                     </div><!--/.items-->
 
                     <div id="send" class="col-md-12 hidden">
@@ -83,6 +83,164 @@
 
 </div><!--/.wrapper-->
 
+<!--.modal-->
+<div id="login" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">CONTA</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="formConta" name="formConta" class="form-signin">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input type="text"
+                                        id="nome"
+                                        name="nome"
+                                        class="form-control"
+                                        placeholder="Seu nome">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-cloud"></i>
+                                    </div>
+                                    <input type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="E-mail">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input type="text"
+                                        id="telefone"
+                                        name="telefone"
+                                        class="form-control"
+                                        placeholder="Telefone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                    <input type="password"
+                                        id="senha"
+                                        name="senha" 
+                                        class="form-control" 
+                                        placeholder="Senha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                    <input type="password"
+                                        id="confirmasenha"
+                                        name="confirmasenha" 
+                                        class="form-control" 
+                                        placeholder="Confirmar senha">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button id="criarconta" 
+                                    class="btn btn-login btn-acessar btn-block">
+                                    <span>CRIAR CONTA</span>
+                            </button>
+                        </div>
+
+                        <div class="col-md-12">
+                            <span class="or" data-text="Ou"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <a href="javascript:void(0);" 
+                                id="entrar" 
+                                class="btn btn-block btn-nova-conta">
+                                ACESSAR
+                            </a>
+                        </div>
+
+                        <div class="col-md-12">
+                            <a href="javascript:void(0);" 
+                                id="recuperar" 
+                                class="btn-recuperar btn-block">
+                                Esqueceu sua senha?
+                            </a>
+                        </div>
+                    </form>
+                    <form id="formLogin" name="formLogin" class="form-signin hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-cloud"></i>
+                                    </div>
+                                    <input type="text"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="E-mail">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                    <input type="password"
+                                        id="senha"
+                                        name="senha" 
+                                        class="form-control" 
+                                        placeholder="Senha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button id="entrar" 
+                                    class="btn btn-login btn-acessar btn-block">
+                                    <span>ACESSAR</span>
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="javascript:void(0);" 
+                                id="voltar" 
+                                class="btn-recuperar btn-block">
+                                Voltar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/javascript/jquery.mask.js"></script>
 <script type="text/javascript" src="javascripts/questionario.js"></script>
