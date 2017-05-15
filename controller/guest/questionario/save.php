@@ -9,13 +9,14 @@ $response = new stdClass();
 try {
     
     if (!isset(
-        $_POST['hash']
+        $_POST['hash'],
+        $_SESSION['avaliacao_cliente_uid']
     )) {
         throw new Exception('Verifique os dados preenchidos', 400);
     } 
 
     //Default params
-    $idcliente = 1; //$_SESSION['avaliacao_cliente_uid'];
+    $idcliente = $_SESSION['avaliacao_cliente_uid'];
     $count_pergunta = sizeof($_POST['pergunta']);
 
     $oConexao->beginTransaction();

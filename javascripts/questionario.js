@@ -1,28 +1,52 @@
 //variable global
 var questionarios = {};
+var usuarios = {};
 
 $(document).ready(function(){
 
+    //mask
+    $('#telefone').mask('(00) 0000-00009');
+
     //validate
-    $('form#formLogin').validate({
+    $('form#formConta').validate({
         rules: {
+            nome: {
+                required: true
+            },
             email: {
                 required: true, 
                 email: true
             },
+            telefone: {
+                required: true
+            },
             senha: { 
                 required: true,
                 minlength: 5
-            } 
+            },
+            confirmasenha: { 
+                required: true,
+                equalTo: "form#formConta #senha"
+            }
         },
         messages: {
+            nome: {
+                required: 'Qual seu nome?'
+            },
             email: { 
                 required: 'Preencha seu email', 
                 email: 'Ops, tem certeza que é um email válido?'
             },
+            telefone: {
+                required: 'Qual seu número de telefone?'
+            },
             senha: { 
                 required: 'Preencha sua senha',
-                minlength: 'Para sua segurança, sua senha foi cadastrada com cinco caracteres'
+                minlength: 'Para sua segurança a senha deve ter no mínimo cinco caracteres'
+            },
+            confirmasenha: { 
+                required: 'Vamos lá, confirme sua senha',
+                equalTo: 'Pelo que estou vendo as senhas não coincidem, tente novamente'
             }
         },
         highlight: function (element, errorClass, validClass) {
@@ -45,6 +69,26 @@ $(document).ready(function(){
             }
         }
     });
+
+    function check(){
+        //modal
+        $("#login").modal({
+            cache:false,
+            show: true,
+            keyboard: false,
+            backdrop: 'static'
+        });
+        app.util.getjson({
+            url : "/controller/guest/cliente/check",
+            method : 'POST',
+            contentType : "application/json",
+            success: function(response){
+                if(response.results.id)
+                    $('#login').modal('hide');
+            },
+            error : onError
+        });
+    }
 
     function get(){
         var params = {hash: $('#hash').val()};
@@ -131,6 +175,38 @@ $(document).ready(function(){
         });
     }
 
+    $('button#criarconta').livequery('click',function(event){
+        if($("form#formConta").valid()){
+            usuarios = {
+                nome: $('form#formConta #nome').val(),
+                email: $('form#formConta #email').val(),
+                telefone: $('form#formConta #telefone').val(),
+                senha: $('form#formConta #senha').val()
+            };
+
+            $('button#criarconta').html('PROCESSANDO...');
+            $('button#criarconta').prop("disabled",true);
+
+            //params
+            var params = {};
+            params = JSON.stringify(usuarios);
+
+        }else{
+            $("form#formConta").valid()
+        }
+        return false;
+    });
+    
+    $('a#entrar').livequery('click',function(event){
+        $('form#formConta').addClass('hidden');
+        $('form#formLogin').removeClass('hidden');
+        return false;
+    });
+
+    $('a#recuperar').livequery('click',function(event){
+        return false;
+    });
+
     //enviar
     $('button#enviar').livequery('click',function(event){
         if($("form#forms").valid()){
@@ -170,6 +246,7 @@ $(document).ready(function(){
     }
 
     //init
+    check();
     get();
 
 });

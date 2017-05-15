@@ -94,3 +94,86 @@
     color: rgba(0,0,0,.57);
     font-size: 12px;
 }
+
+.btn-acessar {
+    background-color: rgb(217, 68, 50);
+    color: rgb(255, 255, 255);
+    border-radius: 0;
+}
+.btn-acessar:hover {
+    background-color: rgba(217, 68, 50, 0.7);
+    color: rgb(255, 255, 255)
+}
+.btn-nova-conta{
+    background-color: #0090e9;
+    color: #fff;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+.btn-nova-conta:hover{
+    background-color: rgba(0, 144, 233, 0.7);
+    color: #fff;
+}
+.btn-recuperar{
+    text-align: center;
+    margin: 15px 0;
+}
+span.or {
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    margin: 20px 10px 25px;
+    position: relative;
+    text-align: center;
+}
+span.or:after {
+    background-color: rgb(57, 126, 172);
+    color: rgb(255, 255, 255);
+    content: attr(data-text);
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+span.or:before {
+    background-color: rgb(57, 126, 172);
+    content: "";
+    height: 1px;
+    left: -10px;
+    right: -10px;
+    position: absolute;
+    top: 50%;
+}
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+.modal-title{
+    font-size: 16px;
+}
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.modal-backdrop.in{
+  height: 100%;
+  width: 100%;
+}
+@media (min-width: 768px){
+  modal-dialog {
+      width: 600px;
+      margin: 200px auto;
+  }
+}
