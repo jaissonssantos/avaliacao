@@ -113,16 +113,22 @@
         <div class="row">
             <div class="col-md-7 col-lg-9 col-sm-12 col-xs-12">
                 <div class="white-box">
-                    <h3 class="box-title">Yearly Sales </h3>
-                    <ul class="list-inline text-right">
-                        <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Questionários respondidos</h5> </li>
-                        <!--<li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>iPad</h5> </li>
-                        <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>iPod</h5> </li>-->
-                    </ul>
-                    <div id="morris-area-chart" style="height: 340px;"></div>
+                    <h3 class="box-title m-b-0">Nova Lista de Cliente</h3>
+                    <p class="text-muted">Últimos clientes adicionados </p>
+                    <div class="table-responsive">
+                        <table class="table" id="table-clientes">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Telefone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="col-md-5 col-lg-3 col-sm-6 col-xs-12">
@@ -153,113 +159,6 @@
                 </div>
             </div>
         </div><!-- /.row -->
-
-        
-
-        <div class="row">
-            <div class="col-md-8 col-lg-9 col-sm-6 col-xs-12">
-                <div class="white-box">
-                    <h3 class="box-title">SALES ANALYTICS</h3>
-                    <ul class="list-inline text-center">
-                        <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Site A View</h5> </li>
-                        <li>
-                            <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>Site B View</h5> </li>
-                    </ul>
-                    <div id="morris-area-chart2" style="height: 370px;"></div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Total Sites Visit</h3>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-6  m-t-30">
-                                    <h1 class="text-warning">6778</h1>
-                                    <p class="text-muted">APRIL 2017</p> <b>(150-165 Sales)</b> </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div id="sales1" class="text-center"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Sales Difference</h3>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-6  m-t-30">
-                                    <h1 class="text-info">$2478</h1>
-                                    <p class="text-muted">APRIL 2017</p> <b>(150-165 Sales)</b> </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div id="sales2" class="text-center"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.row -->
-
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="white-box">
-                    <h3 class="box-title m-b-0">Nova Lista de Cliente</h3>
-                    <p class="text-muted">Últimos clientes adicionados </p>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nome</th>
-                                    <th>E-mail</th>
-                                    <th>Telefone</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Deshmukh</td>
-                                    <td>@Genelia</td>
-                                    <td><span class="label label-danger">Fever</span> </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Deshmukh</td>
-                                    <td>@Ritesh</td>
-                                    <td><span class="label label-info">Cancer</span> </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sanghani</td>
-                                    <td>@Govinda</td>
-                                    <td><span class="label label-warning">Lakva</span> </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Roshan</td>
-                                    <td>@Hritik</td>
-                                    <td><span class="label label-success">Dental</span> </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Joshi</td>
-                                    <td>@Maruti</td>
-                                    <td><span class="label label-info">Cancer</span> </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Nigam</td>
-                                    <td>@Sonu</td>
-                                    <td><span class="label label-success">Dental</span> </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.row -->
-
     </div><!-- end col -->
 </div><!-- /.row -->
 
@@ -268,21 +167,6 @@
 <!-- javascripts -->
 <script type="text/javascript" src="javascripts/office/dashboard.js"></script>
 
-<!--Morris JavaScript -->
-<script src="assets/template/plugins/bower_components/raphael/raphael-min.js"></script>
-<script src="assets/template/plugins/bower_components/morrisjs/morris.js"></script>
-
-<!-- Sparkline chart JavaScript -->
-<script src="assets/template/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-<script src="assets/template/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
-
-<!--Counter js -->
-<script src="assets/template/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
-<script src="assets/template/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="assets/template/js/custom.min.js"></script>
-<script src="assets/template/js/widget.js"></script>
 
 <!--Style Switcher -->
 <script src="assets/template/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
