@@ -1,5 +1,5 @@
 //variable global
-var usuarios = {};
+var questionarios = {};
 
 $(document).ready(function(){
 
@@ -73,10 +73,12 @@ $(document).ready(function(){
                         var pergunta = response.pergunta[i];
                         switch(parseInt(pergunta.tipo)){
                             case 1:
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
                                 html += '<div class="col-md-12">'+
                                             '<div class="form-group">'+
                                                 '<h5>'+pergunta.titulo+'</h5>'+
-                                                '<input type="text" class="form-control input-lg" id="pergunta'+pergunta.id+'" name="pergunta'+pergunta.id+'">'+
+                                                '<input type="text" class="form-control input-lg" id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'">'+
                                             '</div>'+
                                         '</div>';
                             break;
@@ -84,11 +86,13 @@ $(document).ready(function(){
                                 html += '<div class="col-md-12">'+
                                             '<div class="form-group">'+
                                             '<h5>'+pergunta.titulo+'</h5>';
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
                                 for (var x=0;x<pergunta.resposta.length;x++) {
                                     var resposta = pergunta.resposta[x];
                                     html += '<div class="radio-styled radio-danger">'+
                                                 '<label>'+
-                                                    '<input id="resposta'+resposta.id+'" name="resposta'+pergunta.id+'" type="radio">'+
+                                                    '<input id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'" type="radio" value="'+resposta.id+'">'+
                                                     '<span>'+resposta.titulo+'</span>'+
                                                 '</label>'+
                                             '</div>';
@@ -97,15 +101,16 @@ $(document).ready(function(){
                                         '</div>';
                             break;
                             case 3:
-                                console.log(pergunta.resposta.length);
                                 html += '<div class="col-md-12">'+
                                             '<div class="form-group">'+
                                             '<h5>'+pergunta.titulo+'</h5>';
+                                html += '<input type="hidden" name="pergunta[]" value="'+pergunta.id+'">';
+                                html += '<input type="hidden" name="tipo[]" value="'+pergunta.tipo+'">';
                                 for (var x=0;x<pergunta.resposta.length;x++) {
                                     var resposta = pergunta.resposta[x];
                                     html += '<div class="checkbox-styled checkbox-danger">'+
                                                 '<label>'+
-                                                    '<input id="resposta'+resposta.id+'" name="resposta'+pergunta.id+'" type="checkbox">'+
+                                                    '<input id="resposta'+pergunta.id+'" name="resposta'+pergunta.id+'[]" type="checkbox" value="'+resposta.id+'">'+
                                                     '<span>'+resposta.titulo+'</span>'+
                                                 '</label>'+
                                             '</div>';
@@ -129,39 +134,28 @@ $(document).ready(function(){
     //enviar
     $('button#enviar').livequery('click',function(event){
         if($("form#forms").valid()){
-            usuarios = {
-                email: $('#email').val(),
-                senha: $('#senha').val(),
-                lembrarme: $('#lembrarme').val()
-            };
 
-            $('button#acessar').html('PROCESSANDO...');
-            $('button#acessar').prop("disabled",true);
-
-            //params
-            var params = {};
-            params = JSON.stringify(usuarios);
+            $('button#enviar').html('PROCESSANDO...');
+            $('button#enviar').prop("disabled",true);
 
             app.util.getjson({
-                url : "/controller/guest/usuario/login",
+                url : "/controller/guest/questionario/save",
                 method : 'POST',
-                contentType : "application/json",
-                data: params,
+                data: $("form#forms").serialize(),
                 success: function(response){
-                    if(response.results.id){
-                        if(response.results.gestor == 1){
-                            window.location.href = "/administrador/dashboard";
-                        }else{
-                            window.location.href = "/office/dashboard";
-                        }
+                    if(response.success){
+                        $('#success').removeClass('hidden');
+                        $('#title').addClass('hidden');
+                        $('#items').addClass('hidden');
+                        $('#send').addClass('hidden');
                     }
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);
-                    $('#errorLogin').removeClass('hidden');
-                    $('#errorLogin').find('.alert p').html(response.error);
-                    $('button#acessar').html('ACESSAR');
-                    $('button#acessar').prop("disabled",false);
+                    $('#error').removeClass('hidden');
+                    $('#error').find('.alert p').html(response.error);
+                    $('button#enviar').html('ACESSAR');
+                    $('button#enviar').prop("disabled",false);
                 }
             });
 

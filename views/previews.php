@@ -42,29 +42,11 @@
                         </div>
                     </div>
 
-                    <div id="success" class="success hidden">
-                        <div class="col-md-12">
-                            <div class="icon">
-                                <img src="assets/icons/icon_success.svg">
-                            </div>
-                            <p>Sua resposta foi registrada.</p>
-                            <a href="questionario/<?=$url_subpath?>">Enviar outra resposta</a>
-                        </div>
-                    </div>
-
                     <!-- hidden input -->
                     <input type="hidden" id="hash" name="hash" value="<?=$url_subpath?>">
 
                     <div id="items" class="items hidden">
                     </div><!--/.items-->
-
-                    <div id="send" class="col-md-12 hidden">
-                        <div class="form-group">
-                            <button type="submit" id="enviar" 
-                                class="btn btn-enviar btn-success">Enviar</button>
-                        </div>
-                        <p class="obs">Jamais envie senhas pelo formulário.</p>
-                    </div>
 
                 </div><!--/.view-->
             </form>
@@ -84,5 +66,4 @@
 </div><!--/.wrapper-->
 
 <!-- javascripts -->
-<script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
-<script type="text/javascript" src="javascripts/questionario.js"></script>
+<script type="text/javascript" src="javascripts/previews.js"></script>
