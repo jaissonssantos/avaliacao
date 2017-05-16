@@ -15,10 +15,12 @@ $(document).ready(function(){
             },
             email: {
                 required: true, 
-                email: true
+                email: true,
+                checkemail: true
             },
             telefone: {
-                required: true
+                required: true,
+                checktelefone: true
             },
             senha: { 
                 required: true,
@@ -35,10 +37,12 @@ $(document).ready(function(){
             },
             email: { 
                 required: 'Preencha seu email', 
-                email: 'Ops, tem certeza que é um email válido?'
+                email: 'Ops, tem certeza que é um email válido?',
+                checkemail: 'Este endereço de E-mail está em uso, tente outro'
             },
             telefone: {
-                required: 'Qual seu número de telefone?'
+                required: 'Qual seu número de telefone?',
+                checktelefone: 'Este número de telefone está em uso, tente outro'
             },
             senha: { 
                 required: 'Preencha sua senha',
@@ -70,23 +74,72 @@ $(document).ready(function(){
         }
     });
 
+    $('form#formLogin').validate({
+        rules: {
+            email: {
+                required: true, 
+                email: true
+            },
+            senha: { 
+                required: true,
+                minlength: 5
+            }
+        },
+        messages: {
+            email: { 
+                required: 'Preencha seu email', 
+                email: 'Ops, tem certeza que é um email válido?'
+            },
+            senha: { 
+                required: 'Preencha sua senha',
+                minlength: 'Para sua segurança a senha deve ter no mínimo cinco caracteres'
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).closest('.input-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+            $(element).closest('.input-group').find('.input-group-addon i.fa').remove();
+            $(element).closest('.input-group').find('.input-group-addon').append('<i class="fa fa-times fa-validate"></i>');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest('.input-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+            $(element).closest('.input-group').find('.input-group-addon i.fa').remove();
+            $(element).closest('.input-group').find('.input-group-addon').append('<i class="fa fa-check fa-validate"></i>');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            }else{
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    //check login
     function check(){
-        //modal
-        $("#login").modal({
-            cache:false,
-            show: true,
-            keyboard: false,
-            backdrop: 'static'
-        });
         app.util.getjson({
             url : "/controller/guest/cliente/check",
             method : 'POST',
             contentType : "application/json",
             success: function(response){
-                if(response.results.id)
+                if(response.results.id){
                     $('#login').modal('hide');
+                    $('#users').removeClass('hidden');
+                    $('#users span.name').html(response.results.nome);
+                    $('#users span.email').html(response.results.email);
+                }
             },
-            error : onError
+            error : function(response){
+                response = JSON.parse(response.responseText);
+                if(response.error)
+                    $("#login").modal({
+                        cache:false,
+                        show: true,
+                        keyboard: false,
+                        backdrop: 'static'
+                    });
+            }
         });
     }
 
@@ -191,6 +244,23 @@ $(document).ready(function(){
             var params = {};
             params = JSON.stringify(usuarios);
 
+            app.util.getjson({
+                url : "/controller/guest/cliente/create",
+                method : 'POST',
+                contentType : "application/json",
+                data: params,
+                success: function(response){
+                    if(response.success)
+                        $('#login').modal('hide');
+                },
+                error : function(response){
+                    response = JSON.parse(response.responseText);
+                    $('#errorModal').removeClass('hidden');
+                    $('#errorModal').find('.alert p').html(response.error);
+                    $('button#criarconta').html('CRIAR CONTA');
+                    $('button#criarconta').prop("disabled",false);
+                }
+            });
         }else{
             $("form#formConta").valid()
         }
@@ -203,6 +273,52 @@ $(document).ready(function(){
         return false;
     });
 
+    $('button#acessar').livequery('click',function(event){
+        if($("form#formLogin").valid()){
+            usuarios = {
+                email: $('form#formLogin #email').val(),
+                senha: $('form#formLogin #senha').val()
+            };
+
+            $('button#acessar').html('PROCESSANDO...');
+            $('button#acessar').prop("disabled",true);
+
+            //params
+            var params = {};
+            params = JSON.stringify(usuarios);
+
+            app.util.getjson({
+                url : "/controller/guest/cliente/login",
+                method : 'POST',
+                contentType : "application/json",
+                data: params,
+                success: function(response){
+                    if(response.results.id){
+                        $('#login').modal('hide');
+                        $('#users').removeClass('hidden');
+                        $('#users span.name').html(response.results.nome);
+                        $('#users span.email').html(response.results.email);
+                    }
+                },
+                error : function(response){
+                    response = JSON.parse(response.responseText);
+                    $('#errorModal').removeClass('hidden');
+                    $('#errorModal').find('.alert p').html(response.error);
+                    $('button#acessar').html('ACESSAR');
+                    $('button#acessar').prop("disabled",false);
+                }
+            });
+        }else{
+            $("form#formLogin").valid()
+        }
+    });
+
+    $('a#voltar').livequery('click',function(event){
+        $('form#formConta').removeClass('hidden');
+        $('form#formLogin').addClass('hidden');
+        return false;
+    });
+    
     $('a#recuperar').livequery('click',function(event){
         return false;
     });

@@ -23,6 +23,31 @@
     width: 640px;
 }
 
+.users{
+    text-align: right;
+}
+
+.users span{
+    width: 100%;
+    display: block;
+}
+
+.users .hello{
+    margin-top: 25px;
+    font-size: 12px;
+}
+
+.users .name{
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
+.users .email{
+    font-size: 12px;
+    margin-top: -2px;
+}
+
 .forms{
     background-color: #fff;
     margin-top: -40px;

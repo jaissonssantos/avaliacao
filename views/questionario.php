@@ -9,9 +9,16 @@
     <div class="hero-1">
         <div class="row">
             <div class="main">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="site-logo">
                         <a href="/"></a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="users" class="users hidden">
+                        <span class="hello">Olá</span>
+                        <span class="name"></span>
+                        <span class="email"></span>
                     </div>
                 </div>
             </div>
@@ -91,6 +98,13 @@
                 <h4 class="modal-title">CONTA</h4>
             </div>
             <div class="modal-body">
+                <div id="errorModal" class="row hidden">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <form id="formConta" name="formConta" class="form-signin">
                         <div class="col-md-12">
@@ -221,7 +235,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button id="entrar" 
+                            <button id="acessar" 
                                     class="btn btn-login btn-acessar btn-block">
                                     <span>ACESSAR</span>
                             </button>
@@ -242,5 +256,7 @@
 
 <!-- javascripts -->
 <script type="text/javascript" src="assets/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/javascript/validate/checktelefone.cliente.js"></script>
+<script type="text/javascript" src="assets/javascript/validate/checkemail.cliente.js"></script>
 <script type="text/javascript" src="assets/javascript/jquery.mask.js"></script>
 <script type="text/javascript" src="javascripts/questionario.js"></script>
