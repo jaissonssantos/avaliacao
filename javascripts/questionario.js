@@ -250,8 +250,12 @@ $(document).ready(function(){
                 contentType : "application/json",
                 data: params,
                 success: function(response){
-                    if(response.success)
+                    if(response.results.id){
                         $('#login').modal('hide');
+                        $('#users').removeClass('hidden');
+                        $('#users span.name').html(response.results.nome);
+                        $('#users span.email').html(response.results.email);
+                    }
                 },
                 error : function(response){
                     response = JSON.parse(response.responseText);
@@ -356,6 +360,20 @@ $(document).ready(function(){
         }
         return false;
 	});
+
+    //sair
+    $('a#sair').livequery('click',function(event){
+        app.util.getjson({
+            url : "/controller/guest/cliente/logout",
+            method : 'POST',
+            success: function(response){
+                if(response.success)
+                    window.location.href = '/';
+            },
+            error : onError
+        });
+        return false;
+    });
 
 	function onError(response) {
       console.log(response);

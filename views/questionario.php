@@ -19,6 +19,9 @@
                         <span class="hello">Olá</span>
                         <span class="name"></span>
                         <span class="email"></span>
+                        <span class="logout">
+                            <a id="sair" href="javascript:void(0);">Sair</a>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@
 }
 
 .users .hello{
-    margin-top: 25px;
+    margin-top: 10px;
     font-size: 12px;
 }
 
@@ -46,6 +46,14 @@
 .users .email{
     font-size: 12px;
     margin-top: -2px;
+}
+
+.users .logout{
+    font-size: 12px;
+    margin-top: -2px;
+}
+.users .logout a{
+    color: #D94432;
 }
 
 .forms{

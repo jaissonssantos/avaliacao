@@ -37,10 +37,17 @@ try {
     $_SESSION['avaliacao_cliente_nome'] = $params->nome;
     $_SESSION['avaliacao_cliente_email'] = $params->email;
 
+    $results = new stdClass();
+    $results->id = $cliente_id;
+    $results->nome = $params->nome;
+    $results->email = $params->email;
+
     $oConexao->commit();
 
     http_response_code(200);
-    $response->success = 'Cadastrado sucesso';
+    $response = array(
+        'results' => $results
+    );
 } catch (PDOException $e) {
     http_response_code(500);
     // $response->error = 'Desculpa. Tivemos um problema, tente novamente mais tarde';
