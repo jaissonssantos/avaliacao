@@ -1,24 +1,5 @@
 $(document).ready(function(){
 
-    //sair da conta
-    $('a#sair').livequery('click',function(event){
-        app.util.getjson({
-            url : "/controller/guest/usuario/logout",
-            method : 'POST',
-            contentType : "application/json",
-            success: function(response){
-                if(response.success)
-                    window.location.href = "/login";
-            },
-            error : onError
-        });
-        return false;
-	});
-
-	function onError(response) {
-      console.log(response);
-    }
-
     function list(){
         
         //list
@@ -29,10 +10,10 @@ $(document).ready(function(){
             success: function(response){
                 var html = '';
 
-                $('#count-estabelecimentos').html(response.count.estabelecimentos);   
-                $('#count-clientes').html(response.count.clientes); 
-                $('#count-questionarios').html(response.count.questionarios);    
-                $('#count-usuarios').html(response.count.usuarios);          
+                $('#countEstabelecimento h4').html(response.count.estabelecimentos);   
+                $('#countCliente h4').html(response.count.clientes); 
+                $('#countQuestionario h4').html(response.count.questionarios);    
+                $('#countUsuario h4').html(response.count.usuarios);          
 
 
             },
@@ -44,7 +25,7 @@ $(document).ready(function(){
 
         //list
         app.util.getjson({
-            url : "/controller/administrador/dashboard/list_clientes",
+            url : "/controller/administrador/dashboard/listclientes",
             method : 'POST',
             contentType : "application/json",
             success: function(response){
@@ -67,7 +48,7 @@ $(document).ready(function(){
 
         //list
         app.util.getjson({
-            url : "/controller/administrador/dashboard/list_estabelecimentos",
+            url : "/controller/administrador/dashboard/listestabelecimentos",
             method : 'POST',
             contentType : "application/json",
             success: function(response){
@@ -86,6 +67,10 @@ $(document).ready(function(){
             },
             error : onError
         });
+    }
+
+    function onError(response) {
+      console.log(response);
     }
 
     list();

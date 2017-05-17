@@ -46,61 +46,49 @@
             <div class="col-md-3 col-sm-6">
                 <div class="white-box">
                     <div class="r-icon-stats"> <i class="icon-directions bg-megna"></i>
-                        <div class="bodystate">
-                            <span id="count-estabelecimentos" class="label label-rouded label-success pull-right m-l-5">1</span> <span class="text-muted">Estabelecimentos</span> </div>
+                        <div id="countEstabelecimento" class="bodystate">
+                            <h4>0</h4> 
+                            <span class="text-muted">Estabelecimentos</span> 
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="white-box">
                     <div class="r-icon-stats"> <i class="icon-people bg-info"></i>
-                        <div class="bodystate">
-                            <span id="count-clientes" class="label label-rouded label-success pull-right m-l-5">1</span> <span class="text-muted">Clientes</span> </div>
+                        <div id="countCliente" class="bodystate">
+                            <h4>0</h4> 
+                            <span class="text-muted">Clientes</span> 
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="white-box">
                     <div class="r-icon-stats"> <i class="icon-layers bg-success"></i>
-                        <div class="bodystate">
-                            <span id="count-questionarios" class="label label-rouded label-success pull-right m-l-5">1</span> <span class="text-muted">Questionários</span> </div>
+                        <div id="countQuestionario" class="bodystate">
+                            <h4>0</h4> 
+                            <span class="text-muted">Questionários</span> 
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="white-box">
                     <div class="r-icon-stats"> <i class="icon-user bg-inverse"></i>
-                        <div class="bodystate">
-                            <span id="count-usuarios" class="label label-rouded label-success pull-right m-l-5">1</span> <span class="text-muted">Usuários</span> </div>
+                        <div id="countUsuario" class="bodystate">
+                            <h4>0</h4> 
+                            <span class="text-muted">Usuários</span> 
+                        </div>
                     </div>
                 </div>
             </div>
         </div><!-- /.row -->
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="white-box">
-                    <h3 class="box-title m-b-0">Nova Lista de Cliente</h3>
-                    <p class="text-muted">Últimos clientes adicionados </p>
-                    <div class="table-responsive">
-                        <table id="table-clientes" class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nome</th>
-                                    <th>E-mail</th>
-                                    <th>Telefone</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="white-box">
-                    <h3 class="box-title m-b-0">Nova Lista de Estabelecimento</h3>
+                    <h3 class="box-title m-b-0">Estabelecimentos</h3>
                     <p class="text-muted">Últimos estabelecimento adicionados</p>
                     <div class="table-responsive">
                         <table id="table-estabelecimentos" class="table table-hover">
@@ -110,6 +98,26 @@
                                     <th>Nome</th>
                                     <th>CPF/CNPJ</th>
                                     <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <h3 class="box-title m-b-0">Clientes</h3>
+                    <p class="text-muted">Últimos clientes adicionados </p>
+                    <div class="table-responsive">
+                        <table id="table-clientes" class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Telefone</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,3 +136,4 @@
 <!-- javascripts -->
 <script type="text/javascript" src="javascripts/functions.js"></script>
 <script type="text/javascript" src="javascripts/administrador/dashboard.js"></script>
+<script type="text/javascript" src="javascripts/administrador/global.js"></script>

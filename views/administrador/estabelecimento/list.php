@@ -41,7 +41,6 @@
                 <h4 class="page-title">Estabelecimentos</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                <a href="javascript:void(0)" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Atualize seu plano</a>
                 <ol class="breadcrumb">
                     <li><a href="/administrador/dashboard">Dashboard</a></li>
                     <li><a href="/administrador/estabelecimento">Estabelecimentos</a></li>
@@ -84,12 +83,6 @@
                             </div>
                         </li>
                     </ul><!-- /.nav nav-tabs -->
-
-                    <div id="add" class="pull-right hidden">
-                        <button class="btn btn-info btn-sm btn-add waves-effect waves-light" type="button">
-                            <span class="btn-label"><i class="fa fa-plus"></i></span>Adicionar
-                        </button>
-                    </div>
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="status" aria-expanded="true">
@@ -184,3 +177,4 @@
 <!-- javascripts -->
 <script type="text/javascript" src="javascripts/functions.js"></script>
 <script type="text/javascript" src="javascripts/administrador/estabelecimento/list.js"></script>
+<script type="text/javascript" src="javascripts/administrador/global.js"></script>

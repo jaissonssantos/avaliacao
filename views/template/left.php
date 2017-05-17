@@ -16,6 +16,7 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a id="minhaconta" href="javascript:void(0)"><i class="ti-user"></i> Minha conta</a></li>
+                    <li><a id="mudarsenha" href="javascript:void(0)"><i class="ti-key"></i> Mudar senha</a></li>
                     <li><a id="sair" href="javascript:void(0)"><i class="fa fa-power-off"></i> Sair</a></li>
                 </ul>
             </li>
@@ -25,9 +26,8 @@
 
             <?php if(isset($_SESSION['avaliacao_gestor']) && $_SESSION['avaliacao_gestor'] == 1){ ?>
                 <li> <a href="<?=($_SESSION['avaliacao_gestor'] == 1 ? '/administrador/estabelecimento' : '/office/dashboard')?>" class="
-                waves-effect"><i class="icon-directions fa-fw" data-icon="v"></i> <span class="hide-menu"> Estabelecimentos </span></a></li>
-
-                <li> <a href="<?=($_SESSION['avaliacao_gestor'] == 1 ? '/administrador/estabelecimento' : '/office/dashboard')?>" class="waves-effect"><i class="icon-chart p-r-10" data-icon="v"></i> <span class="hide-menu"> Relatórios </span></a></li>
+                waves-effect"><i class="icon-directions fa-fw" data-icon="v"></i> <span class="hide-menu"> Estabelecimentos </span></a>
+                </li>
             <?php } ?>
 
             <?php if(isset($_SESSION['avaliacao_gestor']) && $_SESSION['avaliacao_gestor'] != 1){ ?>
