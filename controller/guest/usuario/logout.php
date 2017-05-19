@@ -10,7 +10,13 @@ $response = new stdClass();
 try {
 
 	if(session_id()){
-		session_destroy();
+		unset($_SESSION['avaliacao_uid']);
+		unset($_SESSION['avaliacao_nome']);
+		unset($_SESSION['avaliacao_sobrenome']);
+		unset($_SESSION['avaliacao_email']);
+		unset($_SESSION['avaliacao_perfil']);
+		unset($_SESSION['avaliacao_gestor']);
+		unset($_SESSION['avaliacao_estabelecimento']);
 		$response->success = 'Usuário saiu da plataforma';
 		http_response_code(200);
 	}

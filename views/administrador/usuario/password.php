@@ -3,14 +3,27 @@
     <h4 class="modal-title" id="exampleModalLabel1">Mudar senha</h4> 
 </div>
 <div class="modal-body">
+
+    <div id="errorModal" class="hidden">
+        <div class="alert alert-warning">
+            <p></p>
+        </div>
+    </div>
+
+    <div id="successModal" class="hidden">
+        <div class="alert alert-success">
+            <p></p>
+        </div>
+    </div>
+
     <form id="formMudarsenha">
         <div class="form-group">
-            <label for="senha" class="control-label">Senha:</label>
-            <input type="text" class="form-control" id="senha"> 
+            <label for="senha" class="control-label">Nova senha:</label>
+            <input type="password" class="form-control" id="senha" name="senha"> 
         </div>
         <div class="form-group">
-            <label for="confirmarsenha" class="control-label">Confirmar senha:</label>
-            <input type="text" class="form-control" id="confirmarsenha"> 
+            <label for="confirmasenha" class="control-label">Confirmar senha:</label>
+            <input type="password" class="form-control" id="confirmasenha" name="confirmasenha"> 
         </div>
     </form>
 </div>
