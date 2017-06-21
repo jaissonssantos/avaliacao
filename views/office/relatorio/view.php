@@ -20,7 +20,7 @@
 <link href="assets/template/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
 <!-- morris CSS -->
 <link href="assets/template/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-<link href="assets/template/plugins/bower_components/css-chart/css-chart.css" rel="stylesheet">
+<!--link href="assets/template/plugins/bower_components/css-chart/css-chart.css" rel="stylesheet">
 <!--Owl carousel CSS -->
 <link href="assets/template/plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
 <link href="assets/template/plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
@@ -28,6 +28,17 @@
 <link href="assets/template/css/style.min.css" rel="stylesheet">
 <!-- color CSS -->
 <link href="assets/template/css/colors/red.css" id="theme" rel="stylesheet">
+
+<!-- CSS -->
+<style type="text/css">
+.chart {
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    font-family: arial;
+    font-size: 14px !important;
+}
+</style>
 
 <?php require_once 'views/template/header.php'; ?>
 <?php require_once 'views/template/left.php'; ?>
@@ -65,6 +76,12 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="assets/template/js/custom.min.js"></script>
+
+<script src="http://www.chartjs.org/dist/2.6.0/Chart.bundle.js"></script>
+
+
+
+
 
 <!--Style Switcher -->
 <script src="assets/template/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>

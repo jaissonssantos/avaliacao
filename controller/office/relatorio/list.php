@@ -45,7 +45,7 @@ try {
     foreach($results->pergunta as $pergunta){
         $stmt = $oConexao->prepare(
             'SELECT
-                rp.id,rp.titulo,rp.respostacurta,
+                rp.id,rp.titulo,rp.resposta,
                 (select count(*) qtd
                     from resposta_cliente rc
                     where rc.idresposta = rp.id
