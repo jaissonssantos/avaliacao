@@ -12,7 +12,7 @@
 
                 <div class="account-wall">
                     <section class="align-lg-center">
-                        <a href="/"><div class="site-logo"></div></a>
+                        <a href="/"><div class="site-logo-white"></div></a>
                     </section>
                     <form id="formLogin" name="formLogin" class="form-signin">
                         <section id="errorLogin" class="hidden">
@@ -76,7 +76,7 @@
                         </a>
                     </form>
                     <a href="/empresa" 
-                        class="footer-link">&copy; <?=date('Y')?> SuperCRM.me &trade; </a>
+                        class="footer-link">&copy; <?=date('Y')?> <?=FOOTER_APP?> &trade; </a>
                 </div>
                 <!-- //account-wall-->
 

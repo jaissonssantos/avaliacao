@@ -19,6 +19,13 @@
     height: 100px;
     margin: auto
 }
+.site-logo-white {
+    background: url(/assets/icons/avaliame-logo-white.svg) no-repeat center center;
+    background-size: contain;
+    width: 250px;
+    height: 100px;
+    margin: auto
+}
 .btn-acessar {
     background-color: rgb(217, 68, 50);
     color: rgb(255, 255, 255);

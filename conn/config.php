@@ -13,9 +13,10 @@ define('DB_PASS', 'root');
 define('SALT', 'x&$29#*s=!1bm'); //nunca mudar(salt padrão)
 
 //definindo as URLs padrões do sistema e site
-define('URL_SITE', 'http://supercrm.dev');
-define('TITLE_APP', 'SuperCRM');
-define('EMAIL', 'contato@supercrm');
+define('URL_SITE', 'http://avaliame.dev');
+define('TITLE_APP', 'Questionários e pesquisas online -  Avaliame');
+define('FOOTER_APP', 'Avalime.com');
+define('EMAIL', 'contato@avaliame.com.br');
 define('DEBUG', false);
 
 //template do dashboard

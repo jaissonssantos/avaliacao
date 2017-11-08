@@ -19,7 +19,7 @@
                     <b>
                         <img src="assets/icons/av.svg" alt="home" />
                     </b>
-                    <span class="hidden-xs">SuperCRM</span>
+                    <span class="hidden-xs">AVALIAME</span>
                 </a>
             </div>
         </div>

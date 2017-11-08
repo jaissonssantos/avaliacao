@@ -9,6 +9,8 @@ $(document).ready(function(){
 
     //validate
     $('form#formConta').validate({
+        onfocusout: false,
+        onkeyup: false,
         rules: {
             nome: {
                 required: true
