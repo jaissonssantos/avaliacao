@@ -141,7 +141,7 @@
                                                 </div>
                                                 <div id="tipos" class="col-md-3">
                                                     <select id="tipo" name="tipo[]" class="form-control">
-                                                        <!--option value="1"> Resposta curta</option-->
+                                                        <option value="1"> Resposta curta</option>
                                                         <option value="2"> Múltipla escolha</option>
                                                         <option value="3"> Caixas de seleção</option>
                                                     </select>

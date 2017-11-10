@@ -101,18 +101,62 @@ $(document).ready(function(){
 
                     //itens
                     for (var i=0;i<response.pergunta.length;i++) {
+                        
+                        var perguntas = response.pergunta[i];
                         var item = $('div#pergunta:first').clone();
                         item.attr('data-id',i);
                         item.find('.form-group').removeClass('has-success has-feedback');
                         item.find('.form-group i').remove();
                         item.find('#perguntaId').val(response.pergunta[i].id);
-                        item.find('#pergunta').val(response.pergunta[i].titulo);
-                        if(response.pergunta[i].resposta != undefined){
-                            var opcao = response.pergunta[i].resposta;
-                            console.log(opcao);
-                            for(var x=0;x<opcao.length;x++){
-                                
+                        item.find('input#pergunta').val(response.pergunta[i].titulo);
+
+                        if(perguntas.resposta != undefined){
+                            var respostas = perguntas.resposta;
+                            // console.log(respostas);
+                            // console.log(respostas.length);
+                            // console.log(perguntas.tipo);
+                            // console.log('');
+                            // console.log('');
+
+                            //add options
+                            var html = '';
+                            var resposta = item.find('#respostas #campo').html('');
+
+                            for(var x=0;x<respostas.length;x++){
+                                if(parseInt(perguntas.tipo) == 2){
+                                    html += '<div class="input-group m-b-15">'+
+                                                '<div class="input-group-addon">'+
+                                                    '<i class="fa fa-dot-circle-o"></i>'+
+                                                '</div>'+
+                                                '<input type="text" class="form-control" id="resposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
+                                                '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
+                                                    '<i class="fa fa-times-circle-o"></i>'+
+                                                '</a>'+
+                                            '</div>';
+
+                                }else if(parseInt(perguntas.tipo) == 3){
+                                    html += '<div class="input-group m-b-15">'+
+                                                '<div class="input-group-addon">'+
+                                                    '<i class="fa fa-check-square-o"></i>'+
+                                                '</div>'+
+                                                '<input type="text" class="form-control" id="resposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
+                                                '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
+                                                    '<i class="fa fa-times-circle-o"></i>'+
+                                                '</a>'+
+                                            '</div>';
+                                }
                             }
+                            resposta.append(html);
+                            if(parseInt(perguntas.tipo) == 2){
+                                html = '<div class="m-b-15">'+
+                                            '<a id="adicionar-radio" href="javascript:void(0);">Adicionar opção</a>'+
+                                        '</div>';
+                            }else if(parseInt(perguntas.tipo) == 3){
+                                html = '<div class="m-b-15">'+
+                                            '<a id="adicionar-check" href="javascript:void(0);">Adicionar opção</a>'+
+                                        '</div>';
+                            }
+                            resposta.parents('div#respostas').append(html);
                         }
                         if(i >= 1){
                             item.find('button#pergunta-excluir').removeClass('hidden');
@@ -147,8 +191,8 @@ $(document).ready(function(){
         item.attr('data-id',count);
         item.find('.form-group').removeClass('has-success has-feedback');
         item.find('.form-group i').remove();
-        item.find('#pergunta').attr('name', 'pergunta'+count);
-        item.find('#pergunta').val('');
+        item.find('input#pergunta').attr('name', 'pergunta'+count);
+        item.find('input#pergunta').val('');
         item.find('#obrigatoria').attr('name', 'obrigatoria'+count);
         item.find('#obrigatoria').prop('checked', false);
         item.find('button#pergunta-excluir').removeClass('hidden');
