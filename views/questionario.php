@@ -85,7 +85,7 @@
         <!--.main-->
         <div class="main footer">
                 <div class="text-center">
-                    <p>Este conteúdo não foi criado nem aprovado pelo SuperCRM. <a href="/abuso">Denuncie abuso</a>.</p>
+                    <p>Este conteúdo não foi criado nem aprovado pelo Avaliame. <a href="/abuso">Denuncie abuso</a>.</p>
                 </div>
             </div>
         </div><!--/.main-->

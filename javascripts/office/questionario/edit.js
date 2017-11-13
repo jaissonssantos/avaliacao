@@ -35,7 +35,7 @@ $(document).ready(function(){
                 $(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
             } else {
                 $(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
-                $(element).closest('.form-group').find('i.fa').remove();
+                // $(element).closest('.form-group').find('i.fa').remove();
                 $(element).closest('.form-group').append('<i class="fa fa-times fa-validate form-control-feedback fa-absolute"></i>');
             }
         },
@@ -44,7 +44,7 @@ $(document).ready(function(){
                 this.findByName(element.name).removeClass(errorClass).addClass(validClass);
             } else {
                 $(element).closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
-                $(element).closest('.form-group').find('i.fa').remove();
+                // $(element).closest('.form-group').find('i.fa').remove();
                 $(element).closest('.form-group').append('<i class="fa fa-check fa-validate form-control-feedback fa-absolute"></i>');
             }
         },
@@ -109,14 +109,12 @@ $(document).ready(function(){
                         item.find('.form-group i').remove();
                         item.find('#perguntaId').val(response.pergunta[i].id);
                         item.find('input#pergunta').val(response.pergunta[i].titulo);
+                        item.find('select#tipo').val(response.pergunta[i].tipo);
+                        if(response.pergunta[i].obrigatoria == 1)
+                            item.find('input#obrigatoria').prop('checked', true);
 
                         if(perguntas.resposta != undefined){
                             var respostas = perguntas.resposta;
-                            // console.log(respostas);
-                            // console.log(respostas.length);
-                            // console.log(perguntas.tipo);
-                            // console.log('');
-                            // console.log('');
 
                             //add options
                             var html = '';
@@ -128,6 +126,7 @@ $(document).ready(function(){
                                                 '<div class="input-group-addon">'+
                                                     '<i class="fa fa-dot-circle-o"></i>'+
                                                 '</div>'+
+                                                '<input type="hidden" id="idresposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
                                                 '<input type="text" class="form-control" id="resposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
                                                 '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
                                                     '<i class="fa fa-times-circle-o"></i>'+
@@ -250,14 +249,15 @@ $(document).ready(function(){
 
     //duplicate
     $('button#pergunta-duplicar').livequery('click',function(event){
+        var tipo = $(this).parents('div#pergunta').find('select#tipo').val();
         var pergunta = $(this).parents('div#pergunta').clone();
+        pergunta.find('select#tipo').val(tipo);
         $('#perguntas').append(pergunta);
 
         var count = $('div#pergunta').length;
-        var item = $('div#pergunta:last')
+        var item = $('div#pergunta:last');
         item.attr('data-id',count);
         item.find('.form-group').removeClass('has-success has-feedback');
-        item.find('.form-group i').remove();
         item.find('#pergunta').attr('name', 'pergunta'+count);
     });
 
@@ -309,37 +309,37 @@ $(document).ready(function(){
     });
 
     //save
-    // $('button#salvar').livequery('click',function(event){
-    //     if($("form#formQuestionario").valid()){
+    $('button#salvar').livequery('click',function(event){
+        if($("form#formQuestionario").valid()){
 
-    //         $('button#salvar').html('Processando...');
-    //         $('button#salvar').prop("disabled",true);
-    //         $('button#cancelar').prop("disabled",true);
+            $('button#salvar').html('Processando...');
+            $('button#salvar').prop("disabled",true);
+            $('button#cancelar').prop("disabled",true);
 
-    //         app.util.getjson({
-    //             url : "/controller/office/questionario/create",
-    //             method : 'POST',
-    //             data: $("form#formQuestionario").serialize(),
-    //             success: function(response){
-    //                 if(response.success){
-    //                     setSession('success', response.success);
-    //                     window.location.href = "/office/questionario";
-    //                 }
-    //             },
-    //             error : function(response){
-    //                 response = JSON.parse(response.responseText);
-    //                 $('#error').removeClass('hidden');
-    //                 $('#error').find('.alert p').html(response.error);
-    //                 $('button#salvar').html('Salvar');
-    //                 $('button#salvar').prop("disabled",false);
-    //                 $('button#cancelar').prop("disabled",false);
-    //             }
-    //         });
-    //     }else{
-    //         $("form#formQuestionario").valid();
-    //     }
-    //     return false;
-    // });
+            app.util.getjson({
+                url : "/controller/office/questionario/edit",
+                method : 'POST',
+                data: $("form#formQuestionario").serialize(),
+                success: function(response){
+                    if(response.success){
+                        setSession('success', response.success);
+                        window.location.href = "/office/questionario";
+                    }
+                },
+                error : function(response){
+                    response = JSON.parse(response.responseText);
+                    $('#error').removeClass('hidden');
+                    $('#error').find('.alert p').html(response.error);
+                    $('button#salvar').html('Salvar');
+                    $('button#salvar').prop("disabled",false);
+                    $('button#cancelar').prop("disabled",false);
+                }
+            });
+        }else{
+            $("form#formQuestionario").valid();
+        }
+        return false;
+    });
 
     //cancel
     $('button#cancelar').livequery('click',function(event){

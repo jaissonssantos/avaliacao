@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4541
+# Versão 4541
 #
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.6.35)
-# Database: avaliame
-# Generation Time: 2017-05-16 13:21:13 +0000
+# Host: localhost (MySQL 5.6.35)
+# Base de Dados: avaliame
+# Tempo de Geração: 2017-11-13 20:59:19 +0000
 # ************************************************************
 
 
@@ -20,7 +20,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table cidade
+# Dump da tabela cidade
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `cidade`;
@@ -9758,7 +9758,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table cliente
+# Dump da tabela cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `cliente`;
@@ -9879,13 +9879,15 @@ VALUES
 	(97,'Tyrone','malesuada.id@pellentesque.net','(29) 7757-5892',NULL,'2016-07-07 10:48:52','2016-07-29 21:55:52'),
 	(98,'Lucian','nec@Nuncsollicitudincommodo.edu','(56) 8801-0705',NULL,'2017-08-10 18:15:30','2017-04-07 01:32:40'),
 	(99,'Gage','hendrerit.id@sodalesMaurisblandit.ca','(81) 2579-5215',NULL,'2016-08-19 22:14:18','2018-03-03 21:05:30'),
-	(100,'Wing','lobortis.tellus.justo@famesacturpis.net','(82) 6605-2473',NULL,'2018-01-04 11:36:21','2017-02-09 12:54:26');
+	(100,'Wing','lobortis.tellus.justo@famesacturpis.net','(82) 6605-2473',NULL,'2018-01-04 11:36:21','2017-02-09 12:54:26'),
+	(101,'João','joao.silva@gmail.com','(68) 9994-6191','51f89e21b7283add3e0ae52655e60a85edfb16d0','2017-11-07 11:53:32','2017-11-07 11:53:32'),
+	(102,'Jaisson Santos','jaissonssantos@gmail.com','(68) 9994-6191','51f89e21b7283add3e0ae52655e60a85edfb16d0','2017-11-13 14:46:12','2017-11-13 14:46:12');
 
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table estabelecimento
+# Dump da tabela estabelecimento
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estabelecimento`;
@@ -9924,7 +9926,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table estabelecimento_cliente
+# Dump da tabela estabelecimento_cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estabelecimento_cliente`;
@@ -10046,7 +10048,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table estado
+# Dump da tabela estado
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `estado`;
@@ -10095,7 +10097,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table pergunta
+# Dump da tabela pergunta
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `pergunta`;
@@ -10134,7 +10136,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table questionario
+# Dump da tabela questionario
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `questionario`;
@@ -10159,17 +10161,17 @@ LOCK TABLES `questionario` WRITE;
 
 INSERT INTO `questionario` (`id`, `idestabelecimento`, `idusuario`, `hash`, `titulo`, `introducao`, `prazo`, `status`, `created_at`, `updated_at`)
 VALUES
-	(7,0,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
-	(8,0,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
-	(9,0,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
-	(10,0,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12'),
-	(31,1,1,'pesquisa-professor','Pesquisa - Professor','Preencha o maior número de informações no formulário abaixo','2017-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
+	(7,2,1,'pesquisa-pessoal','Pesquisa pessoal','',NULL,1,'2017-05-10 13:13:54','2017-05-10 13:13:54'),
+	(8,2,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
+	(9,2,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
+	(10,2,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12'),
+	(31,1,1,'pesquisa-professor','Pesquisa - Professor','Preencha o maior número de informações no formulário abaixo','2018-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
 
 /*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table resposta
+# Dump da tabela resposta
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `resposta`;
@@ -10214,15 +10216,13 @@ VALUES
 	(22,21,'PHP',NULL,NULL),
 	(23,21,'Java pra Web',NULL,NULL),
 	(24,21,'Banco de dados',NULL,NULL),
-	(25,21,'POO',NULL,NULL),
-	(28,20,'',1,'Já sim, inúmeras vezes'),
-	(29,20,'',1,'Não ele é um bom garoto');
+	(25,21,'POO',NULL,NULL);
 
 /*!40000 ALTER TABLE `resposta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table resposta_cliente
+# Dump da tabela resposta_cliente
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `resposta_cliente`;
@@ -10260,7 +10260,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table usuario
+# Dump da tabela usuario
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `usuario`;
@@ -10298,7 +10298,7 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table usuario_permissao
+# Dump da tabela usuario_permissao
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `usuario_permissao`;

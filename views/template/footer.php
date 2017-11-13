@@ -1,6 +1,6 @@
 		</div>
         <!-- /.container-fluid -->
-        <footer class="footer text-center"> <?=date('Y')?> &copy; SuperCRM. Todos os direitos reservados. </footer>
+        <footer class="footer text-center"> <?=date('Y')?> &copy; Avaliame. Todos os direitos reservados. </footer>
     </div>
     <!-- /#page-wrapper -->
 </div>

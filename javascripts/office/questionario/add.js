@@ -147,7 +147,9 @@ $(document).ready(function(){
 
     //duplicate
     $('button#pergunta-duplicar').livequery('click',function(event){
+        var tipo = $(this).parents('div#pergunta').find('select#tipo').val();
         var pergunta = $(this).parents('div#pergunta').clone();
+        pergunta.find('select#tipo').val(tipo);
         $('#perguntas').append(pergunta);
 
         var count = $('div#pergunta').length;
