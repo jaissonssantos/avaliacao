@@ -100,8 +100,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="introducao">Prazo</label>
+                                    <div class="col-md-3">
+                                        <label for="introducao">Prazo de encerramento</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="prazodata" name="prazodata" 
                                                 placeholder="DD/MM/AAAA" value="<?=date('d/m/Y', strtotime("+90 days"))?>">

@@ -305,7 +305,11 @@ $(document).ready(function(){
 
     //remove pergunta
     $('button#pergunta-excluir').livequery('click',function(event){
-        $(this).parents('#pergunta').remove();
+        var item = $(this).parents('#pergunta');
+        item.find('button#pergunta-duplicar').prop('disabled', true);
+        item.find('button#pergunta-excluir').addClass('hidden');
+        item.find('div#loading-excluir').removeClass('hidden');
+        // $(this).parents('#pergunta').remove();
     });
 
     //save

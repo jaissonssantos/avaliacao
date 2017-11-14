@@ -114,8 +114,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="introducao">Prazo</label>
+                                    <div class="col-md-3">
+                                        <label for="introducao">Prazo de encerramento</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="prazodata" name="prazodata" 
                                                 placeholder="DD/MM/AAAA" value="<?=date('d/m/Y', strtotime("+90 days"))?>">
@@ -172,6 +172,10 @@
                                                 <div class="col-md-12">
                                                     <span>Obrigatória</span>
                                                     <input type="checkbox" id="obrigatoria" name="obrigatoria1" value="1" />
+
+                                                    <div id="loading-excluir" class="pull-right hidden">
+                                                        <img src="assets/images/loading.gif" width="24">
+                                                    </div>
 
                                                     <button id="pergunta-excluir" 
                                                         class="btn btn-danger btn-sm m-b-0 pull-right hidden" 
