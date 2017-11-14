@@ -63,27 +63,22 @@ try {
         if(!empty($_POST['obrigatoria'.$i]))
             $obrigatoria = $_POST['obrigatoria'.$i];
 
-        $stmt = $oConexao->prepare(
-        'UPDATE pergunta
-            SET titulo=?,tipo=?,obrigatoria=?
-            WHERE id=?');
+        if(!empty($_POST['perguntaId'][$i-1])){
+            $stmt = $oConexao->prepare(
+            'UPDATE pergunta
+                SET titulo=?,tipo=?,obrigatoria=?
+                WHERE id=?');
 
-        $stmt->execute(array(
-            $_POST['pergunta'.$i],
-            $_POST['tipo'][$i-1],
-            $obrigatoria,
-            $_POST['perguntaId'][$i-1]
-        ));
-        $idpergunta = $_POST['perguntaId'][$i-1];
-
-        // Apaga todos as respostas
-        $stmt = $oConexao->prepare(
-        'DELETE FROM resposta
-            WHERE idpergunta=?
-        ');
-        $stmt->execute(array(
-            $idpergunta
-        ));
+            $stmt->execute(array(
+                $_POST['pergunta'.$i],
+                $_POST['tipo'][$i-1],
+                $obrigatoria,
+                $_POST['perguntaId'][$i-1]
+            ));
+            $idpergunta = $_POST['perguntaId'][$i-1];
+        }else{
+            
+        }
 
         if(!empty($_POST['resposta'.$i])){
             $count_resposta = sizeof($_POST['resposta'.$i]);

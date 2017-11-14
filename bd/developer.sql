@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.35)
 # Base de Dados: avaliame
-# Tempo de Geração: 2017-11-13 20:59:19 +0000
+# Tempo de Geração: 2017-11-14 20:32:07 +0000
 # ************************************************************
 
 
@@ -9904,6 +9904,7 @@ CREATE TABLE `estabelecimento` (
   `complemento` varchar(40) DEFAULT NULL,
   `bairro` varchar(40) DEFAULT NULL,
   `idcidade` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT '1' COMMENT '1 - Ativo\\n2 - Inativo\\n3- Arquivado',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -9915,12 +9916,12 @@ CREATE TABLE `estabelecimento` (
 LOCK TABLES `estabelecimento` WRITE;
 /*!40000 ALTER TABLE `estabelecimento` DISABLE KEYS */;
 
-INSERT INTO `estabelecimento` (`id`, `hash`, `nomefantasia`, `cpfcnpj`, `telefone`, `cep`, `endereco`, `numero`, `complemento`, `bairro`, `idcidade`, `created_at`, `updated_at`)
+INSERT INTO `estabelecimento` (`id`, `hash`, `nomefantasia`, `cpfcnpj`, `telefone`, `cep`, `endereco`, `numero`, `complemento`, `bairro`, `idcidade`, `status`, `created_at`, `updated_at`)
 VALUES
-	(1,'kambo-tecnologia','Kambo tecnologia','00507557220','68999781476','69911768','R tal',193,'Casa','Boa União',16,'2017-04-06 21:04:40','2017-04-06 21:04:40'),
-	(2,'kambo-beta','Kambo beta','94027063724','6832253186','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
-	(3,'onedeveloper','OneDeveloper','19715461000179','1140089765','04859230','Rua Anita Malfatti',11849,'Sala 109','Jardim Alvorada (Zona Sul)',9422,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
-	(4,'so-bronze','Só Bronze','784.918.753-95','(68) 9997-81476','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,'2017-04-27 01:30:57','2017-04-27 01:30:57');
+	(1,'kambo-tecnologia','Kambo tecnologia','00507557220','68999781476','69911768','R tal',193,'Casa','Boa União',16,1,'2017-04-06 21:04:40','2017-04-06 21:04:40'),
+	(2,'kambo-beta','Kambo beta','94027063724','6832253186','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,1,'2017-04-08 15:24:58','2017-04-08 15:24:58'),
+	(3,'onedeveloper','OneDeveloper','19715461000179','1140089765','04859230','Rua Anita Malfatti',11849,'Sala 109','Jardim Alvorada (Zona Sul)',9422,1,'2017-04-08 15:27:36','2017-04-08 15:27:36'),
+	(4,'so-bronze','Só Bronze','784.918.753-95','(68) 9997-81476','69911768','Rua 26 de Setembro',193,'Casa','Boa União',16,1,'2017-04-27 01:30:57','2017-04-27 01:30:57');
 
 /*!40000 ALTER TABLE `estabelecimento` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10128,9 +10129,7 @@ VALUES
 	(16,9,'Você gosta de jogar vôlei?','2',0),
 	(17,10,'O que vc tem?','1',0),
 	(18,10,'teretete','3',0),
-	(19,31,'Na escala de 1 a 5, que nota você avalia o professor Thiago ','2',1),
-	(20,31,'O professor Thiago chaves já se evadiu da sala de aula pra beber?','1',0),
-	(21,31,'Qual(is) conteúdo(s) o professor Thiago chaves passa mais transparência?','3',1);
+	(19,31,'O que podemos mudar para melhor atendê-lo?','1',0);
 
 /*!40000 ALTER TABLE `pergunta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10165,7 +10164,7 @@ VALUES
 	(8,2,1,'pesquisa','Pesquisa','',NULL,1,'2017-05-10 14:21:27','2017-05-10 14:21:27'),
 	(9,2,1,'pesquisa-de-campo','Pesquisa de campo','',NULL,1,'2017-05-10 15:06:20','2017-05-10 15:06:20'),
 	(10,2,1,'triplo-x','Triplo x','',NULL,1,'2017-05-11 06:40:12','2017-05-11 06:40:12'),
-	(31,1,1,'pesquisa-professor','Pesquisa - Professor','Preencha o maior número de informações no formulário abaixo','2018-08-09 12:00:00',1,'2017-05-11 14:46:37','2017-05-11 14:46:37');
+	(31,1,1,'pesquisa-de-atendimento-ao-cliente','Pesquisa de atendimento ao cliente','Preencha o maior número de informações no formulário abaixo','2018-01-01 00:00:00',1,'2017-05-11 14:46:37','2017-11-14 11:54:51');
 
 /*!40000 ALTER TABLE `questionario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10207,16 +10206,7 @@ VALUES
 	(13,16,'Não',NULL,NULL),
 	(14,18,'op1',NULL,NULL),
 	(15,18,'op2',NULL,NULL),
-	(16,18,'op3',NULL,NULL),
-	(17,19,'1',NULL,NULL),
-	(18,19,'2',NULL,NULL),
-	(19,19,'3',NULL,NULL),
-	(20,19,'4',NULL,NULL),
-	(21,19,'5',NULL,NULL),
-	(22,21,'PHP',NULL,NULL),
-	(23,21,'Java pra Web',NULL,NULL),
-	(24,21,'Banco de dados',NULL,NULL),
-	(25,21,'POO',NULL,NULL);
+	(16,18,'op3',NULL,NULL);
 
 /*!40000 ALTER TABLE `resposta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -10233,8 +10223,7 @@ CREATE TABLE `resposta_cliente` (
   `idresposta` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_resposta_cliente_cliente1_idx` (`idcliente`),
-  KEY `fk_resposta_cliente_resposta1_idx` (`idresposta`),
-  CONSTRAINT `resposta_cliente_ibfk_1` FOREIGN KEY (`idresposta`) REFERENCES `resposta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_resposta_cliente_resposta1_idx` (`idresposta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `resposta_cliente` WRITE;
@@ -10243,18 +10232,12 @@ LOCK TABLES `resposta_cliente` WRITE;
 INSERT INTO `resposta_cliente` (`id`, `idcliente`, `idresposta`)
 VALUES
 	(4,1,8),
-	(5,1,22),
-	(6,2,22),
 	(7,3,19),
 	(8,10,20),
 	(9,11,19),
 	(10,12,19),
 	(17,1,17),
-	(18,1,22),
-	(19,1,24),
-	(20,1,21),
-	(21,1,23),
-	(22,1,25);
+	(20,1,21);
 
 /*!40000 ALTER TABLE `resposta_cliente` ENABLE KEYS */;
 UNLOCK TABLES;

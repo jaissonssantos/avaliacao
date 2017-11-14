@@ -126,7 +126,7 @@ $(document).ready(function(){
                                                 '<div class="input-group-addon">'+
                                                     '<i class="fa fa-dot-circle-o"></i>'+
                                                 '</div>'+
-                                                '<input type="hidden" id="idresposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
+                                                '<input type="hidden" id="idresposta'+i+'" name="idresposta'+i+'[]" value="'+respostas[x].id+'">'+
                                                 '<input type="text" class="form-control" id="resposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
                                                 '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
                                                     '<i class="fa fa-times-circle-o"></i>'+
@@ -138,6 +138,7 @@ $(document).ready(function(){
                                                 '<div class="input-group-addon">'+
                                                     '<i class="fa fa-check-square-o"></i>'+
                                                 '</div>'+
+                                                '<input type="hidden" id="idresposta'+i+'" name="idresposta'+i+'[]" value="'+respostas[x].id+'">'+
                                                 '<input type="text" class="form-control" id="resposta'+i+'" name="resposta'+i+'[]" placeholder="Opção '+(x+1)+'" value="'+respostas[x].titulo+'">'+
                                                 '<a href="javascript:void(0);" id="btn-op" class="btn-op">'+
                                                     '<i class="fa fa-times-circle-o"></i>'+
@@ -306,10 +307,32 @@ $(document).ready(function(){
     //remove pergunta
     $('button#pergunta-excluir').livequery('click',function(event){
         var item = $(this).parents('#pergunta');
+        var id = item.find('#perguntaId').val();
         item.find('button#pergunta-duplicar').prop('disabled', true);
         item.find('button#pergunta-excluir').addClass('hidden');
         item.find('div#loading-excluir').removeClass('hidden');
-        // $(this).parents('#pergunta').remove();
+
+        //params
+        var params = {
+            id: id
+        };
+        params = JSON.stringify(params);
+        app.util.getjson({
+            url : "/controller/office/questionario/deletequestion",
+            method : 'POST',
+            contentType : "application/json",
+            data: params,
+            success: function(response){
+                if(response.success){
+                    item.remove();
+                }
+            },
+            error : function(response){
+                response = JSON.parse(response.responseText);
+                $('#error').removeClass('hidden');
+                $('#error').find('.alert p').html(response.error);
+            }
+        });
     });
 
     //save
