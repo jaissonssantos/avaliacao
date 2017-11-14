@@ -350,7 +350,7 @@ $(document).ready(function(){
                 success: function(response){
                     if(response.success){
                         setSession('success', response.success);
-                        window.location.href = "/office/questionario";
+                        // window.location.href = "/office/questionario";
                     }
                 },
                 error : function(response){

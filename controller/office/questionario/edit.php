@@ -77,7 +77,19 @@ try {
             ));
             $idpergunta = $_POST['perguntaId'][$i-1];
         }else{
-            
+            $stmt = $oConexao->prepare(
+            'INSERT INTO pergunta(
+                    idquestionario,titulo,tipo,obrigatoria
+                ) VALUES (
+                    ?,?,?,?
+                )');
+            $stmt->execute(array(
+                $idquestionario,
+                $_POST['pergunta'.$i],
+                $_POST['tipo'][$i-1],
+                $obrigatoria
+            ));
+            $idpergunta = $oConexao->lastInsertId();
         }
 
         if(!empty($_POST['resposta'.$i])){
