@@ -109,6 +109,7 @@ $(document).ready(function(){
                         item.find('.form-group i').remove();
                         item.find('#perguntaId').val(response.pergunta[i].id);
                         item.find('input#pergunta').val(response.pergunta[i].titulo);
+                        item.find('input#pergunta').attr('name', 'pergunta'+i);
                         item.find('select#tipo').val(response.pergunta[i].tipo);
                         if(response.pergunta[i].obrigatoria == 1)
                             item.find('input#obrigatoria').prop('checked', true);
@@ -191,6 +192,7 @@ $(document).ready(function(){
         item.attr('data-id',count);
         item.find('.form-group').removeClass('has-success has-feedback');
         item.find('.form-group i').remove();
+        item.find('#perguntaId').remove();
         item.find('input#pergunta').attr('name', 'pergunta'+count);
         item.find('input#pergunta').val('');
         item.find('#obrigatoria').attr('name', 'obrigatoria'+count);
@@ -260,6 +262,7 @@ $(document).ready(function(){
         item.attr('data-id',count);
         item.find('.form-group').removeClass('has-success has-feedback');
         item.find('#pergunta').attr('name', 'pergunta'+count);
+        item.find('#perguntaId').remove();
     });
 
     //add radio

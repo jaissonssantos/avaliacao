@@ -55,7 +55,7 @@ try {
         $prazo,
         $_POST['id']
     ));
-    $idquestionario = $oConexao->lastInsertId();
+    $idquestionario = $_POST['id'];
 
     for($i=1; $i<=$count_tipo; $i++){
 
@@ -63,7 +63,7 @@ try {
         if(!empty($_POST['obrigatoria'.$i]))
             $obrigatoria = $_POST['obrigatoria'.$i];
 
-        if(!empty($_POST['perguntaId'][$i-1])){
+        if(isset($_POST['perguntaId'][$i-1])){
             $stmt = $oConexao->prepare(
             'UPDATE pergunta
                 SET titulo=?,tipo=?,obrigatoria=?
