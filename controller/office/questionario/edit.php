@@ -63,14 +63,14 @@ try {
         if(!empty($_POST['obrigatoria'.$i]))
             $obrigatoria = $_POST['obrigatoria'.$i];
 
-        if(isset($_POST['perguntaId'][$i-1])){
+        if(!empty($_POST['perguntaId'][$i-1])){
             $stmt = $oConexao->prepare(
             'UPDATE pergunta
                 SET titulo=?,tipo=?,obrigatoria=?
                 WHERE id=?');
 
             $stmt->execute(array(
-                $_POST['pergunta'.$i],
+                $_POST['pergunta'.($i-1)],
                 $_POST['tipo'][$i-1],
                 $obrigatoria,
                 $_POST['perguntaId'][$i-1]
@@ -85,15 +85,24 @@ try {
                 )');
             $stmt->execute(array(
                 $idquestionario,
-                $_POST['pergunta'.$i],
+                $_POST['pergunta'.($i-1)],
                 $_POST['tipo'][$i-1],
                 $obrigatoria
             ));
             $idpergunta = $oConexao->lastInsertId();
         }
 
-        if(!empty($_POST['resposta'.$i])){
-            $count_resposta = sizeof($_POST['resposta'.$i]);
+        if(!empty($_POST['resposta'.($i-1)])){
+
+            $stmt = $oConexao->prepare(
+            'DELETE FROM resposta
+                WHERE idpergunta=?
+            ');
+            $stmt->execute(array(
+                $idpergunta
+            ));
+
+            $count_resposta = sizeof($_POST['resposta'.($i-1)]);
             for($x=0; $x<$count_resposta; $x++){ 
                 $stmt = $oConexao->prepare(
                 'INSERT INTO resposta(
@@ -103,7 +112,7 @@ try {
                     )');
                 $stmt->execute(array(
                     $idpergunta,
-                    $_POST['resposta'.$i][$x]
+                    $_POST['resposta'.($i-1)][$x]
                 ));
             }
         }
